@@ -1,5 +1,5 @@
 {
-  "name": "@meport/core",
+  "name": "meport-core",
   "version": "0.1.0",
   "description": "Meport core engine — profiling, inference, and export compilation",
   "type": "module",
