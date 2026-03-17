@@ -1,0 +1,323 @@
+{
+  "tier": "B1",
+  "tier_name": "Brand Voice",
+  "tier_intro": "This is where your AI agent gets a personality. Not a generic chatbot — your brand's voice. The difference between 'Your request has been received' and 'Got it! We're on it.' Takes 5–7 minutes.",
+  "tier_complete": {
+    "headline": "Brand voice calibrated.",
+    "body": "Your AI agent now has a distinct personality that matches how your team actually communicates. Customers will feel the difference — it sounds like you, not a script. Next: tell it what you sell."
+  },
+  "questions": [
+    {
+      "id": "b1_q01",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "If your brand was a person at a dinner party, they'd be...",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        {
+          "value": "the_professor",
+          "label": "The Professor — knowledgeable, thorough, loves to explain things properly",
+          "example": "\"Let me walk you through exactly how this works...\""
+        },
+        {
+          "value": "the_friend",
+          "label": "The Friend — warm, casual, makes everything feel easy",
+          "example": "\"Hey! Don't worry, this happens all the time — here's what we'll do...\""
+        },
+        {
+          "value": "the_expert",
+          "label": "The Expert — confident, direct, gets to the point fast",
+          "example": "\"The answer is X. Here's why.\""
+        },
+        {
+          "value": "the_entertainer",
+          "label": "The Entertainer — fun, memorable, leaves you smiling",
+          "example": "\"Great news and slightly less great news — which do you want first?\""
+        },
+        {
+          "value": "the_advisor",
+          "label": "The Advisor — calm, measured, helps you think through the decision",
+          "example": "\"Before I answer, let me make sure I understand what you need...\""
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Archetype chosen is the single most important brand voice signal. Reveals how the company sees its relationship with customers.",
+      "dimension": "business.voice.archetype",
+      "why_this_matters": "This one choice shapes every single response the AI generates — word choice, sentence length, use of humor, how it handles complaints. It's the personality core."
+    },
+    {
+      "id": "b1_q02",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Customer emails from your team sound like...",
+      "type": "select",
+      "file_scannable": true,
+      "options": [
+        {
+          "value": "very_formal",
+          "label": "Very formal — 'Dear Mr. Smith, I am writing to inform you...'",
+          "example": "Professional, structured, no contractions"
+        },
+        {
+          "value": "professional",
+          "label": "Professional but warm — 'Hi John, Thanks for reaching out...'",
+          "example": "Business-appropriate, friendly, contractions OK"
+        },
+        {
+          "value": "casual",
+          "label": "Casual and conversational — 'Hey! Saw your message...'",
+          "example": "Like texting a colleague you know well"
+        },
+        {
+          "value": "ultra_casual",
+          "label": "Ultra casual / playful — 'Yooo! We got you 🙌'",
+          "example": "Brand personality-first, very relaxed"
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Formality level is the second most important dimension. Calibrates vocabulary complexity, sentence structure, and acceptable abbreviations.",
+      "dimension": "business.voice.formality",
+      "why_this_matters": "Formality mismatch kills trust. A premium law firm's AI shouldn't say 'yooo'. A youth brand's AI shouldn't say 'I am pleased to inform you'. This is the calibration."
+    },
+    {
+      "id": "b1_q03",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Is humor OK in customer interactions?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "never", "label": "Never — we're professional, humor risks coming across wrong" },
+        { "value": "light_touches", "label": "Light touches — a friendly joke when the moment is right, nothing edgy" },
+        { "value": "core_of_brand", "label": "Core of brand — humor is how we stand out, lean into it" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Humor policy reveals brand confidence and risk tolerance. 'Never' often signals conservative industry or past brand incidents.",
+      "dimension": "business.voice.humor_policy",
+      "why_this_matters": "AI humor without a policy becomes unpredictable. This setting prevents the AI from cracking a joke when a customer is upset — or being robotically serious when your brand is playful."
+    },
+    {
+      "id": "b1_q04",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Which personality traits best describe your brand? Pick up to 5.",
+      "type": "multi_select",
+      "file_scannable": true,
+      "max_selections": 5,
+      "options": [
+        { "value": "trustworthy", "label": "Trustworthy" },
+        { "value": "innovative", "label": "Innovative" },
+        { "value": "bold", "label": "Bold" },
+        { "value": "caring", "label": "Caring" },
+        { "value": "premium", "label": "Premium" },
+        { "value": "approachable", "label": "Approachable" },
+        { "value": "straightforward", "label": "Straightforward" },
+        { "value": "empathetic", "label": "Empathetic" },
+        { "value": "energetic", "label": "Energetic" },
+        { "value": "calm", "label": "Calm" },
+        { "value": "witty", "label": "Witty" },
+        { "value": "authoritative", "label": "Authoritative" },
+        { "value": "humble", "label": "Humble" },
+        { "value": "inspirational", "label": "Inspirational" },
+        { "value": "practical", "label": "Practical" },
+        { "value": "sophisticated", "label": "Sophisticated" },
+        { "value": "playful", "label": "Playful" },
+        { "value": "transparent", "label": "Transparent" },
+        { "value": "efficient", "label": "Efficient" },
+        { "value": "passionate", "label": "Passionate" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Which traits they DON'T pick is as important as what they pick. The gap between selected traits and their formality level reveals brand tension worth flagging.",
+      "dimension": "business.voice.personality_traits",
+      "why_this_matters": "These traits are injected into AI's response generation. 'Straightforward + Empathetic' creates very different responses than 'Sophisticated + Authoritative'."
+    },
+    {
+      "id": "b1_q05",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Are there words or phrases your team should NEVER use?",
+      "type": "open_text",
+      "file_scannable": false,
+      "placeholder": "e.g. 'cheap', 'unfortunately', 'I'm just a bot', 'I cannot assist', competitor names, industry jargon you hate...",
+      "skippable": true,
+      "meta_profiling": "Forbidden words reveal past brand incidents, competitive sensitivities, or strong founder opinions. Each one is a story.",
+      "dimension": "business.voice.forbidden_words",
+      "why_this_matters": "One wrong word can undo a customer interaction. 'Unfortunately' signals failure before explaining anything. 'Cheap' undercuts your value. AI hard-blocks these by default."
+    },
+    {
+      "id": "b1_q06",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Are there phrases your team ALWAYS uses — signature language, sign-offs, greetings?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "e.g. 'Happy to help!', 'Let's make it happen.', 'Warm regards, the [Company] team', specific taglines...",
+      "skippable": true,
+      "meta_profiling": "Signature phrases reveal brand investment in consistency. Detailed answer = strong brand culture. Blank = early stage or informal team.",
+      "dimension": "business.voice.required_phrases",
+      "why_this_matters": "AI uses these consistently across every interaction — reinforcing brand recognition in every touchpoint."
+    },
+    {
+      "id": "b1_q07",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "How technical should customer communication be?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "zero_jargon", "label": "Zero jargon — explain everything like the customer is smart but not an expert" },
+        { "value": "some_terms", "label": "Some industry terms are fine — customers know the basics" },
+        { "value": "technical_ok", "label": "Technical is fine — our customers are experts who prefer precision" },
+        { "value": "depends_on_context", "label": "Depends on the customer — AI should detect and adapt" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Technical level reveals assumed customer sophistication. 'Depends on context' = mature brand that understands customer segmentation.",
+      "dimension": "business.voice.technical_level",
+      "why_this_matters": "Over-explaining to experts is condescending. Under-explaining to novices loses them. This calibrates the default register."
+    },
+    {
+      "id": "b1_q08",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "What's your emoji policy in customer messages?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "never", "label": "Never — we keep it clean text" },
+        { "value": "occasionally", "label": "Occasionally — one emoji max, only when it adds warmth (✓ ✉️ 👋)" },
+        { "value": "regularly", "label": "Regularly — we use them to add energy and expression 🎉" },
+        { "value": "brand_specific", "label": "We have specific emojis that fit our brand (I'll list them)" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Emoji use reveals platform context (email vs. chat), brand age (older brands = no emoji), and audience demographics.",
+      "dimension": "business.voice.emoji_policy",
+      "why_this_matters": "Emoji in the wrong context looks unprofessional. Absence in the right context feels cold. This single setting transforms message tone."
+    },
+    {
+      "id": "b1_q09",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "When speaking as your company, do you use 'I', 'we', or your company name?",
+      "type": "select",
+      "file_scannable": true,
+      "options": [
+        { "value": "we", "label": "'We' — we're a team, not a person (\"We'll look into this\")" },
+        { "value": "i", "label": "'I' — feels more personal and direct (\"I'll look into this\")" },
+        { "value": "company_name", "label": "Company name — formal, third-person brand voice (\"[Company] will look into this\")" },
+        { "value": "mixed", "label": "Mixed — 'I' for personal moments, 'we' for company actions" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Person/pronoun reveals whether AI is representing a brand or a person. 'I' = intimate, personal. 'We' = corporate. 'Company name' = formal/legal.",
+      "dimension": "business.voice.first_person",
+      "why_this_matters": "This shapes every single sentence AI generates. Getting it wrong creates a jarring disconnect — like a bank that suddenly says 'I totally get you!'"
+    },
+    {
+      "id": "b1_q10",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "How should AI greet customers at the start of a conversation?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "hi_name", "label": "Personal and warm — 'Hi [Name]! How can I help?' " },
+        { "value": "hello_formal", "label": "Professional — 'Hello [Name], how can I assist you today?'" },
+        { "value": "branded", "label": "Branded — 'Welcome to [Company]! What can we do for you?'" },
+        { "value": "direct", "label": "Direct — skip pleasantries, go straight to helping" },
+        { "value": "custom", "label": "I have a specific greeting I want to use" }
+      ],
+      "skippable": true,
+      "meta_profiling": "'Direct' choice often correlates with technical audiences or high-volume support contexts where speed is valued over warmth.",
+      "dimension": "business.voice.greeting_style",
+      "why_this_matters": "First impression sets the emotional tone for the entire interaction. Customers decide in the first sentence whether this feels like a good experience."
+    },
+    {
+      "id": "b1_q11",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "How should conversations end?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "warm_close", "label": "Warm close — 'Is there anything else I can help with today?'" },
+        { "value": "check_satisfaction", "label": "Satisfaction check — 'Did that solve your problem?'" },
+        { "value": "invite_back", "label": "Invite back — 'Don't hesitate to reach out anytime!'" },
+        { "value": "formal_close", "label": "Formal — 'Thank you for contacting [Company]. Have a good day.'" },
+        { "value": "nps_ask", "label": "Quick feedback — end with a 1-5 rating request" },
+        { "value": "no_close", "label": "No forced close — let the conversation end naturally" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Closing style reveals what the company prioritizes — customer satisfaction, efficiency, feedback, or relationship-building.",
+      "dimension": "business.voice.closing_style",
+      "why_this_matters": "The close determines whether customers leave feeling helped or processed. It also affects whether they come back."
+    },
+    {
+      "id": "b1_q12",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "When something goes wrong, your brand's response sounds like...",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "acknowledge_first", "label": "Acknowledge first — 'I completely understand your frustration, and I'm sorry this happened.'" },
+        { "value": "fix_first", "label": "Fix first — 'Let's fix this immediately. Here's what we're going to do...' " },
+        { "value": "investigate_first", "label": "Investigate first — 'Let me look into this right now and get back to you with exactly what happened.'" },
+        { "value": "empathy_plus_action", "label": "Empathy + action together — acknowledge and offer solution in the same breath" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Apology style reveals company culture around accountability. 'Fix first' = action-oriented. 'Acknowledge first' = emotionally intelligent. Both are valid.",
+      "dimension": "business.voice.apology_style",
+      "why_this_matters": "Complaints handled well turn frustrated customers into loyal ones. The wrong apology style amplifies the problem. This is one of the highest-impact AI settings."
+    },
+    {
+      "id": "b1_q13",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "What's your brand's energy level?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "calm_measured", "label": "Calm and measured — steady, never rushed, composed" },
+        { "value": "warm_steady", "label": "Warm and steady — friendly without being excitable" },
+        { "value": "upbeat_positive", "label": "Upbeat and positive — enthusiastic, encouraging, glass half full" },
+        { "value": "high_energy", "label": "High energy — exciting, dynamic, lots of forward momentum" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Energy level often correlates with brand archetype — high energy with The Entertainer, calm with The Advisor. Mismatches are worth noting.",
+      "dimension": "business.voice.enthusiasm_level",
+      "why_this_matters": "Energy bleeds into punctuation, word choice, and response length. A calm brand never uses '!!!'. A high-energy brand never sends two-word responses."
+    },
+    {
+      "id": "b1_q14",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Do you serve customers from different cultural backgrounds where language sensitivity matters?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "mostly_homogeneous", "label": "Mostly one culture — we can calibrate for our primary audience" },
+        { "value": "some_diversity", "label": "Some diversity — AI should avoid idioms that don't travel well" },
+        { "value": "highly_diverse", "label": "Highly diverse — AI must be culturally neutral, avoid all region-specific references" },
+        { "value": "multilingual_required", "label": "Multilingual required — customers expect responses in their language" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Diversity level triggers language safeguards — prevents AI from using sports metaphors, religious references, or idioms that confuse international customers.",
+      "dimension": "business.voice.cultural_sensitivity",
+      "why_this_matters": "AI that says 'ballpark figure' to a non-English speaker, or makes a cultural assumption, loses trust immediately. This calibrates for safe, global communication."
+    },
+    {
+      "id": "b1_q15",
+      "tier": "B1",
+      "tier_name": "Brand Voice",
+      "question": "Do you have an existing brand guidelines document you'd like to upload?",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "txt", "figma", "pptx"],
+      "placeholder": "Upload brand guidelines, tone of voice doc, or style guide",
+      "skippable": true,
+      "meta_profiling": "Existence of formal brand guidelines reveals marketing maturity and brand investment.",
+      "dimension": "business.voice.brand_guidelines_document",
+      "why_this_matters": "A brand guidelines doc can override or enrich everything in this tier — the AI will follow your existing standards, not generic best practices."
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "tier": "B6",
+  "tier_name": "Competitive Context",
+  "tier_intro": "Last tier. This one sharpens your AI agent's ability to handle the moment when a customer says 'but your competitor offers...' Honest, strategic, and slightly uncomfortable. Worth it.",
+  "tier_complete": {
+    "headline": "Competitive profile loaded.",
+    "body": "Your AI agent now knows your position in the market, your real advantages, and how to handle competitor comparisons without being defensive or dismissive. It's ready for the real conversations. Setup complete — your AI agent is live."
+  },
+  "questions": [
+    {
+      "id": "b6_q01",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Who are your main competitors? List them by name.",
+      "type": "open_text",
+      "file_scannable": true,
+      "multiline": true,
+      "placeholder": "Name them — one per line. Include their website URL if useful. We can scan their positioning too.",
+      "skippable": true,
+      "meta_profiling": "Naming competitors reveals market self-awareness. Refusing to name = possibly in denial about competition or very niche. Listing 10+ = may be unfocused on differentiation.",
+      "dimension": "business.competitive.competitors",
+      "why_this_matters": "When customers mention a competitor by name, AI needs to know who they're talking about and how to respond — not pretend it's never heard of them."
+    },
+    {
+      "id": "b6_q02",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Compared to competitors, your company is... (pick what honestly applies)",
+      "type": "multi_select",
+      "file_scannable": false,
+      "options": [
+        { "value": "premium_priced", "label": "Premium-priced — we charge more because we deliver more" },
+        { "value": "value_priced", "label": "Value-priced — competitive or lower price than alternatives" },
+        { "value": "faster", "label": "Faster — quicker delivery, response, or results" },
+        { "value": "more_personal", "label": "More personal — better service, real relationships" },
+        { "value": "more_technical", "label": "More technical / specialized — deeper expertise" },
+        { "value": "niche_specialist", "label": "Niche specialist — we focus on one thing and do it best" },
+        { "value": "broader_offering", "label": "Broader offering — we do more under one roof" },
+        { "value": "more_innovative", "label": "More innovative — newer approach, fresher thinking" },
+        { "value": "more_established", "label": "More established — longer track record, proven reliability" },
+        { "value": "local_advantage", "label": "Local advantage — we know this market better" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Self-positioning reveals strategic clarity. Premium + more personal is a coherent pair. Premium + value-priced = contradictory and worth flagging.",
+      "dimension": "business.competitive.positioning",
+      "why_this_matters": "Positioning shapes how AI frames you against competitors — without directly attacking anyone. 'We're the specialist for X, they're the generalist' is a clean, confident comparison."
+    },
+    {
+      "id": "b6_q03",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "What do you do BETTER than your main competitors? Be specific.",
+      "type": "open_text",
+      "file_scannable": true,
+      "multiline": true,
+      "placeholder": "Be honest and concrete. 'We respond within 2 hours, they take 2 days.' 'We've been in this niche for 12 years, most competitors are generalists.' 'Our pricing is completely transparent, competitors hide fees.'",
+      "skippable": false,
+      "meta_profiling": "Specificity of competitive advantage = confidence and market knowledge. Vague answers ('we care more') = differentiation work needed. Specific metrics = strong positioning.",
+      "dimension": "business.competitive.advantages",
+      "why_this_matters": "When a customer is comparing you to a competitor, AI draws on these specific advantages. Vague claims lose to concrete ones every time."
+    },
+    {
+      "id": "b6_q04",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "What do competitors genuinely do better than you? Be honest.",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "This is for AI's internal calibration — not for customers to see. e.g. 'Competitor X has a better mobile app', 'They're cheaper on high-volume orders', 'Their brand is more recognised'",
+      "skippable": true,
+      "meta_profiling": "Willingness to acknowledge disadvantages signals intellectual honesty and strategic maturity. Blank answer = possibly unaware of weaknesses or uncomfortable with honesty.",
+      "dimension": "business.competitive.disadvantages",
+      "why_this_matters": "AI that knows your real weaknesses handles objections gracefully — 'You're right that their pricing is lower on volume orders, but here's what that trade-off looks like...' — instead of being blindly defensive."
+    },
+    {
+      "id": "b6_q05",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Should AI ever mention competitors by name?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "never", "label": "Never — don't acknowledge competitors by name at all" },
+        { "value": "only_if_customer_asks", "label": "Only if the customer brings them up first" },
+        { "value": "compare_openly", "label": "Compare openly — we're confident in our position" },
+        { "value": "acknowledge_neutrally", "label": "Acknowledge neutrally — 'Yes, they're a solid option too, here's how we differ'" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Competitor mention policy reveals brand confidence. 'Never' = potentially defensive or under legal guidance. 'Compare openly' = high confidence in differentiation.",
+      "dimension": "business.competitive.naming_policy",
+      "why_this_matters": "Refusing to acknowledge named competitors sounds defensive. Comparing openly sounds confident. Neutral acknowledgment sounds professional. This is a high-stakes tone decision."
+    },
+    {
+      "id": "b6_q06",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Are there misleading claims competitors make that you want AI to be ready to counter?",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "e.g. 'Competitor X claims to be the only certified provider in the region — that's not true, we are too', 'They say their product is free but the setup fee is significant'",
+      "skippable": true,
+      "meta_profiling": "Competitor claim awareness reveals how actively the company monitors competition. Detailed answers = active competitive intelligence culture.",
+      "dimension": "business.competitive.competitor_claims",
+      "why_this_matters": "When customers quote competitor claims to AI, it needs to respond with facts, not silence. Pre-loaded counter-responses prevent AI from being caught flat-footed."
+    },
+    {
+      "id": "b6_q07",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "When you WIN a customer from a competitor, it's usually because...",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "What do customers say after switching? What was the deciding factor? 'Better support', 'Faster onboarding', 'Price was comparable but service quality was much better'",
+      "skippable": true,
+      "meta_profiling": "Win themes are the most authentic differentiation data available. They reveal what customers actually value, not what marketing assumes they value.",
+      "dimension": "business.competitive.win_themes",
+      "why_this_matters": "Real win themes are more persuasive than marketing claims because they're true. AI uses them as social proof when customers are on the fence."
+    },
+    {
+      "id": "b6_q08",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "When you LOSE to a competitor, it's usually because...",
+      "type": "open_text",
+      "file_scannable": false,
+      "placeholder": "Again, honesty here is strategically valuable. 'We lose on price with high-volume buyers', 'Competitor has a better enterprise feature set', 'Brand recognition — they've been around longer'",
+      "skippable": true,
+      "meta_profiling": "Loss analysis is the most uncomfortable and most valuable input. Companies that know why they lose have dramatically better win rates than those who don't.",
+      "dimension": "business.competitive.loss_reasons",
+      "why_this_matters": "AI can't help customers make the right choice if it doesn't understand when you're the wrong choice. Knowing loss reasons helps AI qualify better and set realistic expectations."
+    },
+    {
+      "id": "b6_q09",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "What is your market position?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "market_leader", "label": "Market leader — one of the top 1-3 players in our space" },
+        { "value": "challenger", "label": "Challenger — strong contender taking on the leaders" },
+        { "value": "niche_player", "label": "Niche player — we own a specific segment and do it best" },
+        { "value": "new_entrant", "label": "New entrant — we're building our position, still proving ourselves" },
+        { "value": "local_leader", "label": "Local leader — top in our geography, lesser known elsewhere" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Market position affects how AI presents credibility. Leaders can lean on proof. Challengers should highlight differentiation. New entrants need to lead with social proof.",
+      "dimension": "business.competitive.market_position",
+      "why_this_matters": "Market position shapes how AI builds confidence with uncertain customers. A leader says 'trusted by 10,000 companies'. A challenger says 'we built this because the old way wasn't good enough'."
+    },
+    {
+      "id": "b6_q10",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Complete this sentence: 'The real reason someone should choose us over anyone else is...'",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "One sentence. Make it true, specific, and something a customer would actually care about. This becomes a core part of how AI represents you.",
+      "skippable": false,
+      "meta_profiling": "This is the single most important competitive input. Quality and specificity of this answer reveals how clearly the founder or team understands their value proposition.",
+      "dimension": "business.competitive.differentiation_statement",
+      "why_this_matters": "This sentence is injected directly into AI's core prompt. It becomes the anchor for every brand interaction — the 'why us' answer that AI gives when customers are deciding."
+    },
+    {
+      "id": "b6_q11",
+      "tier": "B6",
+      "tier_name": "Competitive Context",
+      "question": "Do you have competitor comparison pages, battle cards, or positioning docs to upload?",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "pptx", "xlsx", "txt"],
+      "placeholder": "Sales battle cards, competitive analysis, feature comparison tables — any internal competitive intelligence",
+      "skippable": true,
+      "meta_profiling": "Presence of formal competitive materials signals a mature sales or marketing function. Battle cards = AI can handle competitive conversations with precision.",
+      "dimension": "business.competitive.competitive_materials",
+      "why_this_matters": "If your sales team has battle cards, your AI agent should too. These materials transform AI from a support bot into a competitive sales asset."
+    }
+  ]
+}

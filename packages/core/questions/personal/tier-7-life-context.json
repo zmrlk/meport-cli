@@ -1,0 +1,363 @@
+{
+  "tier": 7,
+  "tier_name": "Life Context",
+  "tier_intro": "This is the most optional section in Meport. Every question here is skippable. We're asking because life context makes AI recommendations actually relevant — tools that cost $200/month hit differently at different life stages, and 'just put in 2 extra hours' means different things to different people. Share only what you're comfortable with.",
+  "tier_complete": {
+    "headline": "Life context mapped.",
+    "body": "Most AI acts like everyone has unlimited time, money, and energy. Yours doesn't anymore. Recommendations will now reflect where you actually are, not an idealized version of you that has everything figured out. That's a rare thing."
+  },
+  "questions": [
+    {
+      "id": "t7_q01",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Which of these best describes where you are right now?",
+      "type": "select",
+      "options": [
+        {
+          "value": "student_early",
+          "label": "Student or early career — building foundations, figuring it out",
+          "maps_to": {"dimension": "life.stage", "value": "early_career"}
+        },
+        {
+          "value": "established_climbing",
+          "label": "Established and climbing — I know what I'm doing, pushing for the next level",
+          "maps_to": {"dimension": "life.stage", "value": "growth"}
+        },
+        {
+          "value": "pivot",
+          "label": "In transition — changing direction, reinventing, or starting something new",
+          "maps_to": {"dimension": "life.stage", "value": "transition"},
+          "triggers": ["t7_q01a"]
+        },
+        {
+          "value": "building_business",
+          "label": "Building a business or going independent — entrepreneurial mode",
+          "maps_to": {"dimension": "life.stage", "value": "entrepreneurial"}
+        },
+        {
+          "value": "senior_optimizing",
+          "label": "Senior and optimizing — accomplished, now focused on leverage and impact",
+          "maps_to": {"dimension": "life.stage", "value": "senior"}
+        },
+        {
+          "value": "life_first",
+          "label": "Life-first right now — work is supporting something bigger (family, health, personal goal)",
+          "maps_to": {"dimension": "life.stage", "value": "life_priority"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Stage affects ambition calibration, risk tolerance framing, and what counts as a 'win'. Note if their tone matches their stated stage — someone saying 'building a business' with low energy may be struggling.",
+      "dimension": "life.stage",
+      "why_this_matters": "Life stage changes what 'good advice' looks like completely — a student and a senior executive have opposite optimal moves in most situations."
+    },
+    {
+      "id": "t7_q01a",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "What are you transitioning toward?",
+      "type": "open_text",
+      "is_followup": true,
+      "parent_question": "t7_q01",
+      "placeholder": "E.g. 'leaving corporate for freelance', 'career change from finance to tech', 'returning to work after time off'...",
+      "skippable": true,
+      "meta_profiling": "Clarity of direction during transition is itself a signal — very clear destination vs fuzzy searching vs exploring are different situations.",
+      "dimension": "life.transition_direction",
+      "why_this_matters": "Transition context changes risk tolerance — AI will frame options differently for someone with a clear target vs someone still figuring it out."
+    },
+    {
+      "id": "t7_q02",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "When AI suggests a paid tool, course, or resource, what framing actually works for you?",
+      "type": "select",
+      "options": [
+        {
+          "value": "show_free_first",
+          "label": "Show me the free version first — I'll upgrade if it's worth it",
+          "maps_to": {"dimension": "life.financial_context", "value": "cost_conscious"}
+        },
+        {
+          "value": "roi_framing",
+          "label": "Tell me the ROI — if it saves time or makes money, I'm interested in the cost",
+          "maps_to": {"dimension": "life.financial_context", "value": "roi_focused"}
+        },
+        {
+          "value": "best_option",
+          "label": "Just tell me the best option — I'll decide whether to pay",
+          "maps_to": {"dimension": "life.financial_context", "value": "flexible"}
+        },
+        {
+          "value": "skip_paid",
+          "label": "Skip paid recommendations entirely for now — I'm watching every expense",
+          "maps_to": {"dimension": "life.financial_context", "value": "constrained"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "This reveals financial comfort without asking income. 'Skip paid entirely' is a real constraint. 'Just best option' = financially comfortable or delegating the decision.",
+      "dimension": "life.financial_context",
+      "why_this_matters": "Calibrates whether AI leads with free alternatives, adds cost context, or skips price discussion when recommending tools."
+    },
+    {
+      "id": "t7_q03",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Your household situation (affects time availability and what's realistic to suggest)",
+      "type": "select",
+      "options": [
+        {
+          "value": "solo",
+          "label": "Living alone — full flexibility",
+          "maps_to": {"dimension": "life.household", "value": "solo"}
+        },
+        {
+          "value": "partner_no_kids",
+          "label": "Partner, no kids — shared space, some coordination",
+          "maps_to": {"dimension": "life.household", "value": "couple"}
+        },
+        {
+          "value": "partner_kids",
+          "label": "Partner + kids — family coordination, less free time",
+          "maps_to": {"dimension": "life.household", "value": "family"}
+        },
+        {
+          "value": "single_parent",
+          "label": "Single parent — primary caregiver, time is scarce",
+          "maps_to": {"dimension": "life.household", "value": "single_parent"}
+        },
+        {
+          "value": "roommates",
+          "label": "With roommates — shared space, some noise/schedule constraints",
+          "maps_to": {"dimension": "life.household", "value": "shared"}
+        },
+        {
+          "value": "family_home",
+          "label": "Family home — living with parents or extended family",
+          "maps_to": {"dimension": "life.household", "value": "family_home"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Household situation is the single best predictor of discretionary time and flexibility. Single parent is the most constrained; solo is the most flexible.",
+      "dimension": "life.household",
+      "why_this_matters": "'Do this every morning for 2 hours' lands very differently based on who's home with you."
+    },
+    {
+      "id": "t7_q04",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "On a typical weekday, how many hours do you genuinely have for yourself — not work, not obligations?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Almost none — most days are fully claimed",
+        "max_label": "3+ hours — I have real flexibility",
+        "steps": [
+          {"value": 1, "label": "30 min or less"},
+          {"value": 2, "label": "About 1 hour"},
+          {"value": 3, "label": "1-2 hours"},
+          {"value": 4, "label": "2-3 hours"},
+          {"value": 5, "label": "3+ hours"}
+        ]
+      },
+      "skippable": true,
+      "meta_profiling": "Cross with household situation and life stage. High available time + family with kids = likely not calibrated accurately. Low available time + solo = burnout signal.",
+      "dimension": "life.discretionary_time",
+      "why_this_matters": "AI won't recommend 90-minute daily routines to someone with 30 free minutes. Everything gets scaled to actual capacity."
+    },
+    {
+      "id": "t7_q05",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Your top priorities right now — what's actually competing for your attention and energy?",
+      "type": "multi_select",
+      "options": [
+        {"value": "career_growth", "label": "Career growth — getting better, getting promoted, getting paid more", "maps_to": {"dimension": "life.priorities", "value": "career"}},
+        {"value": "business_building", "label": "Building a business — revenue, growth, customers", "maps_to": {"dimension": "life.priorities", "value": "business"}},
+        {"value": "financial_stability", "label": "Financial stability or recovery — paying off debt, building a buffer", "maps_to": {"dimension": "life.priorities", "value": "finances"}},
+        {"value": "health_fitness", "label": "Health and fitness — weight, strength, energy, longevity", "maps_to": {"dimension": "life.priorities", "value": "health"}},
+        {"value": "relationships", "label": "Relationships — romantic, family, friendships", "maps_to": {"dimension": "life.priorities", "value": "relationships"}},
+        {"value": "learning", "label": "Learning something specific — skill, domain, qualification", "maps_to": {"dimension": "life.priorities", "value": "learning"}},
+        {"value": "creative_project", "label": "A creative project — writing, building, making", "maps_to": {"dimension": "life.priorities", "value": "creative"}},
+        {"value": "mental_health", "label": "Mental health and wellbeing — stability, peace, figuring myself out", "maps_to": {"dimension": "life.priorities", "value": "mental_health"}},
+        {"value": "lifestyle_design", "label": "Lifestyle design — location, freedom, how I want to live", "maps_to": {"dimension": "life.priorities", "value": "lifestyle"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "More than 3 priorities = either high energy + high capacity, or unrealistic. Note what's conspicuously absent (e.g. relationships never mentioned by someone who seems lonely in their messages).",
+      "dimension": "life.priorities",
+      "why_this_matters": "AI connects its advice to what actually matters to you — not generic 'be productive' advice."
+    },
+    {
+      "id": "t7_q06",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "What's actively blocking you right now?",
+      "type": "multi_select",
+      "options": [
+        {"value": "time", "label": "Not enough time — genuinely stretched thin", "maps_to": {"dimension": "life.blockers", "value": "time"}},
+        {"value": "money", "label": "Financial constraints — cash limits what I can do", "maps_to": {"dimension": "life.blockers", "value": "money"}},
+        {"value": "clarity", "label": "Lack of clarity — not sure what to do or which direction", "maps_to": {"dimension": "life.blockers", "value": "clarity"}},
+        {"value": "motivation", "label": "Motivation — I know what to do, starting is the problem", "maps_to": {"dimension": "life.blockers", "value": "motivation"}},
+        {"value": "skills", "label": "Skills gap — there's something I need to learn first", "maps_to": {"dimension": "life.blockers", "value": "skills"}},
+        {"value": "health", "label": "Health — physical or mental, it's limiting what I can do", "maps_to": {"dimension": "life.blockers", "value": "health"}},
+        {"value": "relationships", "label": "Relationships or support — going it alone, or friction with people who matter", "maps_to": {"dimension": "life.blockers", "value": "social"}},
+        {"value": "confidence", "label": "Confidence or fear — I hold myself back", "maps_to": {"dimension": "life.blockers", "value": "confidence"}},
+        {"value": "not_blocked", "label": "Nothing major — I'm in a good flow right now", "maps_to": {"dimension": "life.blockers", "value": "none"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Most critical blockers for AI to know — this directly shapes where AI should and shouldn't push. 'Confidence' is often under-reported. Multiple structural blockers (time + money + health) = serious constraint.",
+      "dimension": "life.blockers",
+      "why_this_matters": "AI shouldn't keep suggesting things you can't do. Knowing real blockers means it suggests workarounds instead of obstacles."
+    },
+    {
+      "id": "t7_q07",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Where you live",
+      "type": "select",
+      "options": [
+        {"value": "major_city_us_eu", "label": "Major city (US, UK, Western Europe)", "maps_to": {"dimension": "life.location_type", "value": "major_western"}},
+        {"value": "major_city_other", "label": "Major city (Asia, LATAM, Eastern Europe, other)", "maps_to": {"dimension": "life.location_type", "value": "major_other"}},
+        {"value": "mid_city", "label": "Mid-sized city", "maps_to": {"dimension": "life.location_type", "value": "mid_city"}},
+        {"value": "small_town", "label": "Small town or rural area", "maps_to": {"dimension": "life.location_type", "value": "small_town"}},
+        {"value": "remote_nomad", "label": "Moving around / digital nomad", "maps_to": {"dimension": "life.location_type", "value": "nomad"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Location affects pricing context, service availability, timezone for collaboration, and cultural context for communication style.",
+      "dimension": "life.location_type",
+      "why_this_matters": "Affects which services exist where you are, pricing in local context, and whether remote/in-person suggestions are realistic."
+    },
+    {
+      "id": "t7_q08",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "When you need help — with a decision, a problem, an emotional tough patch — you tend to...",
+      "type": "select",
+      "options": [
+        {
+          "value": "people_first",
+          "label": "Call or message someone I trust — people are my first resource",
+          "maps_to": {"dimension": "life.support_style", "value": "social"}
+        },
+        {
+          "value": "figure_out_alone",
+          "label": "Figure it out alone first — I process internally before involving anyone",
+          "maps_to": {"dimension": "life.support_style", "value": "independent"}
+        },
+        {
+          "value": "research",
+          "label": "Research it — I look for information and frameworks before deciding",
+          "maps_to": {"dimension": "life.support_style", "value": "information_seeking"}
+        },
+        {
+          "value": "no_ask",
+          "label": "Push through alone — I don't like asking for help",
+          "maps_to": {"dimension": "life.support_style", "value": "avoidant"}
+        },
+        {
+          "value": "depends",
+          "label": "Depends on the type of problem — different resources for different things",
+          "maps_to": {"dimension": "life.support_style", "value": "contextual"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Support avoidance is worth noting — people who don't ask for help often struggle longer than necessary. AI can be a low-barrier alternative.",
+      "dimension": "life.support_style",
+      "why_this_matters": "AI adjusts whether to proactively offer support or wait to be asked — and whether to suggest professional resources early or let you lead."
+    },
+    {
+      "id": "t7_q09",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Overall stress level lately",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Very low — life feels manageable right now",
+        "max_label": "Very high — I'm running on stress and trying to hold it together",
+        "mid_label": "Normal background stress — busy but okay"
+      },
+      "skippable": true,
+      "meta_profiling": "High stress self-reports + ambitious goal lists = recipe for burnout AI should flag. Low stress + very high capability = good time to stretch. Note: people under-report stress.",
+      "dimension": "life.stress_level",
+      "why_this_matters": "AI dials back complexity and deadline pressure under high stress, and can push more under low stress."
+    },
+    {
+      "id": "t7_q10",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "How's life feeling overall right now?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Rough — I'm in a difficult period",
+        "max_label": "Really good — things are clicking",
+        "mid_label": "Okay — not bad, not great"
+      },
+      "skippable": true,
+      "meta_profiling": "Life satisfaction cross-referenced with stress is the key signal. High stress + high satisfaction = meaningful challenge. Low stress + low satisfaction = drift or depression. Note any disconnect with how they phrase other answers.",
+      "dimension": "life.satisfaction",
+      "why_this_matters": "Context for how AI frames things — different register for 'I'm doing great' vs 'I'm in a difficult period'."
+    },
+    {
+      "id": "t7_q11",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Are you in the middle of any major life changes?",
+      "type": "multi_select",
+      "options": [
+        {"value": "new_job_role", "label": "New job or major role change", "maps_to": {"dimension": "life.transitions", "value": "career_change"}},
+        {"value": "starting_business", "label": "Starting or growing a business", "maps_to": {"dimension": "life.transitions", "value": "entrepreneurship"}},
+        {"value": "moving", "label": "Moving — city, country, home", "maps_to": {"dimension": "life.transitions", "value": "relocation"}},
+        {"value": "relationship_change", "label": "Major relationship change — new, ending, marriage, divorce", "maps_to": {"dimension": "life.transitions", "value": "relationship"}},
+        {"value": "family_change", "label": "Family change — new child, loss, caring for someone", "maps_to": {"dimension": "life.transitions", "value": "family"}},
+        {"value": "health_journey", "label": "Health journey — significant change or challenge", "maps_to": {"dimension": "life.transitions", "value": "health"}},
+        {"value": "financial_shift", "label": "Major financial shift — up or down", "maps_to": {"dimension": "life.transitions", "value": "financial"}},
+        {"value": "identity_shift", "label": "Figuring out who I am / what I want — identity rework", "maps_to": {"dimension": "life.transitions", "value": "identity"}},
+        {"value": "none", "label": "No major changes — things are relatively stable", "maps_to": {"dimension": "life.transitions", "value": "stable"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Multiple simultaneous transitions = very high cognitive and emotional load. AI should not add complexity during this period. Identity rework is underrated — people in it are often fragile and need gentle framing.",
+      "dimension": "life.transitions",
+      "why_this_matters": "Major transitions change what 'helpful' means — AI keeps this context and doesn't assume your circumstances are static."
+    },
+    {
+      "id": "t7_q12",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "In 2-3 years, what does success look like for you? Not professionally — personally.",
+      "type": "open_text",
+      "placeholder": "E.g. 'I've left the rat race and work 30h a week on my own terms', 'I've paid off debt and have 6 months saved', 'I've built something I'm genuinely proud of', 'I've reconnected with what makes me happy'...",
+      "skippable": true,
+      "meta_profiling": "This is the highest-signal question in the tier. Specificity = clarity and self-knowledge. Vague = searching. Financial vs freedom vs impact vs relationships reveals deep values. Note what's NOT mentioned.",
+      "dimension": "life.personal_vision",
+      "why_this_matters": "Everything AI recommends can be filtered through this vision — 'does this move me toward or away from that future?'"
+    },
+    {
+      "id": "t7_q13",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Anything about your health that's relevant for AI recommendations? (completely optional)",
+      "type": "open_text",
+      "placeholder": "E.g. 'chronic back pain so I can't sit for long', 'I have PCOS and the standard diet advice doesn't apply', 'I'm in recovery so certain suggestions are off-limits', anything...",
+      "skippable": true,
+      "meta_profiling": "What they choose to share — and HOW they phrase it — reveals comfort level with the topic. Matter-of-fact = settled. Hedged = sensitive. Note: don't pry.",
+      "dimension": "life.health_context",
+      "why_this_matters": "Prevents AI from suggesting things that would be harmful, unhelpful, or simply wrong given your actual health situation."
+    },
+    {
+      "id": "t7_q14",
+      "tier": 7,
+      "tier_name": "Life Context",
+      "question": "Cultural or personal context that shapes how you think and communicate — anything you'd want AI to understand",
+      "type": "open_text",
+      "placeholder": "E.g. 'I grew up in a collectivist culture so individualist framing feels off', 'I'm a first-generation immigrant so I have a different relationship with risk', 'certain topics are sensitive in my family or cultural context'...",
+      "skippable": true,
+      "meta_profiling": "This catches important context that question banks can't anticipate. The choice to share or skip is itself meaningful.",
+      "dimension": "life.cultural_context",
+      "why_this_matters": "AI adapts examples, framing, and assumptions to your actual cultural context — not a default Western professional one."
+    }
+  ]
+}

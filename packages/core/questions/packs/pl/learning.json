@@ -1,0 +1,99 @@
+{
+  "pack": "learning",
+  "pack_name": "Nauka i umiejętności",
+  "pack_intro": "Jak się uczysz i nad czym pracujesz.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "learning_q01",
+      "pack": "learning",
+      "question": "Ucząc się czegoś nowego, preferujesz:",
+      "type": "select",
+      "dimension": "learning.format_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI Cię uczy — video vs czytanie vs praktyka.",
+      "skip_if": "cognitive.learning_style.confidence > 0.8",
+      "options": [
+        {
+          "value": "video",
+          "label": "Tutoriale video — muszę zobaczyć jak to się robi",
+          "maps_to": { "dimension": "learning.format_preference", "value": "video" },
+          "export_rule": "I learn best from video. Link tutorials when available. Describe visually."
+        },
+        {
+          "value": "reading",
+          "label": "Artykuły i dokumentacja — szybko czytam",
+          "maps_to": { "dimension": "learning.format_preference", "value": "reading" },
+          "export_rule": "I learn through reading. Give me detailed written explanations and docs links."
+        },
+        {
+          "value": "practice",
+          "label": "Praktyka — daj mi ćwiczenia",
+          "maps_to": { "dimension": "learning.format_preference", "value": "practice" },
+          "export_rule": "I learn by practicing. Give me exercises and challenges, not just explanations."
+        },
+        {
+          "value": "projects",
+          "label": "Budowanie projektu — uczę się robiąc prawdziwe rzeczy",
+          "maps_to": { "dimension": "learning.format_preference", "value": "project_based" },
+          "export_rule": "I learn by building. Frame learning as 'build X to learn Y', not abstract exercises."
+        }
+      ]
+    },
+    {
+      "id": "learning_q02",
+      "pack": "learning",
+      "question": "Czego się teraz uczysz lub chcesz się nauczyć?",
+      "type": "open_text",
+      "dimension": "learning.current_goals",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Pozwala AI dopasować przykłady i referencje do Twoich obszarów nauki.",
+      "placeholder": "np. Rust, machine learning, hiszpański, wystąpienia publiczne"
+    },
+    {
+      "id": "learning_q03",
+      "pack": "learning",
+      "question": "Ile realistycznie godzin tygodniowo możesz poświęcić na naukę?",
+      "type": "select",
+      "dimension": "learning.time_commitment",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Pomaga AI sugerować odpowiednio duże porcje nauki.",
+      "options": [
+        {
+          "value": "1_2h",
+          "label": "1-2 godziny",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "minimal" },
+          "export_rule": "I have 1-2h/week for learning. Keep recommendations bite-sized."
+        },
+        {
+          "value": "3_5h",
+          "label": "3-5 godzin",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "moderate" },
+          "export_rule": "I have 3-5h/week for learning. Suggest structured weekly progress."
+        },
+        {
+          "value": "5_10h",
+          "label": "5-10 godzin",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "dedicated" },
+          "export_rule": "I dedicate 5-10h/week to learning. Suggest intensive study plans."
+        },
+        {
+          "value": "10_plus",
+          "label": "10+ godzin",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "intensive" },
+          "export_rule": "I spend 10+ hours/week learning. Full curriculum-style plans welcome."
+        },
+        {
+          "value": "unpredictable",
+          "label": "Nieprzewidywalnie — zmienia się drastycznie",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "variable" },
+          "export_rule": "My learning time is unpredictable. Give me modular content I can pick up anytime."
+        }
+      ]
+    }
+  ]
+}

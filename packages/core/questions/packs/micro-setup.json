@@ -1,0 +1,174 @@
+{
+  "pack": "micro-setup",
+  "pack_name": "Micro Setup",
+  "pack_intro": "4 quick questions to get started.",
+  "required": true,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "setup_q01",
+      "pack": "micro-setup",
+      "question": "What should AI call you, and what do you mainly use AI for?",
+      "type": "open_text",
+      "dimension": "identity.preferred_name",
+      "skippable": false,
+      "meta_profiling": null,
+      "why_this_matters": "Your name and use case shape every export.",
+      "placeholder": "e.g. Alex — I use AI for coding and business",
+      "also_captures": ["profile_type", "primary_use_case"]
+    },
+    {
+      "id": "setup_q02",
+      "pack": "micro-setup",
+      "question": "You ask AI a simple question and get a 6-paragraph essay. Your reaction?",
+      "type": "select",
+      "dimension": "communication.verbosity_preference",
+      "skippable": false,
+      "meta_profiling": "response_time",
+      "why_this_matters": "This is the #1 behavior changer. Verbosity preference shapes every AI response you'll get.",
+      "options": [
+        {
+          "value": "frustrated",
+          "label": "Genuinely frustrated — just give me the answer",
+          "maps_to": { "dimension": "communication.verbosity_preference", "value": "minimal" },
+          "also_maps_to": { "dimension": "communication.directness", "value": "very_direct" },
+          "export_rule": "Max 5 lines for simple questions. Go straight to the answer."
+        },
+        {
+          "value": "annoyed",
+          "label": "Mildly annoyed — I skim to find what matters",
+          "maps_to": { "dimension": "communication.verbosity_preference", "value": "concise" },
+          "also_maps_to": { "dimension": "communication.directness", "value": "direct" },
+          "export_rule": "Keep responses concise. Use headers and bullets so I can skim."
+        },
+        {
+          "value": "conditional",
+          "label": "Fine for complex topics, but simple questions = short answers",
+          "maps_to": { "dimension": "communication.verbosity_preference", "value": "adaptive" },
+          "also_maps_to": { "dimension": "communication.directness", "value": "balanced" },
+          "export_rule": "IF simple question THEN max 3-5 lines. IF complex topic THEN structured with headers and detail."
+        },
+        {
+          "value": "likes_detail",
+          "label": "I like seeing full reasoning — more detail is better",
+          "maps_to": { "dimension": "communication.verbosity_preference", "value": "detailed" },
+          "also_maps_to": { "dimension": "communication.directness", "value": "thorough" },
+          "export_rule": "Include full reasoning and context. I prefer comprehensive answers."
+        }
+      ]
+    },
+    {
+      "id": "setup_q03",
+      "pack": "micro-setup",
+      "question": "Hard rules — things AI should NEVER do with you:",
+      "type": "multi_select",
+      "dimension": "communication.anti_patterns",
+      "skippable": true,
+      "meta_profiling": "selection_count",
+      "why_this_matters": "Each selection becomes a direct rule in your export. ~95% compliance for simple negatives.",
+      "options": [
+        {
+          "value": "no_emoji",
+          "label": "Use emoji",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_emoji" },
+          "export_rule": "Never use emoji."
+        },
+        {
+          "value": "no_praise",
+          "label": "Start with \"Great question!\" or praise",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_praise" },
+          "export_rule": "Never start with praise like 'Great question!' — go straight to the answer."
+        },
+        {
+          "value": "no_unsolicited_advice",
+          "label": "Give unsolicited advice",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_unsolicited_advice" },
+          "export_rule": "Don't give advice I didn't ask for."
+        },
+        {
+          "value": "no_hedging",
+          "label": "Be overly cautious / hedge everything",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_hedging" },
+          "export_rule": "Give confident, direct answers. Don't hedge with 'I think maybe...' or excessive caveats."
+        },
+        {
+          "value": "no_handholding",
+          "label": "Assume I need hand-holding",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_handholding" },
+          "export_rule": "Don't over-explain basics. I'll ask if I need clarification."
+        },
+        {
+          "value": "no_overwriting",
+          "label": "Write more than asked",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_overwriting" },
+          "export_rule": "Answer exactly what was asked, no more."
+        },
+        {
+          "value": "no_corporate",
+          "label": "Use corporate language (\"leverage\", \"synergy\")",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_corporate" },
+          "export_rule": "Use plain language. No corporate jargon like 'leverage', 'synergy', 'stakeholder'."
+        },
+        {
+          "value": "no_apologies",
+          "label": "Apologize excessively",
+          "maps_to": { "dimension": "communication.anti_patterns", "value": "no_apologies" },
+          "export_rule": "Don't apologize excessively. Acknowledge mistakes briefly and fix them."
+        }
+      ],
+      "open_text_addon": "Anything else AI should never do?"
+    },
+    {
+      "id": "setup_q04",
+      "pack": "micro-setup",
+      "question": "Which areas of your life should AI know about? We'll ask a few questions about each — right now.",
+      "type": "multi_select",
+      "dimension": "selected_packs",
+      "skippable": false,
+      "meta_profiling": null,
+      "why_this_matters": "Each pack adds a few questions to build your full profile in this session.",
+      "options": [
+        {
+          "value": "core",
+          "label": "Communication style (always included)",
+          "maps_to": { "dimension": "selected_packs", "value": "core" }
+        },
+        {
+          "value": "story",
+          "label": "Your story (background, goals, motivation, fears)",
+          "maps_to": { "dimension": "selected_packs", "value": "story" }
+        },
+        {
+          "value": "context",
+          "label": "Life context (job, location, current focus)",
+          "maps_to": { "dimension": "selected_packs", "value": "context" }
+        },
+        {
+          "value": "work",
+          "label": "Work & productivity",
+          "maps_to": { "dimension": "selected_packs", "value": "work" }
+        },
+        {
+          "value": "lifestyle",
+          "label": "Lifestyle (travel, food, hobbies)",
+          "maps_to": { "dimension": "selected_packs", "value": "lifestyle" }
+        },
+        {
+          "value": "health",
+          "label": "Health & fitness (private — you control where this exports)",
+          "maps_to": { "dimension": "selected_packs", "value": "health" }
+        },
+        {
+          "value": "finance",
+          "label": "Finance (private — you control where this exports)",
+          "maps_to": { "dimension": "selected_packs", "value": "finance" }
+        },
+        {
+          "value": "learning",
+          "label": "Learning & skills",
+          "maps_to": { "dimension": "selected_packs", "value": "learning" }
+        }
+      ]
+    }
+  ]
+}

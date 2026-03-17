@@ -1,0 +1,403 @@
+{
+  "tier": 0,
+  "tier_name": "Identity",
+  "tier_intro": "Quick basics — just enough to make everything feel right from the start. 2 minutes, no wrong answers.",
+  "tier_complete": {
+    "headline": "Identity locked in.",
+    "body": "AI now knows your name, language, and why you're here. First impression already 10x better than default. Next: how you like to communicate."
+  },
+  "questions": [
+    {
+      "id": "t0_q01",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What should AI call you?",
+      "type": "open_text",
+      "placeholder": "First name, nickname, or whatever feels right",
+      "skippable": false,
+      "meta_profiling": "Length and type of name chosen. Nickname vs formal name signals informality preference. If they write a title (Dr., Mr.) — note formality.",
+      "dimension": "identity.preferred_name",
+      "why_this_matters": "AI uses this every time it addresses you. Gets personal fast."
+    },
+    {
+      "id": "t0_q02",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What language should AI respond in by default?",
+      "type": "select",
+      "options": [
+        {
+          "value": "en",
+          "label": "English",
+          "maps_to": {"dimension": "identity.language", "value": "en"}
+        },
+        {
+          "value": "pl",
+          "label": "Polish / Polski",
+          "maps_to": {"dimension": "identity.language", "value": "pl"}
+        },
+        {
+          "value": "de",
+          "label": "German / Deutsch",
+          "maps_to": {"dimension": "identity.language", "value": "de"}
+        },
+        {
+          "value": "es",
+          "label": "Spanish / Español",
+          "maps_to": {"dimension": "identity.language", "value": "es"}
+        },
+        {
+          "value": "fr",
+          "label": "French / Français",
+          "maps_to": {"dimension": "identity.language", "value": "fr"}
+        },
+        {
+          "value": "other",
+          "label": "Other",
+          "maps_to": {"dimension": "identity.language", "value": "other"},
+          "triggers": ["t0_q02a"]
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "If they change language mid-profiling session — note code-switching pattern.",
+      "dimension": "identity.language",
+      "why_this_matters": "AI will match your language across all exported profiles."
+    },
+    {
+      "id": "t0_q02a",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "Which language?",
+      "type": "open_text",
+      "placeholder": "e.g. Italian, Japanese, Portuguese...",
+      "skippable": true,
+      "is_followup": true,
+      "parent_question": "t0_q02",
+      "meta_profiling": null,
+      "dimension": "identity.language",
+      "why_this_matters": null
+    },
+    {
+      "id": "t0_q03",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "Where in the world are you?",
+      "type": "select",
+      "options": [
+        {
+          "value": "europe_central",
+          "label": "Central Europe (PL, CZ, SK, HU...)",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "CET"}
+        },
+        {
+          "value": "europe_west",
+          "label": "Western Europe (UK, DE, FR...)",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "WET/CET"}
+        },
+        {
+          "value": "us_east",
+          "label": "US East Coast",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "ET"}
+        },
+        {
+          "value": "us_west",
+          "label": "US West Coast",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "PT"}
+        },
+        {
+          "value": "asia_pacific",
+          "label": "Asia / Pacific",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "APAC"}
+        },
+        {
+          "value": "other",
+          "label": "Somewhere else",
+          "maps_to": {"dimension": "identity.timezone_region", "value": "other"},
+          "triggers": ["t0_q03a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Timezone affects date/time formatting, currency assumptions, holiday context.",
+      "dimension": "identity.timezone_region",
+      "why_this_matters": "Dates, times, and currency in AI responses adapt to your location."
+    },
+    {
+      "id": "t0_q03a",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What's your timezone? (e.g. GMT+5, Tokyo, São Paulo...)",
+      "type": "open_text",
+      "placeholder": "City or UTC offset",
+      "skippable": true,
+      "is_followup": true,
+      "parent_question": "t0_q03",
+      "meta_profiling": null,
+      "dimension": "identity.timezone",
+      "why_this_matters": null
+    },
+    {
+      "id": "t0_q04",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "How old are you? (roughly is fine)",
+      "type": "select",
+      "options": [
+        {
+          "value": "under_20",
+          "label": "Under 20",
+          "maps_to": {"dimension": "identity.age_range", "value": "teen"}
+        },
+        {
+          "value": "20_29",
+          "label": "20s",
+          "maps_to": {"dimension": "identity.age_range", "value": "20s"}
+        },
+        {
+          "value": "30_39",
+          "label": "30s",
+          "maps_to": {"dimension": "identity.age_range", "value": "30s"}
+        },
+        {
+          "value": "40_49",
+          "label": "40s",
+          "maps_to": {"dimension": "identity.age_range", "value": "40s"}
+        },
+        {
+          "value": "50_plus",
+          "label": "50+",
+          "maps_to": {"dimension": "identity.age_range", "value": "50+"}
+        },
+        {
+          "value": "skip",
+          "label": "Prefer not to say",
+          "maps_to": {"dimension": "identity.age_range", "value": "unknown"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Age affects cultural references, generational communication defaults, and tech comfort assumptions.",
+      "dimension": "identity.age_range",
+      "why_this_matters": "AI calibrates cultural references and explanations to what actually resonates for your generation."
+    },
+    {
+      "id": "t0_q05",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "How do you identify? (for AI to use correct pronouns)",
+      "type": "select",
+      "options": [
+        {
+          "value": "he",
+          "label": "He / Him",
+          "maps_to": {"dimension": "identity.pronouns", "value": "he/him"}
+        },
+        {
+          "value": "she",
+          "label": "She / Her",
+          "maps_to": {"dimension": "identity.pronouns", "value": "she/her"}
+        },
+        {
+          "value": "they",
+          "label": "They / Them",
+          "maps_to": {"dimension": "identity.pronouns", "value": "they/them"}
+        },
+        {
+          "value": "no_preference",
+          "label": "No preference — doesn't matter",
+          "maps_to": {"dimension": "identity.pronouns", "value": "neutral"}
+        },
+        {
+          "value": "skip",
+          "label": "Skip this one",
+          "maps_to": {"dimension": "identity.pronouns", "value": "unknown"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "identity.pronouns",
+      "why_this_matters": "AI uses correct pronouns when referring to you — small thing, big difference."
+    },
+    {
+      "id": "t0_q06",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What's the main reason you're building this profile?",
+      "type": "select",
+      "options": [
+        {
+          "value": "better_chat",
+          "label": "Better conversations with AI",
+          "description": "ChatGPT, Claude, Gemini — want AI to understand me without re-explaining",
+          "maps_to": {"dimension": "identity.primary_use_case", "value": "chat_ai"},
+          "triggers": []
+        },
+        {
+          "value": "dev_tools",
+          "label": "AI coding assistant setup",
+          "description": "Cursor, Copilot, Claude Code — want my dev tools to know my style",
+          "maps_to": {"dimension": "identity.primary_use_case", "value": "dev_tools"},
+          "triggers": []
+        },
+        {
+          "value": "local_llm",
+          "label": "Local / private AI (Ollama, LM Studio...)",
+          "description": "Running AI on my own machine, want it personalized",
+          "maps_to": {"dimension": "identity.primary_use_case", "value": "local_llm"},
+          "triggers": []
+        },
+        {
+          "value": "all_of_it",
+          "label": "All of the above — I use many AI tools",
+          "maps_to": {"dimension": "identity.primary_use_case", "value": "multi_platform"},
+          "triggers": []
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Use case selected affects which export formats are prioritized in the export center. Dev tools selection = likely higher tech comfort.",
+      "dimension": "identity.primary_use_case",
+      "why_this_matters": "Shapes which export formats get recommended at the end."
+    },
+    {
+      "id": "t0_q07",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What do you do? (broadly — no need to be exact)",
+      "type": "select",
+      "options": [
+        {
+          "value": "developer",
+          "label": "Software developer / engineer",
+          "maps_to": {"dimension": "identity.professional_role", "value": "developer"}
+        },
+        {
+          "value": "designer",
+          "label": "Designer / Creative",
+          "maps_to": {"dimension": "identity.professional_role", "value": "designer"}
+        },
+        {
+          "value": "founder",
+          "label": "Founder / Entrepreneur",
+          "maps_to": {"dimension": "identity.professional_role", "value": "founder"}
+        },
+        {
+          "value": "manager",
+          "label": "Manager / Team lead",
+          "maps_to": {"dimension": "identity.professional_role", "value": "manager"}
+        },
+        {
+          "value": "knowledge_worker",
+          "label": "Writer / Researcher / Analyst",
+          "maps_to": {"dimension": "identity.professional_role", "value": "knowledge_worker"}
+        },
+        {
+          "value": "student",
+          "label": "Student",
+          "maps_to": {"dimension": "identity.professional_role", "value": "student"}
+        },
+        {
+          "value": "other",
+          "label": "Something else entirely",
+          "maps_to": {"dimension": "identity.professional_role", "value": "other"},
+          "triggers": ["t0_q07a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Professional role shapes default jargon tolerance, autonomy expectations, and which domains AI should fluency-adjust for.",
+      "dimension": "identity.professional_role",
+      "why_this_matters": "AI picks up the right vocabulary for your field and adjusts how deep it goes on technical topics."
+    },
+    {
+      "id": "t0_q07a",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "What's your field or role?",
+      "type": "open_text",
+      "placeholder": "e.g. nurse, chef, musician, teacher...",
+      "skippable": true,
+      "is_followup": true,
+      "parent_question": "t0_q07",
+      "meta_profiling": null,
+      "dimension": "identity.professional_role",
+      "why_this_matters": null
+    },
+    {
+      "id": "t0_q08",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "On a scale of 0 to 10 — how tech-comfortable are you?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 0,
+        "max": 10,
+        "min_label": "I use apps and Google things",
+        "max_label": "I build software for fun",
+        "midpoint_label": "Comfortable but not a developer"
+      },
+      "options": [
+        {
+          "value": "0_3",
+          "label": "0-3: Apps are my thing",
+          "maps_to": {"dimension": "identity.tech_comfort", "value": "non_technical"}
+        },
+        {
+          "value": "4_6",
+          "label": "4-6: Comfortable, not a dev",
+          "maps_to": {"dimension": "identity.tech_comfort", "value": "moderate"}
+        },
+        {
+          "value": "7_9",
+          "label": "7-9: I code and tinker",
+          "maps_to": {"dimension": "identity.tech_comfort", "value": "technical"}
+        },
+        {
+          "value": "10",
+          "label": "10: I build things for other people",
+          "maps_to": {"dimension": "identity.tech_comfort", "value": "expert"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Observe how they answer this question itself — if they spend time on it vs pick immediately. High self-awareness = note. Affects how profiling UI simplifies or deepens in later tiers.",
+      "dimension": "identity.tech_comfort",
+      "why_this_matters": "AI adjusts how it explains technical things — no jargon for non-devs, no hand-holding for experts."
+    },
+    {
+      "id": "t0_q09",
+      "tier": 0,
+      "tier_name": "Identity",
+      "question": "One last quick one: what's your single biggest frustration with AI assistants right now?",
+      "type": "select",
+      "options": [
+        {
+          "value": "too_generic",
+          "label": "Responses feel generic, like they're for everyone",
+          "maps_to": {"dimension": "identity.ai_frustration", "value": "generic_output"}
+        },
+        {
+          "value": "too_verbose",
+          "label": "Way too long-winded and preachy",
+          "maps_to": {"dimension": "identity.ai_frustration", "value": "verbosity"},
+          "triggers": ["t1_q02"]
+        },
+        {
+          "value": "re_explain",
+          "label": "I have to re-explain my context every single time",
+          "maps_to": {"dimension": "identity.ai_frustration", "value": "context_loss"}
+        },
+        {
+          "value": "format",
+          "label": "Wrong format — essays when I need bullets, bullets when I need detail",
+          "maps_to": {"dimension": "identity.ai_frustration", "value": "format_mismatch"},
+          "triggers": ["t1_q06"]
+        },
+        {
+          "value": "platform_switching",
+          "label": "I use 3+ AI tools and have to configure each one",
+          "maps_to": {"dimension": "identity.ai_frustration", "value": "platform_friction"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "This is a high-signal question. Frustration chosen = highest-priority dimension to nail. If 'too verbose' — already learn they want concise. If 'format' — format questions in Tier 1 are critical for them.",
+      "dimension": "identity.ai_frustration",
+      "why_this_matters": "Meport attacks your biggest frustration first."
+    }
+  ]
+}

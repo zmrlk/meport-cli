@@ -1,0 +1,169 @@
+{
+  "tier": "B5",
+  "tier_name": "Knowledge Base",
+  "tier_intro": "This is where your AI agent gets smart. The more you give it here, the less it has to guess — and the fewer times it'll say 'I'm not sure, let me check.' This tier is primarily file-based. Upload what you have.",
+  "tier_complete": {
+    "headline": "Knowledge base loaded.",
+    "body": "Your AI agent now has access to your FAQs, policies, procedures, and known issues. It can answer the real questions your customers actually ask — accurately and instantly. Next: tell it about your competitive landscape."
+  },
+  "questions": [
+    {
+      "id": "b5_q01",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Upload your FAQ document — or any document with common customer questions and answers.",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "txt", "html", "md", "xlsx", "csv"],
+      "placeholder": "FAQ, help center export, knowledge base dump, support playbook — anything with Q&A",
+      "skippable": true,
+      "meta_profiling": "Presence and quality of FAQ doc reveals support function maturity. Well-organized FAQ = systematic approach to customer education. Absent = reactive support culture.",
+      "dimension": "business.knowledge.faq_document",
+      "why_this_matters": "A single FAQ upload can train AI to answer hundreds of questions accurately. This is the single highest-leverage action in the entire setup."
+    },
+    {
+      "id": "b5_q02",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "No FAQ doc? Type your top 10 questions and answers here.",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "Q: How long does delivery take?\nA: Standard delivery is 3-5 business days. Express is next day if ordered before 2pm.\n\nQ: Can I return a product?\nA: Yes, within 30 days...",
+      "skippable": true,
+      "meta_profiling": "Manually written FAQs reveal what the business considers most important vs. what customers actually ask. Gaps between the two are worth flagging.",
+      "dimension": "business.knowledge.faq_manual",
+      "why_this_matters": "Even 10 well-written Q&As will dramatically reduce AI deflection rate and improve accuracy on the most common customer questions."
+    },
+    {
+      "id": "b5_q03",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Upload your policy documents — returns, shipping, privacy, terms of service, etc.",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "txt", "html"],
+      "allow_multiple": true,
+      "placeholder": "You can upload multiple files — returns policy, shipping policy, T&Cs, privacy policy",
+      "skippable": true,
+      "meta_profiling": "Policy completeness reveals legal and operational maturity. Missing privacy policy in a GDPR context = immediate risk flag.",
+      "dimension": "business.knowledge.policies",
+      "why_this_matters": "Policy questions are among the highest-volume customer queries. AI that can answer them accurately, instantly, and consistently removes a huge support burden."
+    },
+    {
+      "id": "b5_q04",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Do you have Standard Operating Procedures or internal guides for customer-facing scenarios?",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "txt", "md", "xlsx"],
+      "allow_text_fallback": true,
+      "text_placeholder": "Or describe key procedures in plain language — e.g. how to handle a refund request, escalation path for a complaint, etc.",
+      "skippable": true,
+      "meta_profiling": "SOPs signal operational maturity. Detailed SOPs = AI can follow processes precisely. Absent = AI needs more judgment and a tighter escalation policy.",
+      "dimension": "business.knowledge.procedures",
+      "why_this_matters": "SOPs tell AI exactly how to handle edge cases — not just what to say, but what steps to take. This prevents AI from inventing its own process."
+    },
+    {
+      "id": "b5_q05",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Are there any current issues, service disruptions, or known problems customers should know about?",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "e.g. 'We're experiencing delays on orders placed after March 10 due to supplier issues', 'Feature X is temporarily unavailable', 'Known bug with checkout on Safari — workaround is...'",
+      "skippable": true,
+      "meta_profiling": "Willingness to document current issues reveals transparency culture. Companies that admit issues proactively have lower escalation rates.",
+      "dimension": "business.knowledge.known_issues",
+      "why_this_matters": "Customers who are experiencing a known issue need acknowledgment immediately. AI that already knows about it can respond with empathy and a fix — instead of pretending it doesn't exist."
+    },
+    {
+      "id": "b5_q06",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "What questions do customers ask that you DON'T have a good answer for yet?",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "This is valuable too — questions you're still figuring out. AI will flag these for human review rather than guessing.",
+      "skippable": true,
+      "meta_profiling": "Knowledge gaps reveal business blind spots. High-frequency gaps = product or process improvements needed. AI flags these for systematic resolution.",
+      "dimension": "business.knowledge.gaps",
+      "why_this_matters": "AI that knows what it doesn't know is far more trustworthy than one that confidently gives wrong answers. Knowledge gaps trigger 'escalate to human' behavior."
+    },
+    {
+      "id": "b5_q07",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "How often does your knowledge base change?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "rarely", "label": "Rarely — things stay pretty stable, maybe a few updates a year" },
+        { "value": "monthly", "label": "Monthly — regular updates to products, policies, or pricing" },
+        { "value": "weekly", "label": "Weekly — fast-moving business, things change often" },
+        { "value": "daily", "label": "Daily — inventory, pricing, or availability changes constantly" },
+        { "value": "seasonal", "label": "Seasonally — big changes at specific times of year" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Update frequency determines how aggressively AI should flag potentially outdated information and how often knowledge base reviews should be scheduled.",
+      "dimension": "business.knowledge.update_frequency",
+      "why_this_matters": "Fast-changing businesses need AI that actively flags when its own knowledge might be stale. This setting triggers update reminders and staleness warnings."
+    },
+    {
+      "id": "b5_q08",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Where is the most up-to-date version of your information?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "website", "label": "Our website — always up to date" },
+        { "value": "docs_platform", "label": "Docs platform (Notion, Confluence, GitBook, etc.)" },
+        { "value": "crm", "label": "CRM system" },
+        { "value": "helpdesk", "label": "Help desk / ticketing system" },
+        { "value": "person", "label": "A specific person on the team" },
+        { "value": "scattered", "label": "Scattered — different systems for different topics" }
+      ],
+      "skippable": false,
+      "meta_profiling": "'Person' answer = single point of failure, worth flagging. 'Scattered' = knowledge management problem that AI will partially solve but can't fully compensate for.",
+      "dimension": "business.knowledge.source_of_truth",
+      "why_this_matters": "AI needs to know where to point for authoritative answers it can't give directly — and when knowledge may need verification before acting on it."
+    },
+    {
+      "id": "b5_q09",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "When AI isn't certain about something, it should...",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "say_dont_know", "label": "Clearly say it doesn't know and escalate to a human" },
+        { "value": "best_guess_flagged", "label": "Give the best answer it has but flag it as uncertain" },
+        { "value": "redirect_to_resource", "label": "Redirect to your website, docs, or help center" },
+        { "value": "ask_clarifying_question", "label": "Ask a clarifying question first — maybe it misunderstood" },
+        { "value": "never_uncertain", "label": "Train it so thoroughly it should rarely be uncertain" }
+      ],
+      "skippable": false,
+      "meta_profiling": "'Never uncertain' answer with a thin knowledge base = a calibration gap to address. Best response depends on the company's risk tolerance and support model.",
+      "dimension": "business.knowledge.accuracy_priority",
+      "why_this_matters": "This is the confidence calibration. An AI that confidently gives wrong answers is worse than one that admits uncertainty. This setting defines that threshold."
+    },
+    {
+      "id": "b5_q10",
+      "tier": "B5",
+      "tier_name": "Knowledge Base",
+      "question": "Are there any URLs — help centers, product documentation, or public knowledge bases — we should include?",
+      "type": "url_scan",
+      "file_scannable": true,
+      "allow_multiple": true,
+      "placeholder": "e.g. https://help.yourcompany.com, https://docs.yourcompany.com, https://status.yourcompany.com",
+      "skippable": true,
+      "meta_profiling": "Structured online knowledge resources indicate investment in scalable support. Help centers with search = mature support operation.",
+      "dimension": "business.knowledge.online_resources",
+      "why_this_matters": "AI can pull directly from your existing help center content — no re-entry needed. Also lets AI direct customers to self-service resources when appropriate."
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "tier": 8,
+  "tier_name": "AI Relationship",
+  "tier_intro": "The last layer. This one's about you and AI — your history, comfort level, expectations, and where you draw the line. It directly shapes how AI behaves with you from day one. 5-7 minutes, and honestly the most interesting section.",
+  "tier_complete": {
+    "headline": "Profile complete.",
+    "body": "That's it. All 8 tiers. Your Meport profile is ready to export to any AI platform — Claude, GPT, Gemini, Cursor, whatever you use. One profile, always yours, updated as you change. Most people who build this say it's the first time AI has actually felt like it gets them. Welcome to that."
+  },
+  "questions": [
+    {
+      "id": "t8_q01",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Your relationship with AI tools so far...",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 6,
+        "min_label": "Just starting — this might be my first real experiment",
+        "max_label": "I build AI tools or work in AI professionally",
+        "steps": [
+          {"value": 1, "label": "Just starting out"},
+          {"value": 2, "label": "Casual user — ChatGPT occasionally, nothing serious"},
+          {"value": 3, "label": "Regular user — it's part of my workflow"},
+          {"value": 4, "label": "Power user — I've customized prompts, explored different tools"},
+          {"value": 5, "label": "Advanced — I've built custom GPTs, written system prompts, integrated APIs"},
+          {"value": 6, "label": "Professional — I build AI tools or work in AI"}
+        ]
+      },
+      "skippable": false,
+      "meta_profiling": "This single score calibrates every other question in this tier — a level 2 and a level 6 need completely different framing. Note how they describe their experience in phrasing.",
+      "dimension": "ai.experience_level",
+      "why_this_matters": "The foundation — AI calibrates technical depth, vocabulary, and how much it explains vs assumes based on this."
+    },
+    {
+      "id": "t8_q02",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "When AI gives you an answer, you...",
+      "type": "select",
+      "options": [
+        {
+          "value": "trust_verify_important",
+          "label": "Trust it for most things, verify on things that actually matter",
+          "maps_to": {"dimension": "ai.trust", "value": "calibrated"}
+        },
+        {
+          "value": "trust_fully",
+          "label": "Usually trust it — it's generally accurate enough for my needs",
+          "maps_to": {"dimension": "ai.trust", "value": "high"}
+        },
+        {
+          "value": "always_verify",
+          "label": "Always verify anything important — I've been burned by confident wrong answers",
+          "maps_to": {"dimension": "ai.trust", "value": "skeptical"},
+          "triggers": ["t8_q02a"]
+        },
+        {
+          "value": "low_trust",
+          "label": "Generally skeptical — I use it as a starting point but don't rely on it",
+          "maps_to": {"dimension": "ai.trust", "value": "low"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Trust calibration affects how AI presents information — whether to lead with caveats, flag uncertainty proactively, or just answer directly. Burned users need different handling.",
+      "dimension": "ai.trust",
+      "why_this_matters": "AI adjusts how confidently it delivers answers — adding uncertainty flags proactively for skeptics, staying direct for high-trust users."
+    },
+    {
+      "id": "t8_q02a",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "What was the situation where AI got it confidently wrong?",
+      "type": "open_text",
+      "is_followup": true,
+      "parent_question": "t8_q02",
+      "placeholder": "Not required — but if there's a specific pattern (code, facts, medical, legal...) it helps AI flag those areas more carefully",
+      "skippable": true,
+      "meta_profiling": "The specificity of the failure memory reveals how much it affected their relationship with AI. Domain specificity (legal vs code) lets AI be appropriately cautious in those areas.",
+      "dimension": "ai.trust_failure",
+      "why_this_matters": "AI will proactively caveat answers in the domains where it previously failed you."
+    },
+    {
+      "id": "t8_q03",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Your ideal AI would be like a...",
+      "type": "select",
+      "options": [
+        {
+          "value": "tool",
+          "label": "Tool — powerful, precise, does exactly what I ask, no more",
+          "description": "No personality, no initiative — just execution",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "tool"}
+        },
+        {
+          "value": "assistant",
+          "label": "Assistant — proactive, organized, handles details, frees me up",
+          "description": "Anticipates needs, manages tasks, keeps things on track",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "assistant"}
+        },
+        {
+          "value": "collaborator",
+          "label": "Collaborator — a peer who builds alongside me",
+          "description": "Contributes ideas, pushes back, real co-creation",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "collaborator"}
+        },
+        {
+          "value": "coach",
+          "label": "Coach — asks the right questions, helps me think, doesn't just give answers",
+          "description": "Guides more than executes",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "coach"}
+        },
+        {
+          "value": "sparring_partner",
+          "label": "Sparring partner — I want pushback, challenge, devil's advocate",
+          "description": "Steel-mans alternatives, challenges assumptions",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "sparring_partner"}
+        },
+        {
+          "value": "creative_partner",
+          "label": "Creative partner — brings ideas I wouldn't think of, surprises me",
+          "description": "Divergent thinking, unexpected angles",
+          "maps_to": {"dimension": "ai.relationship_model", "value": "creative_partner"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "This is the second highest signal in this tier after experience level. Tool vs collaborator requires fundamentally different AI behavior. Note if they pick coach/sparring despite low experience — aspirational selection.",
+      "dimension": "ai.relationship_model",
+      "why_this_matters": "This directly shapes AI's default behavior — proactivity level, whether it pushes back, how much it volunteers vs waits to be asked."
+    },
+    {
+      "id": "t8_q04",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "When you're wrong about something, AI should...",
+      "type": "select",
+      "options": [
+        {
+          "value": "direct_correct",
+          "label": "Tell me directly — I want the truth, not cushioning",
+          "maps_to": {"dimension": "ai.correction_style", "value": "direct"}
+        },
+        {
+          "value": "acknowledge_then_correct",
+          "label": "Acknowledge what's right in my thinking, then correct the error",
+          "maps_to": {"dimension": "ai.correction_style", "value": "balanced"}
+        },
+        {
+          "value": "question_framing",
+          "label": "Ask questions that help me arrive at the correction myself",
+          "maps_to": {"dimension": "ai.correction_style", "value": "socratic"}
+        },
+        {
+          "value": "context_dependent",
+          "label": "Depends — small errors: just correct. Big errors: carefully.",
+          "maps_to": {"dimension": "ai.correction_style", "value": "context_dependent"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Correction preference often differs from stated preference — people who say 'direct' sometimes react badly to direct correction. Cross-reference with rejection sensitivity from tier 5.",
+      "dimension": "ai.correction_style",
+      "why_this_matters": "Nothing breaks trust faster than an AI that corrects you in a way that feels wrong. This gets the tone right."
+    },
+    {
+      "id": "t8_q05",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "AI confidently tells you something you suspect is wrong. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "push_back_immediately",
+          "label": "Push back immediately — I'll say 'I don't think that's right'",
+          "maps_to": {"dimension": "ai.hallucination_response", "value": "active_challenger"}
+        },
+        {
+          "value": "go_verify",
+          "label": "Go verify it first, then come back if I'm right",
+          "maps_to": {"dimension": "ai.hallucination_response", "value": "verify_first"}
+        },
+        {
+          "value": "note_uncertainty",
+          "label": "Note the uncertainty mentally but use it anyway unless stakes are high",
+          "maps_to": {"dimension": "ai.hallucination_response", "value": "pragmatic"}
+        },
+        {
+          "value": "trust_ai",
+          "label": "Probably trust the AI — it usually knows more than I do",
+          "maps_to": {"dimension": "ai.hallucination_response", "value": "deferential"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Deferential response is the most concerning for AI safety. Pragmatic is realistic and fine. Active challenger — AI should confirm uncertainty proactively rather than wait to be challenged.",
+      "dimension": "ai.hallucination_response",
+      "why_this_matters": "AI calibrates how strongly to signal its own uncertainty — more proactive hedging for users who tend toward deference."
+    },
+    {
+      "id": "t8_q06",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "AI that remembers everything about you — past conversations, preferences, mistakes, achievements — sounds...",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Terrifying — I'd rather start fresh every time",
+        "max_label": "Ideal — that's the whole point, continuity is everything",
+        "mid_label": "Useful within limits — I want control over what it remembers"
+      },
+      "skippable": false,
+      "meta_profiling": "Low scores indicate privacy-first preference — AI should be explicit about what it retains and offer easy deletion. High scores = maximize continuity features. Note if they clarify 'control' specifically.",
+      "dimension": "ai.memory_preference",
+      "why_this_matters": "Directly configures how aggressively Meport stores and uses your history — you set the dial."
+    },
+    {
+      "id": "t8_q07",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "How proactive do you want AI to be?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Reactive only — answer when asked, don't volunteer",
+        "max_label": "Highly proactive — notice things, flag risks, suggest before I ask",
+        "steps": [
+          {"value": 1, "label": "Strictly reactive — only when I ask"},
+          {"value": 2, "label": "Mostly reactive — occasional flags on critical things"},
+          {"value": 3, "label": "Balanced — proactive on important things, reactive otherwise"},
+          {"value": 4, "label": "Proactive — I like when it notices things I might miss"},
+          {"value": 5, "label": "Highly proactive — anticipate, suggest, flag, remind"}
+        ]
+      },
+      "skippable": false,
+      "meta_profiling": "Proactivity preference is one of the most important behavioral settings. Note if they answer 5 but also answered 'tool' in the role question — contradiction that needs reconciling.",
+      "dimension": "ai.proactivity",
+      "why_this_matters": "The core behavioral dial — sets whether AI waits to be asked or actively drives."
+    },
+    {
+      "id": "t8_q08",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Your ideal AI personality — what traits actually matter to you?",
+      "type": "multi_select",
+      "options": [
+        {"value": "direct", "label": "Direct — no hedging, no 'on the other hand', just the answer", "maps_to": {"dimension": "ai.personality", "value": "direct"}},
+        {"value": "curious", "label": "Curious — asks good questions, genuinely interested", "maps_to": {"dimension": "ai.personality", "value": "curious"}},
+        {"value": "warm", "label": "Warm — feels like talking to a human, not a machine", "maps_to": {"dimension": "ai.personality", "value": "warm"}},
+        {"value": "dry_humor", "label": "Dry humor — I appreciate wit, sarcasm, not taking itself too seriously", "maps_to": {"dimension": "ai.personality", "value": "dry_humor"}},
+        {"value": "honest", "label": "Radically honest — tells me what I need to hear, not what I want", "maps_to": {"dimension": "ai.personality", "value": "honest"}},
+        {"value": "precise", "label": "Precise — exact, careful with words, no waffle", "maps_to": {"dimension": "ai.personality", "value": "precise"}},
+        {"value": "efficient", "label": "Efficient — respects my time, no unnecessary words", "maps_to": {"dimension": "ai.personality", "value": "efficient"}},
+        {"value": "encouraging", "label": "Encouraging — recognizes effort, acknowledges progress", "maps_to": {"dimension": "ai.personality", "value": "encouraging"}},
+        {"value": "neutral", "label": "Neutral — no personality injection, just clean responses", "maps_to": {"dimension": "ai.personality", "value": "neutral"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Cluster patterns matter: direct + honest + efficient = no-BS preference. Warm + encouraging + curious = relationship-oriented. Neutral alone = tool mode consistent. Contradictions (warm + neutral) = needs clarification.",
+      "dimension": "ai.personality_preferences",
+      "why_this_matters": "AI adopts the tone and style that actually works for you — these traits become the behavioral filter."
+    },
+    {
+      "id": "t8_q09",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "When you're having a rough day and mention it to AI, you'd prefer...",
+      "type": "select",
+      "options": [
+        {
+          "value": "acknowledge_move_on",
+          "label": "Brief acknowledgment, then get back to work — I don't need emotional support from AI",
+          "maps_to": {"dimension": "ai.emotional_support", "value": "minimal"}
+        },
+        {
+          "value": "validate_first",
+          "label": "Acknowledge it properly before we continue — feeling heard matters",
+          "maps_to": {"dimension": "ai.emotional_support", "value": "moderate"}
+        },
+        {
+          "value": "check_in",
+          "label": "Ask if I want to talk about it or just continue — let me choose",
+          "maps_to": {"dimension": "ai.emotional_support", "value": "user_led"}
+        },
+        {
+          "value": "no_comment",
+          "label": "Not comment on it at all — just answer what I asked",
+          "maps_to": {"dimension": "ai.emotional_support", "value": "none"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "This question is deceptively important — getting emotional register wrong is one of the most jarring AI failures. Note if this conflicts with their warm/neutral personality preference.",
+      "dimension": "ai.emotional_support",
+      "why_this_matters": "AI won't ignore your wellbeing or force unwanted support — it matches your actual preference here."
+    },
+    {
+      "id": "t8_q10",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Topics where AI should NOT give opinions or push a perspective, even when asked",
+      "type": "multi_select",
+      "options": [
+        {"value": "politics", "label": "Politics and governance", "maps_to": {"dimension": "ai.opinion_limits", "value": "politics"}},
+        {"value": "religion", "label": "Religion and spirituality", "maps_to": {"dimension": "ai.opinion_limits", "value": "religion"}},
+        {"value": "personal_relationships", "label": "My personal relationships — who I should be with, how I should treat people", "maps_to": {"dimension": "ai.opinion_limits", "value": "relationships"}},
+        {"value": "parenting", "label": "Parenting choices", "maps_to": {"dimension": "ai.opinion_limits", "value": "parenting"}},
+        {"value": "diet_lifestyle", "label": "Diet and lifestyle choices", "maps_to": {"dimension": "ai.opinion_limits", "value": "lifestyle"}},
+        {"value": "career", "label": "My career choices — I want information, not judgment", "maps_to": {"dimension": "ai.opinion_limits", "value": "career"}},
+        {"value": "ethics_morality", "label": "Ethical and moral questions — I can reason through those myself", "maps_to": {"dimension": "ai.opinion_limits", "value": "ethics"}},
+        {"value": "none", "label": "None — I welcome AI perspectives on anything I ask", "maps_to": {"dimension": "ai.opinion_limits", "value": "open"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Hard limits reveal values and autonomy needs. People who select career/lifestyle limits are typically independent thinkers who don't want AI paternalism. Note combined with proactivity preference.",
+      "dimension": "ai.opinion_limits",
+      "why_this_matters": "AI respects your intellectual autonomy. These are your no-go zones — it provides information and analysis but holds its opinions."
+    },
+    {
+      "id": "t8_q11",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "AI gets significantly better at your specific job. You feel...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "excited",
+          "label": "Excited — more leverage, more output, I'll do more with AI alongside me",
+          "maps_to": {"dimension": "ai.replacement_attitude", "value": "augmentation_focused"}
+        },
+        {
+          "value": "curious_adapting",
+          "label": "Curious but adapting — I'll need to stay ahead of it, shift to higher-level work",
+          "maps_to": {"dimension": "ai.replacement_attitude", "value": "adaptive"}
+        },
+        {
+          "value": "concerned",
+          "label": "Genuinely concerned — the economics of my work could change in bad ways",
+          "maps_to": {"dimension": "ai.replacement_attitude", "value": "concerned"},
+          "triggers": ["t8_q11a"]
+        },
+        {
+          "value": "not_my_field",
+          "label": "Not relevant to my field — AI won't do what I do well enough",
+          "maps_to": {"dimension": "ai.replacement_attitude", "value": "insulated"}
+        },
+        {
+          "value": "complex",
+          "label": "Complex feelings — part excited, part unsettled",
+          "maps_to": {"dimension": "ai.replacement_attitude", "value": "ambivalent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "This is partly a future-orientation question. Excited/adaptive = high agency. Concerned = worth exploring but not dwelling. Insulated can be denial or genuine differentiation — hard to tell without domain context.",
+      "dimension": "ai.replacement_attitude",
+      "why_this_matters": "AI adjusts how it frames its own capabilities — not hiding them, but framing augmentation honestly rather than threatening."
+    },
+    {
+      "id": "t8_q11a",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "What part of your work are you most worried AI could displace?",
+      "type": "open_text",
+      "is_followup": true,
+      "parent_question": "t8_q11",
+      "placeholder": "Being honest here helps AI focus on areas where your human judgment genuinely adds value vs where automation is coming regardless",
+      "skippable": true,
+      "meta_profiling": "Specificity of concern reveals self-awareness about the real threat vs vague AI anxiety. Specific answers warrant honest discussion.",
+      "dimension": "ai.displacement_concern",
+      "why_this_matters": "AI can help you identify and develop the aspects of your work that are genuinely hard to automate — rather than pretending the concern doesn't exist."
+    },
+    {
+      "id": "t8_q12",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Have you ever written custom instructions for an AI — a system prompt, a 'how to talk to me' section, anything like that?",
+      "type": "select",
+      "options": [
+        {
+          "value": "yes_advanced",
+          "label": "Yes — I've written detailed prompts or system instructions",
+          "maps_to": {"dimension": "ai.customization_experience", "value": "advanced"}
+        },
+        {
+          "value": "yes_basic",
+          "label": "Yes — basic stuff like 'be concise' or 'always respond in X language'",
+          "maps_to": {"dimension": "ai.customization_experience", "value": "basic"}
+        },
+        {
+          "value": "no_but_want",
+          "label": "No, but that's basically what I'm doing right now with Meport",
+          "maps_to": {"dimension": "ai.customization_experience", "value": "first_time"}
+        },
+        {
+          "value": "no",
+          "label": "No — I didn't know that was a thing",
+          "maps_to": {"dimension": "ai.customization_experience", "value": "none"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Advanced customization experience means they'll appreciate the Meport output and know how to use it well. None/first-time = need to explain what the export does.",
+      "dimension": "ai.customization_experience",
+      "why_this_matters": "Determines how Meport explains the export — technical detail for experienced users, step-by-step for first-timers."
+    },
+    {
+      "id": "t8_q13",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Which AI platforms do you use regularly?",
+      "type": "multi_select",
+      "options": [
+        {"value": "chatgpt", "label": "ChatGPT (OpenAI)", "maps_to": {"dimension": "ai.platforms", "value": "chatgpt"}},
+        {"value": "claude", "label": "Claude (Anthropic)", "maps_to": {"dimension": "ai.platforms", "value": "claude"}},
+        {"value": "gemini", "label": "Gemini (Google)", "maps_to": {"dimension": "ai.platforms", "value": "gemini"}},
+        {"value": "copilot", "label": "GitHub Copilot / Cursor / Windsurf", "maps_to": {"dimension": "ai.platforms", "value": "coding_ai"}},
+        {"value": "perplexity", "label": "Perplexity", "maps_to": {"dimension": "ai.platforms", "value": "perplexity"}},
+        {"value": "midjourney_dalle", "label": "Midjourney / DALL-E / image tools", "maps_to": {"dimension": "ai.platforms", "value": "image_ai"}},
+        {"value": "custom_gpts", "label": "Custom GPTs or specific AI apps", "maps_to": {"dimension": "ai.platforms", "value": "custom"}},
+        {"value": "local_models", "label": "Local models (Ollama, LM Studio)", "maps_to": {"dimension": "ai.platforms", "value": "local"}},
+        {"value": "none_regular", "label": "None regularly — still getting started", "maps_to": {"dimension": "ai.platforms", "value": "minimal"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Platform mix reveals sophistication and workflow integration. Coding AI + local models = advanced engineer. ChatGPT only = mass market user. Multiple platforms = platform-agnostic power user.",
+      "dimension": "ai.platforms",
+      "why_this_matters": "Meport generates export files optimized for the platforms you actually use — no point creating a Claude system prompt if you only use ChatGPT."
+    },
+    {
+      "id": "t8_q14",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "In 5 years, AI in your life will be...",
+      "type": "open_text",
+      "placeholder": "What do you actually think? Not what you're supposed to say — what do you expect and hope for?",
+      "skippable": true,
+      "meta_profiling": "The richest free-text in the tier. Utopian, dystopian, pragmatic, or dismissive responses all reveal deep relationship to technology and change. Note: specific predictions vs vague hopes, individual vs societal framing.",
+      "dimension": "ai.future_vision",
+      "why_this_matters": "Reveals underlying beliefs and concerns about AI that shape how you want it to behave today — and what you're ultimately building toward."
+    },
+    {
+      "id": "t8_q15",
+      "tier": 8,
+      "tier_name": "AI Relationship",
+      "question": "Looking back at this whole profiling session — anything you want to add, correct, or emphasize?",
+      "type": "open_text",
+      "placeholder": "Anything the questions missed, something you answered wrong, or a final thought. This is your last override before your profile is compiled.",
+      "skippable": true,
+      "meta_profiling": "Post-profiling reflection captures anything the structured questions missed. Also reveals their overall attitude to the process — engaged vs exhausted vs skeptical. Note if they correct a previous answer (high self-monitoring) or add something entirely new (dimensions we missed).",
+      "dimension": "ai.final_override",
+      "why_this_matters": "Your words here go directly into the profile as a top-priority instruction. Anything you say overrides what the structured questions inferred."
+    }
+  ]
+}

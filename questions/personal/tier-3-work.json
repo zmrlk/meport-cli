@@ -1,0 +1,854 @@
+{
+  "tier": 3,
+  "tier_name": "Work & Productivity",
+  "tier_intro": "This is where AI becomes a real productivity tool, not just a search engine. How you work, when you're sharp, what kills your flow, and how you actually get things done. No judgment — everyone's different. 5-7 minutes.",
+  "tier_complete": {
+    "headline": "Work profile locked.",
+    "body": "AI now knows your energy rhythms, task patterns, and what actually gets you moving. Task management, scheduling, and project help just got a lot smarter. Next up: the deep personality layer — the most interesting tier."
+  },
+  "questions": [
+    {
+      "id": "t3_q01",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Your most productive day last week — describe it in one sentence. Which of these comes closest?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "sprinter",
+          "label": "Locked in for 4 hours, crushed a huge thing, then was done for the day",
+          "maps_to": {"dimension": "work.energy_archetype", "value": "sprinter"}
+        },
+        {
+          "value": "steady",
+          "label": "Consistent pace all day — no huge highs, just solid output",
+          "maps_to": {"dimension": "work.energy_archetype", "value": "steady"}
+        },
+        {
+          "value": "burst_rest",
+          "label": "On for 90 minutes, break, repeat — rhythm of focused bursts",
+          "maps_to": {"dimension": "work.energy_archetype", "value": "burst_rest"}
+        },
+        {
+          "value": "reactive",
+          "label": "Mostly reactive — handled what came up and did it well",
+          "maps_to": {"dimension": "work.energy_archetype", "value": "reactive"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Energy archetype is a high-level signal that shapes task scheduling, session length recommendations, and workload advice across all AI interactions.",
+      "dimension": "work.energy_archetype",
+      "why_this_matters": "AI schedules recommendations and task pacing to match your natural weekly rhythm."
+    },
+    {
+      "id": "t3_q02",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "When during the day are you genuinely at your best — sharpest thinking, highest output?",
+      "type": "select",
+      "options": [
+        {
+          "value": "early_morning",
+          "label": "Early morning (6-9am) — brain is clearest before the world wakes up",
+          "maps_to": {"dimension": "work.peak_hours", "value": "early_morning"}
+        },
+        {
+          "value": "late_morning",
+          "label": "Mid-morning (9am-12pm)",
+          "maps_to": {"dimension": "work.peak_hours", "value": "late_morning"}
+        },
+        {
+          "value": "afternoon",
+          "label": "Afternoon (1pm-5pm)",
+          "maps_to": {"dimension": "work.peak_hours", "value": "afternoon"}
+        },
+        {
+          "value": "evening",
+          "label": "Evening (5pm-10pm) — I come alive later",
+          "maps_to": {"dimension": "work.peak_hours", "value": "evening"}
+        },
+        {
+          "value": "late_night",
+          "label": "Late night — when everything is quiet",
+          "maps_to": {"dimension": "work.peak_hours", "value": "night_owl"}
+        },
+        {
+          "value": "variable",
+          "label": "Varies by day — no consistent peak",
+          "maps_to": {"dimension": "work.peak_hours", "value": "variable"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.peak_hours",
+      "why_this_matters": "AI suggests timing for tasks and knows when you're likely to be sharp vs winding down."
+    },
+    {
+      "id": "t3_q03",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Before starting a big project, you...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "break_into_tasks",
+          "label": "Break it into every task I can think of before I touch anything",
+          "maps_to": {"dimension": "work.task_granularity", "value": "front_loaded_planning"}
+        },
+        {
+          "value": "rough_phases",
+          "label": "Sketch rough phases — enough to start, I'll detail as I go",
+          "maps_to": {"dimension": "work.task_granularity", "value": "iterative_planning"}
+        },
+        {
+          "value": "first_step_only",
+          "label": "Identify the first concrete step — planning too far ahead feels wasteful",
+          "maps_to": {"dimension": "work.task_granularity", "value": "next_step_only"}
+        },
+        {
+          "value": "just_start",
+          "label": "Just start — the plan reveals itself once you're inside it",
+          "maps_to": {"dimension": "work.task_granularity", "value": "no_upfront_planning"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Task granularity determines how AI should present project breakdowns — full Gantt-style decomposition vs two-step next actions.",
+      "dimension": "work.task_granularity",
+      "why_this_matters": "AI generates task breakdowns at the depth you actually use, not an overwhelming 50-item list."
+    },
+    {
+      "id": "t3_q04",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Your todo list typically covers...",
+      "type": "select",
+      "options": [
+        {
+          "value": "today_only",
+          "label": "Today — tomorrow will figure itself out",
+          "maps_to": {"dimension": "work.planning_horizon", "value": "day"}
+        },
+        {
+          "value": "this_week",
+          "label": "This week — I have a rough plan for the next 5 days",
+          "maps_to": {"dimension": "work.planning_horizon", "value": "week"}
+        },
+        {
+          "value": "this_month",
+          "label": "This month — I work in monthly sprints",
+          "maps_to": {"dimension": "work.planning_horizon", "value": "month"}
+        },
+        {
+          "value": "quarter",
+          "label": "Next quarter — I think in 90-day cycles",
+          "maps_to": {"dimension": "work.planning_horizon", "value": "quarter"}
+        },
+        {
+          "value": "year_or_more",
+          "label": "Year or more — I have a roadmap in my head",
+          "maps_to": {"dimension": "work.planning_horizon", "value": "year_plus"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.planning_horizon",
+      "why_this_matters": "AI calibrates goal-setting and project suggestions to how far ahead you naturally think."
+    },
+    {
+      "id": "t3_q05",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "You have a deadline in 3 days and you haven't started. You're most likely to...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "deadline_driven",
+          "label": "Start today — this is normal for me. Deadline pressure is my fuel.",
+          "maps_to": {"dimension": "work.deadline_behavior", "value": "deadline_driven"},
+          "triggers": ["t3_q05a"]
+        },
+        {
+          "value": "structured_plan",
+          "label": "Break it into daily milestones and start immediately",
+          "maps_to": {"dimension": "work.deadline_behavior", "value": "structured_planner"}
+        },
+        {
+          "value": "stress_paralysis",
+          "label": "Feel the pressure but have trouble starting — then cram at the end",
+          "maps_to": {"dimension": "work.deadline_behavior", "value": "stress_paralysis"},
+          "triggers": ["t3_q05b"]
+        },
+        {
+          "value": "started_already",
+          "label": "I'd already be halfway done — I can't leave things to the last minute",
+          "maps_to": {"dimension": "work.deadline_behavior", "value": "early_starter"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Deadline behavior is one of the most predictive work dimensions. Stress_paralysis pattern deserves a follow-up for initiation strategies.",
+      "dimension": "work.deadline_behavior",
+      "why_this_matters": "AI knows whether to front-load urgency or help you build structure to avoid last-minute crunches."
+    },
+    {
+      "id": "t3_q05a",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "When you're running on deadline pressure — quality outcome?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t3_q05",
+      "options": [
+        {
+          "value": "great_results",
+          "label": "Often my best work — adrenaline sharpens me",
+          "maps_to": {"dimension": "work.deadline_quality", "value": "improves_under_pressure"}
+        },
+        {
+          "value": "good_enough",
+          "label": "Good enough, but I know I could do better with more time",
+          "maps_to": {"dimension": "work.deadline_quality", "value": "adequate"}
+        },
+        {
+          "value": "regret_it",
+          "label": "Usually wish I'd started earlier — quality takes a hit",
+          "maps_to": {"dimension": "work.deadline_quality", "value": "degrades"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.deadline_quality",
+      "why_this_matters": null
+    },
+    {
+      "id": "t3_q05b",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "What helps you break out of that starting paralysis?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t3_q05",
+      "options": [
+        {
+          "value": "someone_watching",
+          "label": "Having someone else around — body doubling works for me",
+          "maps_to": {"dimension": "work.initiation_aid", "value": "body_doubling"}
+        },
+        {
+          "value": "micro_task",
+          "label": "Breaking it into one tiny first step I can't say no to",
+          "maps_to": {"dimension": "work.initiation_aid", "value": "micro_commitment"}
+        },
+        {
+          "value": "environment_change",
+          "label": "Changing location — different space, different brain",
+          "maps_to": {"dimension": "work.initiation_aid", "value": "environment_shift"}
+        },
+        {
+          "value": "accountability",
+          "label": "Telling someone I'll have it done by X",
+          "maps_to": {"dimension": "work.initiation_aid", "value": "public_commitment"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "body_doubling is a strong ADHD-associated coping strategy. Note for Tier 5 flag.",
+      "dimension": "work.initiation_aid",
+      "why_this_matters": null
+    },
+    {
+      "id": "t3_q06",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Your ideal work setup — choose the one that sounds best for actually getting things done:",
+      "type": "select",
+      "options": [
+        {
+          "value": "solo",
+          "label": "Solo, deep focus — no interruptions, full ownership",
+          "maps_to": {"dimension": "work.collaboration_preference", "value": "independent"}
+        },
+        {
+          "value": "async_team",
+          "label": "Async team — I like knowing others are involved, but on my schedule",
+          "maps_to": {"dimension": "work.collaboration_preference", "value": "async_collaborative"}
+        },
+        {
+          "value": "sync_pair",
+          "label": "Tight real-time pairing — working side by side with one person",
+          "maps_to": {"dimension": "work.collaboration_preference", "value": "sync_pair"}
+        },
+        {
+          "value": "team_energy",
+          "label": "Group energy — I'm better in a room with people working around me",
+          "maps_to": {"dimension": "work.collaboration_preference", "value": "group_presence"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.collaboration_preference",
+      "why_this_matters": "AI adapts recommendations for solo workflows vs team coordination needs."
+    },
+    {
+      "id": "t3_q07",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "New productivity app — everyone's raving about it, Notion/Linear/Obsidian-level hype. Your instinct?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "try_it_immediately",
+          "label": "Try it immediately — I'm always looking for a better setup",
+          "maps_to": {"dimension": "work.tool_philosophy", "value": "early_adopter"}
+        },
+        {
+          "value": "read_reviews_first",
+          "label": "Read a few reviews, check if it actually solves a problem I have",
+          "maps_to": {"dimension": "work.tool_philosophy", "value": "deliberate_adopter"}
+        },
+        {
+          "value": "skeptical",
+          "label": "Skeptical — I've been burned by tool-switching overhead too many times",
+          "maps_to": {"dimension": "work.tool_philosophy", "value": "conservative"}
+        },
+        {
+          "value": "wait_and_see",
+          "label": "Wait 6 months — if it's still around and people still love it, then I'll look",
+          "maps_to": {"dimension": "work.tool_philosophy", "value": "late_adopter"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Tool philosophy affects how AI recommends new tools and systems. Early adopter = mention promising tools. Conservative = only suggest when current tool clearly failing.",
+      "dimension": "work.tool_philosophy",
+      "why_this_matters": "AI knows whether to suggest new tools or help you get more out of what you already use."
+    },
+    {
+      "id": "t3_q08",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "After finishing a project, your notes and documentation look like...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "thorough_docs",
+          "label": "Thorough — I write things up properly so future-me doesn't suffer",
+          "maps_to": {"dimension": "work.documentation_habit", "value": "high"}
+        },
+        {
+          "value": "key_points",
+          "label": "Key points and lessons — enough to remember what mattered",
+          "maps_to": {"dimension": "work.documentation_habit", "value": "minimal"}
+        },
+        {
+          "value": "nothing",
+          "label": "Nothing — the work is done, I move on",
+          "maps_to": {"dimension": "work.documentation_habit", "value": "low"}
+        },
+        {
+          "value": "only_if_complex",
+          "label": "Only if it was complex enough to warrant it",
+          "maps_to": {"dimension": "work.documentation_habit", "value": "selective"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Documentation habit affects whether AI should produce written outputs proactively (for low-doc users) or keep things in flowing conversation (for high-doc users who capture themselves).",
+      "dimension": "work.documentation_habit",
+      "why_this_matters": "AI knows whether to proactively produce summaries and notes or trust you to capture what matters."
+    },
+    {
+      "id": "t3_q09",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "You're deep in work, someone interrupts. You:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "devastating",
+          "label": "It takes me 20+ minutes to recover — interruptions are expensive for me",
+          "maps_to": {"dimension": "work.context_switching_cost", "value": "very_high"}
+        },
+        {
+          "value": "annoying_but_ok",
+          "label": "Annoying but I get back within 5 minutes",
+          "maps_to": {"dimension": "work.context_switching_cost", "value": "moderate"}
+        },
+        {
+          "value": "handles_well",
+          "label": "Handle it, write a quick note of where I was, resume",
+          "maps_to": {"dimension": "work.context_switching_cost", "value": "low"}
+        },
+        {
+          "value": "sometimes_welcome",
+          "label": "Sometimes welcome — a forced break can actually reset me",
+          "maps_to": {"dimension": "work.context_switching_cost", "value": "variable"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Very high context-switching cost combined with hard-to-start patterns = executive function compound signal. Note for Tier 5 ADHD flag.",
+      "dimension": "work.context_switching_cost",
+      "why_this_matters": "AI knows whether to batch things before surfacing them or treat interruptions as acceptable."
+    },
+    {
+      "id": "t3_q10",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "You do the same 3-click thing every single day. AI could automate it in 10 minutes. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "automate_everything",
+          "label": "Automate it immediately — every repeated manual task is debt",
+          "maps_to": {"dimension": "work.automation_tendency", "value": "high"}
+        },
+        {
+          "value": "automate_if_worth_it",
+          "label": "Depends how complex the setup is vs time saved",
+          "maps_to": {"dimension": "work.automation_tendency", "value": "roi_based"}
+        },
+        {
+          "value": "keep_manual",
+          "label": "Keep it manual — automations break and then I'm stuck",
+          "maps_to": {"dimension": "work.automation_tendency", "value": "low"}
+        },
+        {
+          "value": "intend_never_do",
+          "label": "Intend to automate it but somehow never get around to it",
+          "maps_to": {"dimension": "work.automation_tendency", "value": "aspirational_only"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Automation tendency reveals relationship with technical friction and long-term thinking. High automators value AI as infrastructure, not just assistant.",
+      "dimension": "work.automation_tendency",
+      "why_this_matters": "Determines whether AI should proactively suggest automation opportunities or focus on manual execution."
+    },
+    {
+      "id": "t3_q11",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Plot your energy through a typical day. Which shape fits best?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "morning_peak_drop",
+          "label": "High in the morning, drops after lunch, recovers slightly evening",
+          "maps_to": {"dimension": "work.energy_curve", "value": "morning_peak"}
+        },
+        {
+          "value": "slow_build",
+          "label": "Slow start, builds through the day, peaks afternoon/evening",
+          "maps_to": {"dimension": "work.energy_curve", "value": "slow_riser"}
+        },
+        {
+          "value": "flat",
+          "label": "Relatively flat — consistent energy throughout",
+          "maps_to": {"dimension": "work.energy_curve", "value": "flat"}
+        },
+        {
+          "value": "spikes_variable",
+          "label": "Unpredictable spikes — I can't forecast when I'll be sharp",
+          "maps_to": {"dimension": "work.energy_curve", "value": "variable_spikes"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Energy curve combined with peak_hours gives full daily profile. Variable spikes + unpredictable = adaptive scheduling needed rather than fixed blocks.",
+      "dimension": "work.energy_curve",
+      "why_this_matters": "AI matches task type to energy level — deep thinking work when sharp, admin when not."
+    },
+    {
+      "id": "t3_q12",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "2 hours into focused work. You need a break. Your ideal break looks like...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "complete_switch",
+          "label": "Complete mental switch — walk, gym, anything non-screen",
+          "maps_to": {"dimension": "work.break_pattern", "value": "physical_reset"}
+        },
+        {
+          "value": "low_intensity_screen",
+          "label": "Low-intensity screen — YouTube, social, something passive",
+          "maps_to": {"dimension": "work.break_pattern", "value": "passive_screen"}
+        },
+        {
+          "value": "short_and_back",
+          "label": "5 minutes max — just enough to reset, then back",
+          "maps_to": {"dimension": "work.break_pattern", "value": "micro_break"}
+        },
+        {
+          "value": "hard_to_stop",
+          "label": "I rarely take proper breaks — I either keep going or crash",
+          "maps_to": {"dimension": "work.break_pattern", "value": "all_or_nothing"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "All-or-nothing break pattern + burst-rest archetype = unsustainable cycle warning. Note without flagging to user.",
+      "dimension": "work.break_pattern",
+      "why_this_matters": "AI suggests break types that actually restore you vs ones that extend procrastination."
+    },
+    {
+      "id": "t3_q13",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "How do you actually keep track of what needs doing? (Be honest — your real system, not the ideal one)",
+      "type": "select",
+      "options": [
+        {
+          "value": "dedicated_app",
+          "label": "Dedicated task manager — Notion, Todoist, Linear, etc.",
+          "maps_to": {"dimension": "work.task_system", "value": "dedicated_tool"}
+        },
+        {
+          "value": "notes_app",
+          "label": "Notes app or document — Obsidian, Apple Notes, a running doc",
+          "maps_to": {"dimension": "work.task_system", "value": "notes_based"}
+        },
+        {
+          "value": "calendar",
+          "label": "Calendar — if it's not scheduled it doesn't exist",
+          "maps_to": {"dimension": "work.task_system", "value": "calendar_based"}
+        },
+        {
+          "value": "mental",
+          "label": "Mental list — it's all in my head and it mostly works",
+          "maps_to": {"dimension": "work.task_system", "value": "mental"}
+        },
+        {
+          "value": "nothing_consistent",
+          "label": "Nothing consistent — I'm looking for a better system",
+          "maps_to": {"dimension": "work.task_system", "value": "no_system"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Mental-only task management + high task load = spill risk. Note for proactive reminders offer. Calendar-based = AI should suggest time-blocking.",
+      "dimension": "work.task_system",
+      "why_this_matters": "AI works with your existing system instead of trying to impose a new one."
+    },
+    {
+      "id": "t3_q14",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Your ideal way to align with someone on something — a decision, a plan, a piece of work?",
+      "type": "select",
+      "options": [
+        {
+          "value": "async_doc",
+          "label": "Async — shared doc, comments, no meeting needed",
+          "maps_to": {"dimension": "work.meeting_preference", "value": "async_preferred"}
+        },
+        {
+          "value": "short_sync",
+          "label": "Short call or chat — 15 minutes sync beats 3 days of back-and-forth",
+          "maps_to": {"dimension": "work.meeting_preference", "value": "short_sync"}
+        },
+        {
+          "value": "long_deep_conversation",
+          "label": "Proper conversation — I think better in dialogue",
+          "maps_to": {"dimension": "work.meeting_preference", "value": "deep_sync"}
+        },
+        {
+          "value": "depends",
+          "label": "Depends on complexity — quick = async, strategic = sync",
+          "maps_to": {"dimension": "work.meeting_preference", "value": "adaptive"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.meeting_preference",
+      "why_this_matters": "AI suggests the right communication mode for different types of collaboration."
+    },
+    {
+      "id": "t3_q15",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "You submit work. When do you want feedback?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "immediate",
+          "label": "Immediately — I'm still in context, fast feedback is most useful",
+          "maps_to": {"dimension": "work.feedback_loop", "value": "immediate"}
+        },
+        {
+          "value": "few_hours",
+          "label": "Few hours — give it time to breathe, then review",
+          "maps_to": {"dimension": "work.feedback_loop", "value": "same_day"}
+        },
+        {
+          "value": "when_ready",
+          "label": "Whenever the reviewer is ready — I'd rather have good feedback than fast",
+          "maps_to": {"dimension": "work.feedback_loop", "value": "quality_over_speed"}
+        },
+        {
+          "value": "iteration_based",
+          "label": "In rounds — quick initial reaction, then detailed when it's more developed",
+          "maps_to": {"dimension": "work.feedback_loop", "value": "iterative"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Feedback loop preference affects how AI delivers reviews. Immediate = AI should always respond to shared work right away. Quality-over-speed = AI can take time to compose thorough feedback.",
+      "dimension": "work.feedback_loop",
+      "why_this_matters": "AI times feedback delivery to match when you're most receptive and still engaged."
+    },
+    {
+      "id": "t3_q16",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "The project is 90% done. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "ship_it",
+          "label": "Ship the 90% — done and imperfect beats perfect and delayed",
+          "maps_to": {"dimension": "work.completion_pattern", "value": "pragmatic_shipper"}
+        },
+        {
+          "value": "finish_properly",
+          "label": "Do the last 10% properly — 90% is not done",
+          "maps_to": {"dimension": "work.completion_pattern", "value": "strong_completer"}
+        },
+        {
+          "value": "lose_interest",
+          "label": "Lose momentum — the exciting parts are done, the last 10% drags",
+          "maps_to": {"dimension": "work.completion_pattern", "value": "novelty_seeker"},
+          "triggers": ["t3_q16a"]
+        },
+        {
+          "value": "perfectionism_kicks_in",
+          "label": "Keep finding things to improve — 90% becomes 95% becomes 'still not ready'",
+          "maps_to": {"dimension": "work.completion_pattern", "value": "perfectionist"},
+          "triggers": ["t3_q16b"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "novelty_seeker + perfectionist completion patterns are both common ADHD-adjacent patterns. Note compound with t4_q10 perfectionism and t2_q13 attention patterns.",
+      "dimension": "work.completion_pattern",
+      "why_this_matters": "AI knows how to help you actually ship — not just start."
+    },
+    {
+      "id": "t3_q16a",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "What's the best external lever to get you through that last 10%?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t3_q16",
+      "options": [
+        {
+          "value": "deadline",
+          "label": "Hard deadline — make it real and I'll do it",
+          "maps_to": {"dimension": "work.completion_lever", "value": "deadline"}
+        },
+        {
+          "value": "audience",
+          "label": "Someone waiting for it — accountability to another person",
+          "maps_to": {"dimension": "work.completion_lever", "value": "audience"}
+        },
+        {
+          "value": "reframe_as_small",
+          "label": "Breaking the 10% into tiny steps — make the finish line visible",
+          "maps_to": {"dimension": "work.completion_lever", "value": "micro_steps"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.completion_lever",
+      "why_this_matters": null
+    },
+    {
+      "id": "t3_q16b",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "How do you know when something is 'done enough' to ship?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t3_q16",
+      "options": [
+        {
+          "value": "external_deadline",
+          "label": "Hard deadline forces my hand",
+          "maps_to": {"dimension": "work.done_criteria", "value": "deadline_forced"}
+        },
+        {
+          "value": "someone_else_says",
+          "label": "Someone else tells me it's good enough",
+          "maps_to": {"dimension": "work.done_criteria", "value": "external_validation"}
+        },
+        {
+          "value": "checklist",
+          "label": "I have a mental checklist — if it passes, it ships",
+          "maps_to": {"dimension": "work.done_criteria", "value": "internal_checklist"}
+        },
+        {
+          "value": "still_figuring_out",
+          "label": "Honestly still figuring this out",
+          "maps_to": {"dimension": "work.done_criteria", "value": "undefined"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "work.done_criteria",
+      "why_this_matters": null
+    },
+    {
+      "id": "t3_q17",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "Your ideal work environment. What matters most?",
+      "type": "multi_select",
+      "instruction": "Pick up to 3",
+      "options": [
+        {
+          "value": "silence",
+          "label": "Quiet — low noise or silence",
+          "maps_to": {"dimension": "work.workspace", "value": "silence"}
+        },
+        {
+          "value": "music",
+          "label": "Music or ambient sound — specific type matters",
+          "maps_to": {"dimension": "work.workspace", "value": "ambient_audio"}
+        },
+        {
+          "value": "natural_light",
+          "label": "Natural light — windows, outdoors, daylight",
+          "maps_to": {"dimension": "work.workspace", "value": "natural_light"}
+        },
+        {
+          "value": "private",
+          "label": "Physical privacy — I can't think when people walk past me",
+          "maps_to": {"dimension": "work.workspace", "value": "privacy"}
+        },
+        {
+          "value": "visible_progress",
+          "label": "Visible progress — checklist, board, something that shows I'm moving",
+          "maps_to": {"dimension": "work.workspace", "value": "visible_progress"}
+        },
+        {
+          "value": "flexibility",
+          "label": "Flexibility — I rotate between locations, one spot kills me",
+          "maps_to": {"dimension": "work.workspace", "value": "location_variety"}
+        }
+      ],
+      "max_selections": 3,
+      "skippable": true,
+      "meta_profiling": "Workspace preferences are surprisingly stable personality indicators. Privacy + silence = introvert peak performance. Ambient audio + flexibility = stimulation-seeking.",
+      "dimension": "work.workspace",
+      "why_this_matters": "AI can recommend and describe optimal environments when you're planning focus sessions."
+    },
+    {
+      "id": "t3_q18",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "It's 8pm, you get a work message that could wait but you'd know about it. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "respond_immediately",
+          "label": "Respond immediately — it'll take 2 minutes and then it's done",
+          "maps_to": {"dimension": "work.work_life_boundary", "value": "none"}
+        },
+        {
+          "value": "read_then_decide",
+          "label": "Read it, decide if it's urgent, respond only if it is",
+          "maps_to": {"dimension": "work.work_life_boundary", "value": "selective"}
+        },
+        {
+          "value": "see_tomorrow",
+          "label": "See it tomorrow — evenings are my time",
+          "maps_to": {"dimension": "work.work_life_boundary", "value": "strict"}
+        },
+        {
+          "value": "depends_period",
+          "label": "Depends where I am in a project — crunch mode = always on, normal = off",
+          "maps_to": {"dimension": "work.work_life_boundary", "value": "project_dependent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Work-life boundary is both a preference and a health signal. No boundary + high work intensity = burnout risk indicator. Note for long-term pacing recommendations.",
+      "dimension": "work.work_life_boundary",
+      "why_this_matters": "AI respects your boundaries around personal time — or helps you build them if you want that."
+    },
+    {
+      "id": "t3_q19",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "When AI helps you with a task, which mode feels most natural?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "tell_me_what_to_do",
+          "label": "Tell me the steps and I'll execute — just give me the playbook",
+          "maps_to": {"dimension": "work.ai_assistance_mode", "value": "directive_execution"}
+        },
+        {
+          "value": "do_it_together",
+          "label": "Work through it together — I want to be involved in the thinking",
+          "maps_to": {"dimension": "work.ai_assistance_mode", "value": "collaborative"}
+        },
+        {
+          "value": "you_do_it",
+          "label": "Draft a complete output and I'll review and edit",
+          "maps_to": {"dimension": "work.ai_assistance_mode", "value": "ai_first_human_reviews"}
+        },
+        {
+          "value": "give_me_options",
+          "label": "Give me options and I'll pick and refine",
+          "maps_to": {"dimension": "work.ai_assistance_mode", "value": "options_then_refine"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Strongest single indicator for AI collaboration style. ai_first_human_reviews = high delegation comfort. collaborative = AI as thinking partner not tool.",
+      "dimension": "work.ai_assistance_mode",
+      "why_this_matters": "Sets the fundamental dynamic of how you and AI divide labor."
+    },
+    {
+      "id": "t3_q20",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "You've been sitting on a task for a week without starting. The real reason is usually...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "not_clear_enough",
+          "label": "Not clear enough — I don't know exactly what 'done' looks like",
+          "maps_to": {"dimension": "work.procrastination_driver", "value": "ambiguity"}
+        },
+        {
+          "value": "feels_overwhelming",
+          "label": "It feels too big — I don't know where to start",
+          "maps_to": {"dimension": "work.procrastination_driver", "value": "overwhelm"}
+        },
+        {
+          "value": "not_interesting",
+          "label": "It's boring and I keep finding more interesting things",
+          "maps_to": {"dimension": "work.procrastination_driver", "value": "boredom"}
+        },
+        {
+          "value": "fear_of_bad_result",
+          "label": "Fear of doing it wrong — I put it off because I might fail",
+          "maps_to": {"dimension": "work.procrastination_driver", "value": "performance_anxiety"}
+        },
+        {
+          "value": "external_dependency",
+          "label": "Waiting on something or someone else — not fully in my control",
+          "maps_to": {"dimension": "work.procrastination_driver", "value": "external_block"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Procrastination driver is the most actionable dimension for AI to address. Overwhelm = smaller steps. Ambiguity = clearer definition. Boredom = gamification. Performance anxiety = lower stakes framing.",
+      "dimension": "work.procrastination_driver",
+      "why_this_matters": "AI addresses the real reason tasks stall — not just the symptom."
+    },
+    {
+      "id": "t3_q21",
+      "tier": 3,
+      "tier_name": "Work & Productivity",
+      "question": "When you're doing your best work, what's the single most important ingredient?",
+      "type": "open_text",
+      "placeholder": "Describe what 'perfect working conditions' looks like for you (2-3 sentences max)",
+      "skippable": true,
+      "meta_profiling": "Open text response style here is itself a signal. Very short = low verbosity. Detailed + organized = structured thinker. Stream-of-consciousness = verbal processor.",
+      "dimension": "work.ideal_conditions",
+      "why_this_matters": "Your words, not a dropdown. This goes directly into your AI profile as-is."
+    }
+  ]
+}

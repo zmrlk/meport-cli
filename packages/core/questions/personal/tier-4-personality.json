@@ -1,0 +1,812 @@
+{
+  "tier": 4,
+  "tier_name": "Personality & Values",
+  "tier_intro": "The deepest layer. Not a clinical assessment — a practical personality map that tells AI how to actually treat you as a human. What motivates you, how you handle stress, how you relate to risk and change. Real questions that get at real answers. 6-8 minutes.",
+  "tier_complete": {
+    "headline": "Full personality profile built.",
+    "body": "This is the layer most tools skip entirely. AI now has a complete picture of you — not just preferences, but how you think, work, and navigate the world. Your profile is ready to export. One profile, any AI platform."
+  },
+  "questions": [
+    {
+      "id": "t4_q01",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Friday night, zero plans, zero obligations. Your ideal scenario?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "people",
+          "label": "Call someone, go out, be around people — recharge through connection",
+          "maps_to": {"dimension": "personality.extraversion", "value": "high"},
+          "big_five": "E+"
+        },
+        {
+          "value": "small_group",
+          "label": "One or two close people — meaningful conversation over noise",
+          "maps_to": {"dimension": "personality.extraversion", "value": "moderate"},
+          "big_five": "E~"
+        },
+        {
+          "value": "solo_recharge",
+          "label": "Alone time — solo project, show, book. Complete recharge.",
+          "maps_to": {"dimension": "personality.extraversion", "value": "low"},
+          "big_five": "E-"
+        },
+        {
+          "value": "depends_week",
+          "label": "Depends entirely on how the week went",
+          "maps_to": {"dimension": "personality.extraversion", "value": "adaptive"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Classic extraversion scenario — response time and length give secondary signals. Also note: if they said 'depends on week' — this is a self-aware introvert or ambivert.",
+      "dimension": "personality.extraversion",
+      "why_this_matters": "Social energy preferences affect how AI engages — does it create space or fill it?"
+    },
+    {
+      "id": "t4_q02",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "After a full day of socializing — meeting people, presentations, group work — you feel...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "energized",
+          "label": "Energized — people fuel me",
+          "maps_to": {"dimension": "personality.social_battery", "value": "extrovert"}
+        },
+        {
+          "value": "satisfied_tired",
+          "label": "Satisfied but ready for quiet — good day, now I need to recharge alone",
+          "maps_to": {"dimension": "personality.social_battery", "value": "ambivert"}
+        },
+        {
+          "value": "drained",
+          "label": "Drained — even if it went well, I need solo time to recover",
+          "maps_to": {"dimension": "personality.social_battery", "value": "introvert"}
+        },
+        {
+          "value": "depends_people",
+          "label": "Depends entirely on who I was with",
+          "maps_to": {"dimension": "personality.social_battery", "value": "selective"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Social battery combined with extraversion from t4_q01 gives full introvert/extrovert picture. Inconsistency between the two = situational extraversion (ambivert or context-sensitive).",
+      "dimension": "personality.social_battery",
+      "why_this_matters": "AI calibrates how much social framing and collaboration it suggests — and when to leave you alone."
+    },
+    {
+      "id": "t4_q03",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "What actually motivates you to push through hard work? Your honest answer:",
+      "type": "select",
+      "options": [
+        {
+          "value": "building_something",
+          "label": "Building something that didn't exist before — creation itself",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "creation"}
+        },
+        {
+          "value": "freedom",
+          "label": "Freedom — financial, time, or location freedom as the outcome",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "autonomy"}
+        },
+        {
+          "value": "recognition",
+          "label": "Recognition — being seen and respected for what you've done",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "recognition"}
+        },
+        {
+          "value": "impact",
+          "label": "Impact — knowing it matters to real people",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "impact"}
+        },
+        {
+          "value": "mastery",
+          "label": "Mastery — getting really, genuinely good at something",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "mastery"}
+        },
+        {
+          "value": "competition",
+          "label": "Winning — being better than the alternative or the competition",
+          "maps_to": {"dimension": "personality.core_motivation", "value": "competition"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Core motivation is a high-signal dimension that should inform ALL AI framing. Recognition-motivated people respond to different language than autonomy-motivated ones.",
+      "dimension": "personality.core_motivation",
+      "why_this_matters": "AI frames recommendations, challenges, and progress in terms of what actually moves you."
+    },
+    {
+      "id": "t4_q04",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "If you could keep only 3 things in your life — which 3? (rank or pick)",
+      "type": "ranking",
+      "instruction": "Pick your top 3 — order them if you can",
+      "options": [
+        {
+          "value": "close_relationships",
+          "label": "Close relationships — family, real friends",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "relationships"}
+        },
+        {
+          "value": "freedom_autonomy",
+          "label": "Freedom — ability to do what you want, when you want",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "autonomy"}
+        },
+        {
+          "value": "meaningful_work",
+          "label": "Meaningful work — building something that matters",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "purpose"}
+        },
+        {
+          "value": "health",
+          "label": "Health — physical and mental wellbeing",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "health"}
+        },
+        {
+          "value": "financial_security",
+          "label": "Financial security — not worrying about money",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "security"}
+        },
+        {
+          "value": "growth",
+          "label": "Growth — constantly learning and improving",
+          "maps_to": {"dimension": "personality.values_hierarchy", "value": "growth"}
+        }
+      ],
+      "max_selections": 3,
+      "skippable": true,
+      "meta_profiling": "Values hierarchy is the deepest profiling dimension. Inconsistencies with stated motivations (t4_q03) are often the most interesting signals — what people say vs what they choose.",
+      "dimension": "personality.values_hierarchy",
+      "why_this_matters": "AI understands what's actually at stake for you — not just what you're working on."
+    },
+    {
+      "id": "t4_q05",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "An opportunity lands in front of you — potentially big, but genuinely uncertain. You:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "jump_in",
+          "label": "Jump in — uncertainty is part of the opportunity",
+          "maps_to": {"dimension": "personality.risk_tolerance", "value": "high"}
+        },
+        {
+          "value": "calculate_first",
+          "label": "Calculate the downside first — if I can survive the worst case, I'm in",
+          "maps_to": {"dimension": "personality.risk_tolerance", "value": "calculated"}
+        },
+        {
+          "value": "need_more_info",
+          "label": "Get more information before deciding — insufficient data",
+          "maps_to": {"dimension": "personality.risk_tolerance", "value": "information_seeking"}
+        },
+        {
+          "value": "pass",
+          "label": "Probably pass unless someone I trust validates it strongly",
+          "maps_to": {"dimension": "personality.risk_tolerance", "value": "low"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Risk tolerance cross-references with decision style from Tier 2. Consistent picture = note as stable trait. Contradictions = note for context-dependency.",
+      "dimension": "personality.risk_tolerance",
+      "why_this_matters": "AI knows whether to present options with upside-first or risk-first framing."
+    },
+    {
+      "id": "t4_q06",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "You and someone you work with have a genuine disagreement. You tend to:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "direct_address",
+          "label": "Address it directly and immediately — let's settle this",
+          "maps_to": {"dimension": "personality.conflict_style", "value": "direct"}
+        },
+        {
+          "value": "avoid",
+          "label": "Avoid it if possible — not worth the energy unless it really matters",
+          "maps_to": {"dimension": "personality.conflict_style", "value": "avoidant"}
+        },
+        {
+          "value": "process_first",
+          "label": "Process internally first, then address when I have a clear head",
+          "maps_to": {"dimension": "personality.conflict_style", "value": "reflective_then_direct"}
+        },
+        {
+          "value": "find_middle",
+          "label": "Look for the middle ground proactively — meet them halfway",
+          "maps_to": {"dimension": "personality.conflict_style", "value": "mediating"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Conflict style affects how AI handles disagreements with user. Avoidant = AI should soften challenges. Direct = AI can disagree more directly.",
+      "dimension": "personality.conflict_style",
+      "why_this_matters": "Sets the tone for how AI disagrees with you — and how persistent it should be when you push back."
+    },
+    {
+      "id": "t4_q07",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Under genuine stress — not mild inconvenience, but real pressure — what do people around you notice?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "quiet_withdrawal",
+          "label": "I go quiet — process internally, want to be left alone",
+          "maps_to": {"dimension": "personality.stress_response", "value": "withdraw"}
+        },
+        {
+          "value": "irritable",
+          "label": "Short-tempered — I snap, then apologize after",
+          "maps_to": {"dimension": "personality.stress_response", "value": "irritable"}
+        },
+        {
+          "value": "hyperfocus_on_problem",
+          "label": "Lock in on the problem — tunnel vision until it's solved",
+          "maps_to": {"dimension": "personality.stress_response", "value": "problem_lock"}
+        },
+        {
+          "value": "talk_it_out",
+          "label": "Talk excessively — I need to verbally process to calm down",
+          "maps_to": {"dimension": "personality.stress_response", "value": "verbal_vent"}
+        },
+        {
+          "value": "freeze",
+          "label": "Freeze up — hard to make decisions or take action",
+          "maps_to": {"dimension": "personality.stress_response", "value": "freeze"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Stress response is a critical safety dimension — affects how AI should behave when user signals high pressure. Irritable pattern = AI should reduce friction, not ask questions. Freeze = AI should simplify and give one clear action.",
+      "dimension": "personality.stress_response",
+      "why_this_matters": "When you're under pressure, AI adapts its approach to match how you actually handle stress."
+    },
+    {
+      "id": "t4_q08",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Deadline tomorrow, the thing you need isn't ready, and it's your call. First thought?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "problem_solve",
+          "label": "What can I actually do right now? I'm already making a list.",
+          "maps_to": {"dimension": "personality.stress_coping_style", "value": "action_oriented"}
+        },
+        {
+          "value": "communicate_proactively",
+          "label": "Communicate proactively — tell the stakeholder now, not at deadline",
+          "maps_to": {"dimension": "personality.stress_coping_style", "value": "transparent"}
+        },
+        {
+          "value": "push_harder",
+          "label": "Push harder — I'll pull an all-nighter if I have to",
+          "maps_to": {"dimension": "personality.stress_coping_style", "value": "effort_escalation"}
+        },
+        {
+          "value": "spiral_first",
+          "label": "Brief spiral of 'this is bad', then I find my feet and act",
+          "maps_to": {"dimension": "personality.stress_coping_style", "value": "panic_then_act"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Stress coping style is the activation pattern under pressure. Spiral-then-act = AI should give one clear action to break the spiral. Transparent = AI should help draft communications early.",
+      "dimension": "personality.stress_coping_style",
+      "why_this_matters": "AI provides the right kind of support during crunch — action lists, communications, or just helping you break the spiral."
+    },
+    {
+      "id": "t4_q09",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Your company reorganizes everything — new team, new tools, new processes. You feel:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "energized",
+          "label": "Energized — change is interesting, fresh start",
+          "maps_to": {"dimension": "personality.change_adaptability", "value": "high"}
+        },
+        {
+          "value": "cautiously_open",
+          "label": "Cautiously open — depends on what's changing and why",
+          "maps_to": {"dimension": "personality.change_adaptability", "value": "conditional"}
+        },
+        {
+          "value": "unsettled_adapts",
+          "label": "Unsettled initially but I adapt — I just need to find the new pattern",
+          "maps_to": {"dimension": "personality.change_adaptability", "value": "slow_but_ok"}
+        },
+        {
+          "value": "resistant",
+          "label": "Resistant — I prefer the known even if it's imperfect",
+          "maps_to": {"dimension": "personality.change_adaptability", "value": "low"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "personality.change_adaptability",
+      "why_this_matters": "AI handles tool changes, workflow suggestions, and pivots — does it push the new thing hard or help you transition gently?"
+    },
+    {
+      "id": "t4_q10",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Your boss gives you an instruction you genuinely disagree with. You:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "voice_then_do",
+          "label": "Voice my disagreement once, clearly — then do it if they hold the call",
+          "maps_to": {"dimension": "personality.authority_orientation", "value": "assertive_compliant"}
+        },
+        {
+          "value": "push_back_hard",
+          "label": "Push back hard — I can't execute something I think is wrong without a fight",
+          "maps_to": {"dimension": "personality.authority_orientation", "value": "challenging"}
+        },
+        {
+          "value": "just_do_it",
+          "label": "Do it — they have context I might not, and hierarchy exists for a reason",
+          "maps_to": {"dimension": "personality.authority_orientation", "value": "deferential"}
+        },
+        {
+          "value": "find_workaround",
+          "label": "Nod and find a way to do it that I think is better",
+          "maps_to": {"dimension": "personality.authority_orientation", "value": "autonomous"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Authority orientation reveals relationship with hierarchical structures. High autonomy + challenging = AI should not be authoritative; should present options. Deferential = AI can be more directive.",
+      "dimension": "personality.authority_orientation",
+      "why_this_matters": "Shapes whether AI acts as an equal collaborator or a helpful assistant."
+    },
+    {
+      "id": "t4_q11",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Trolley problem, slightly less deadly: You can do something that helps 10 people but hurts 1 person who doesn't deserve it. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "do_it_utilitarian",
+          "label": "Do it — the math is clear, 10 > 1",
+          "maps_to": {"dimension": "personality.ethical_framework", "value": "consequentialist"}
+        },
+        {
+          "value": "refuse_deontological",
+          "label": "Don't do it — some things are wrong regardless of outcome",
+          "maps_to": {"dimension": "personality.ethical_framework", "value": "rule_based"}
+        },
+        {
+          "value": "depends_context",
+          "label": "Depends on who the 1 is and how much they're hurt",
+          "maps_to": {"dimension": "personality.ethical_framework", "value": "contextual"}
+        },
+        {
+          "value": "find_third_option",
+          "label": "Find a way to help the 10 without hurting the 1 — accept neither option",
+          "maps_to": {"dimension": "personality.ethical_framework", "value": "problem_solver"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Ethical framework is not about judging — it's about how AI should frame trade-off decisions. Consequentialist = present outcomes. Rule-based = present principles. Problem-solver = AI should always look for third options.",
+      "dimension": "personality.ethical_framework",
+      "why_this_matters": "How AI presents decisions with trade-offs — and whether it looks for alternatives or just gives you the choice."
+    },
+    {
+      "id": "t4_q12",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "You're on hold for 20 minutes. The task will take 2 minutes when someone answers. You:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "stay_focused",
+          "label": "Stay on the line, focused — I need this resolved",
+          "maps_to": {"dimension": "personality.patience_level", "value": "high"}
+        },
+        {
+          "value": "multitask_hold",
+          "label": "Put on hold music and do something else",
+          "maps_to": {"dimension": "personality.patience_level", "value": "moderate"}
+        },
+        {
+          "value": "escalate",
+          "label": "Hang up after 5 minutes and find a faster way",
+          "maps_to": {"dimension": "personality.patience_level", "value": "low"}
+        },
+        {
+          "value": "irrationally_irritated",
+          "label": "Irrationally irritated by the entire situation out of proportion to what it is",
+          "maps_to": {"dimension": "personality.patience_level", "value": "very_low"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Patience level cross-references with verbosity preference and feedback style. Very low patience + minimal verbosity = user who will not re-engage AI that wastes their time even once.",
+      "dimension": "personality.patience_level",
+      "why_this_matters": "AI calibrates its own response time, interruptions, and willingness to take roundabout paths."
+    },
+    {
+      "id": "t4_q13",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Plans fall through at the last minute — something you were looking forward to. Your first thought?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "find_alternative",
+          "label": "OK, what else can I do with this time? Immediately looking for alternatives.",
+          "maps_to": {"dimension": "personality.optimism", "value": "high"}
+        },
+        {
+          "value": "disappointed_regroup",
+          "label": "Disappointed, but I regroup quickly — it's fine",
+          "maps_to": {"dimension": "personality.optimism", "value": "moderate"}
+        },
+        {
+          "value": "frustrated_then_ok",
+          "label": "Genuinely frustrated — I sit with that for a bit, then move on",
+          "maps_to": {"dimension": "personality.optimism", "value": "realistic"}
+        },
+        {
+          "value": "expected_it",
+          "label": "Honestly expected it — things usually do fall through",
+          "maps_to": {"dimension": "personality.optimism", "value": "low"},
+          "triggers": ["t4_q13a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Optimism baseline shapes how AI frames uncertainty and setbacks. Low optimism = AI should not overpromise or be relentlessly positive.",
+      "dimension": "personality.optimism",
+      "why_this_matters": "AI matches its emotional tone to your baseline — doesn't try to artificially cheer up a realistic person."
+    },
+    {
+      "id": "t4_q13a",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Where does that expectation come from?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t4_q13",
+      "options": [
+        {
+          "value": "self_protection",
+          "label": "I'd rather be pleasantly surprised than disappointed — it's self-protection",
+          "maps_to": {"dimension": "personality.pessimism_type", "value": "protective"}
+        },
+        {
+          "value": "life_experience",
+          "label": "Experience — things genuinely do fall through more often than not for me",
+          "maps_to": {"dimension": "personality.pessimism_type", "value": "experiential"}
+        },
+        {
+          "value": "just_realistic",
+          "label": "I'm just calibrated — not cynical, just realistic about probabilities",
+          "maps_to": {"dimension": "personality.pessimism_type", "value": "calibrated"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "The framing they choose reveals self-narrative around pessimism — protective vs experiential vs calibrated each require different AI handling.",
+      "dimension": "personality.pessimism_type",
+      "why_this_matters": "Helps AI calibrate whether to offer encouragement, validation, or just match your realistic tone."
+    },
+    {
+      "id": "t4_q14",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "New colleague starts Monday. Before you've met them, your default assumption about them?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "they_are_good",
+          "label": "They're probably competent and well-intentioned — trust until disproven",
+          "maps_to": {"dimension": "personality.trust_default", "value": "high"}
+        },
+        {
+          "value": "neutral_observe",
+          "label": "Neutral — I'll form a view once I see them work",
+          "maps_to": {"dimension": "personality.trust_default", "value": "moderate"}
+        },
+        {
+          "value": "cautious_earn_it",
+          "label": "Cautious — trust is earned, not assumed",
+          "maps_to": {"dimension": "personality.trust_default", "value": "low"}
+        },
+        {
+          "value": "depends_context",
+          "label": "Depends on how they were hired and who they are",
+          "maps_to": {"dimension": "personality.trust_default", "value": "conditional"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Trust default affects how AI should frame its own relationship with the user. High trust = AI can be direct and proactive. Low trust = AI should show its reasoning, not just its conclusions.",
+      "dimension": "personality.trust_default",
+      "why_this_matters": "AI knows whether to lead with conclusions or always show its work so you can verify."
+    },
+    {
+      "id": "t4_q15",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "You just shipped something. It works, people are happy, but you KNOW there's a subtle issue nobody else will notice. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "perfectionist",
+          "label": "Fix it immediately — I can't leave it. It'll eat at me until I do.",
+          "maps_to": {"dimension": "personality.perfectionism", "value": "high"},
+          "triggers": ["t4_q15a"]
+        },
+        {
+          "value": "pride_in_quality",
+          "label": "Note it for later — I care, but I can live with it for now",
+          "maps_to": {"dimension": "personality.perfectionism", "value": "moderate"}
+        },
+        {
+          "value": "good_enough",
+          "label": "Move on — it works, nobody notices, there's more important stuff to do",
+          "maps_to": {"dimension": "personality.perfectionism", "value": "pragmatic"}
+        },
+        {
+          "value": "context_dependent",
+          "label": "Depends what it is — a typo I can live with, a logic flaw I can't",
+          "maps_to": {"dimension": "personality.perfectionism", "value": "selective"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "High perfectionism + incomplete completion (t3_q16 perfectionist) = reinforced pattern. The scenario reveals actual behavior vs stated preference — someone who says 'I'm pragmatic' but admits they'd fix it = hidden perfectionist.",
+      "dimension": "personality.perfectionism",
+      "why_this_matters": "AI knows whether to push you to ship sooner or help you find the right 'done' threshold."
+    },
+    {
+      "id": "t4_q15a",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Is your perfectionism usually productive (drives quality) or does it sometimes hold you back?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t4_q15",
+      "options": [
+        {
+          "value": "mostly_productive",
+          "label": "Mostly productive — it's a strength I use consciously",
+          "maps_to": {"dimension": "personality.perfectionism_impact", "value": "productive"}
+        },
+        {
+          "value": "mixed",
+          "label": "Mixed — productive on things I care about, paralyzing on others",
+          "maps_to": {"dimension": "personality.perfectionism_impact", "value": "mixed"}
+        },
+        {
+          "value": "often_blocks",
+          "label": "Often blocks me — I know it's a problem",
+          "maps_to": {"dimension": "personality.perfectionism_impact", "value": "blocking"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "personality.perfectionism_impact",
+      "why_this_matters": null
+    },
+    {
+      "id": "t4_q16",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Something unexpected and wonderful happens — you got the deal, your project got featured, genuine praise from someone you respect. Your first instinct?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "share_immediately",
+          "label": "Share it immediately — call someone, post it, tell the world",
+          "maps_to": {"dimension": "personality.positive_affect_expression", "value": "extrovert_sharing"}
+        },
+        {
+          "value": "internal_joy",
+          "label": "Feel it internally — deep satisfaction. Maybe tell one person later.",
+          "maps_to": {"dimension": "personality.positive_affect_expression", "value": "internal_processor"}
+        },
+        {
+          "value": "skeptical",
+          "label": "Mild suspicion — when does the other shoe drop?",
+          "maps_to": {"dimension": "personality.positive_affect_expression", "value": "cautious_optimist"}
+        },
+        {
+          "value": "move_to_next",
+          "label": "Acknowledge it, then immediately move to what's next",
+          "maps_to": {"dimension": "personality.positive_affect_expression", "value": "forward_focus"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Cautious optimist response combined with high conscientiousness from other signals = anxiety-adjacent trait. Note for gentle challenge handling.",
+      "dimension": "personality.positive_affect_expression",
+      "why_this_matters": "AI calibrates celebration and acknowledgment to how you actually receive good news."
+    },
+    {
+      "id": "t4_q17",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "A friend describes you in 3 words to someone who's never met you. They'd most likely say...",
+      "type": "multi_select",
+      "instruction": "Pick the 3 that ring most true",
+      "options": [
+        {
+          "value": "direct",
+          "label": "Direct",
+          "maps_to": {"dimension": "personality.self_perception", "value": "direct"}
+        },
+        {
+          "value": "creative",
+          "label": "Creative",
+          "maps_to": {"dimension": "personality.self_perception", "value": "creative"}
+        },
+        {
+          "value": "analytical",
+          "label": "Analytical",
+          "maps_to": {"dimension": "personality.self_perception", "value": "analytical"}
+        },
+        {
+          "value": "reliable",
+          "label": "Reliable",
+          "maps_to": {"dimension": "personality.self_perception", "value": "reliable"}
+        },
+        {
+          "value": "intense",
+          "label": "Intense",
+          "maps_to": {"dimension": "personality.self_perception", "value": "intense"}
+        },
+        {
+          "value": "curious",
+          "label": "Curious",
+          "maps_to": {"dimension": "personality.self_perception", "value": "curious"}
+        },
+        {
+          "value": "independent",
+          "label": "Independent",
+          "maps_to": {"dimension": "personality.self_perception", "value": "independent"}
+        },
+        {
+          "value": "empathetic",
+          "label": "Empathetic",
+          "maps_to": {"dimension": "personality.self_perception", "value": "empathetic"}
+        },
+        {
+          "value": "ambitious",
+          "label": "Ambitious",
+          "maps_to": {"dimension": "personality.self_perception", "value": "ambitious"}
+        },
+        {
+          "value": "chaotic",
+          "label": "Chaotic (in a good way)",
+          "maps_to": {"dimension": "personality.self_perception", "value": "chaotic"}
+        }
+      ],
+      "max_selections": 3,
+      "skippable": true,
+      "meta_profiling": "Self-perception is a meta-signal. Cross-reference with how they actually behaved throughout the profiling — answers that contradict self-perception are the most interesting. Note incongruence without flagging it.",
+      "dimension": "personality.self_perception",
+      "why_this_matters": "AI adjusts its relational style to match how you see yourself — not project a different identity onto you."
+    },
+    {
+      "id": "t4_q18",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "You've finished a piece of work you're genuinely proud of. Nobody's seen it yet. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "internal_compass",
+          "label": "Already know it's good — I don't need anyone to tell me",
+          "maps_to": {"dimension": "personality.validation_need", "value": "low"}
+        },
+        {
+          "value": "like_it_but_not_dependent",
+          "label": "Feel good about it, but it'd be nice if someone confirmed",
+          "maps_to": {"dimension": "personality.validation_need", "value": "moderate"}
+        },
+        {
+          "value": "need_one_trusted",
+          "label": "Need to show one person I trust before I feel confident sharing widely",
+          "maps_to": {"dimension": "personality.validation_need", "value": "trusted_source"}
+        },
+        {
+          "value": "high_need",
+          "label": "Won't feel sure about it until someone else reacts — my own judgment isn't enough",
+          "maps_to": {"dimension": "personality.validation_need", "value": "high"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "High validation need = AI should proactively affirm direction and signal agreement. Low = AI should not be sycophantic, just direct. Note: response time here is a secondary signal — fast pick = confident in self-knowledge.",
+      "dimension": "personality.validation_need",
+      "why_this_matters": "AI calibrates how much it confirms, affirms, and checks in — vs just executes without commentary."
+    },
+    {
+      "id": "t4_q19",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "You're deciding between two things — one you know is right, one that sounds exciting right now. You tend to:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "long_term_wins",
+          "label": "Long-term wins — I can delay gratification pretty well",
+          "maps_to": {"dimension": "personality.impulse_control", "value": "high"}
+        },
+        {
+          "value": "50_50",
+          "label": "About 50/50 — depends on how exciting the short-term option is",
+          "maps_to": {"dimension": "personality.impulse_control", "value": "moderate"}
+        },
+        {
+          "value": "short_term_pulls",
+          "label": "Short-term often wins — I'm working on this",
+          "maps_to": {"dimension": "personality.impulse_control", "value": "low"},
+          "triggers": ["t4_q19a"]
+        },
+        {
+          "value": "rationalize",
+          "label": "I rationalize the short-term choice as actually being better long-term",
+          "maps_to": {"dimension": "personality.impulse_control", "value": "rationalized_impulsivity"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Impulsivity indicator cross-references with spending patterns implied in Tier 7 (life context). Low impulse control = AI should add 'sleep on it' friction to big decisions.",
+      "dimension": "personality.impulse_control",
+      "why_this_matters": "AI knows whether to present options with equal weight or add a pause before big decisions."
+    },
+    {
+      "id": "t4_q19a",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "In which areas does this show up most?",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t4_q19",
+      "instruction": "Pick all that apply",
+      "options": [
+        {
+          "value": "purchases",
+          "label": "Purchases — I buy things I didn't plan on",
+          "maps_to": {"dimension": "personality.impulsivity_domains", "value": "spending"}
+        },
+        {
+          "value": "projects",
+          "label": "New projects — I start things before finishing what's open",
+          "maps_to": {"dimension": "personality.impulsivity_domains", "value": "project_hopping"}
+        },
+        {
+          "value": "decisions",
+          "label": "Decisions — I commit too fast",
+          "maps_to": {"dimension": "personality.impulsivity_domains", "value": "decisions"}
+        },
+        {
+          "value": "eating",
+          "label": "Food and health habits",
+          "maps_to": {"dimension": "personality.impulsivity_domains", "value": "health_habits"}
+        }
+      ],
+      "max_selections": 4,
+      "skippable": true,
+      "meta_profiling": "project_hopping = strong ADHD-associated pattern. Cross-reference with completion_pattern from Tier 3.",
+      "dimension": "personality.impulsivity_domains",
+      "why_this_matters": null
+    },
+    {
+      "id": "t4_q21",
+      "tier": 4,
+      "tier_name": "Personality & Values",
+      "question": "Last one. If AI could do one thing differently that almost every AI gets wrong for you — what would it be?",
+      "type": "open_text",
+      "placeholder": "Your honest answer here — this goes directly into your profile",
+      "skippable": true,
+      "meta_profiling": "This is the highest-value open text question in the entire bank. Response length, content, and tone carry enormous signal. Note: very short answer = either they're satisfied or they're low-verbosity. Very detailed = high investment, pain points are real. Save verbatim.",
+      "dimension": "personality.ai_pet_peeve",
+      "why_this_matters": "Your words, verbatim. The one thing your AI profile is built around fixing for you."
+    }
+  ]
+}

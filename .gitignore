@@ -1,0 +1,29 @@
+node_modules/
+dist/
+*.tgz
+.DS_Store
+.env
+.env.*
+
+# Private data — never commit
+meport-profile.json
+test-profile.json
+packages/cli/meport-profile.json
+test-exports/
+test-scan/
+meport-exports/
+test-*.mjs
+
+# Internal docs (private strategy)
+BRAND.md
+PLAN.md
+RESEARCH.md
+PROFILING-REDESIGN.md
+exports/
+inference/
+
+# Assets (separate repo / CDN)
+grafiki/
+site/
+package-lock.json
+test-results/

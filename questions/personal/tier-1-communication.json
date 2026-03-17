@@ -1,0 +1,653 @@
+{
+  "tier": 1,
+  "tier_name": "Communication DNA",
+  "tier_intro": "This is the one that makes the biggest immediate difference. How does AI talk TO you? Direct or careful? Short or detailed? With humor or straight? 3-5 minutes and your AI suddenly feels like it knows you.",
+  "tier_complete": {
+    "headline": "Communication profile built.",
+    "body": "AI now knows exactly how to talk to you — the format, the tone, the level of directness. This alone eliminates 80% of 'ugh, not again' moments. Next: how you think and process information."
+  },
+  "questions": [
+    {
+      "id": "t1_q01",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You ask AI something and get a 6-paragraph response when you wanted a quick answer. Your reaction?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "annoyed",
+          "label": "Mildly annoyed — I just skim to the actual answer",
+          "description": "I don't need the build-up",
+          "maps_to": {"dimension": "communication.verbosity_preference", "value": "concise"}
+        },
+        {
+          "value": "really_annoyed",
+          "label": "Genuinely frustrated — this is the #1 thing that bothers me",
+          "description": "I want the answer, not an essay",
+          "maps_to": {"dimension": "communication.verbosity_preference", "value": "minimal"},
+          "triggers": ["t1_q01a"]
+        },
+        {
+          "value": "depends",
+          "label": "Depends on the question — complex topics deserve more",
+          "maps_to": {"dimension": "communication.verbosity_preference", "value": "adaptive"}
+        },
+        {
+          "value": "fine",
+          "label": "Fine with it — I like seeing the full reasoning",
+          "maps_to": {"dimension": "communication.verbosity_preference", "value": "detailed"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "How long is their own response to this question? Short = minimal preference validated. Note if they justify their choice extensively — ironic signal of verbosity comfort.",
+      "dimension": "communication.verbosity_preference",
+      "why_this_matters": "Calibrates default response length across all AI exports."
+    },
+    {
+      "id": "t1_q01a",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "What's your ideal default response style?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t1_q01",
+      "options": [
+        {
+          "value": "one_to_three_lines",
+          "label": "1-3 lines for simple things, expand only if asked",
+          "maps_to": {"dimension": "communication.default_length", "value": "ultra_short"}
+        },
+        {
+          "value": "bullet_first",
+          "label": "Bullet points by default, no preamble",
+          "maps_to": {"dimension": "communication.default_length", "value": "bullets_only"}
+        },
+        {
+          "value": "short_paragraphs",
+          "label": "Short paragraphs, max 5-7 lines",
+          "maps_to": {"dimension": "communication.default_length", "value": "short"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "communication.default_length",
+      "why_this_matters": null
+    },
+    {
+      "id": "t1_q02",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "A friend texts you: 'Just give it to me straight, I can handle it.' That phrase feels...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "exactly_me",
+          "label": "Exactly how I'd say it myself",
+          "maps_to": {"dimension": "communication.directness", "value": "blunt"}
+        },
+        {
+          "value": "relatable",
+          "label": "Relatable — I generally prefer directness",
+          "maps_to": {"dimension": "communication.directness", "value": "direct"}
+        },
+        {
+          "value": "context_dependent",
+          "label": "Depends — direct for facts, softer for emotional stuff",
+          "maps_to": {"dimension": "communication.directness", "value": "context_sensitive"}
+        },
+        {
+          "value": "prefer_tact",
+          "label": "I prefer tact — directness without warmth feels harsh",
+          "maps_to": {"dimension": "communication.directness", "value": "diplomatic"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "How they answer — length, whether they add caveats ('it depends on...') — is itself a directness signal. Short pick = direct. Long explanation = diplomatic.",
+      "dimension": "communication.directness",
+      "why_this_matters": "Shapes how AI delivers assessments, feedback, and bad news."
+    },
+    {
+      "id": "t1_q03",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "When AI explains something, what format makes it land best for you?",
+      "type": "ranking",
+      "instruction": "Drag to rank from most to least useful (or just pick your top 2)",
+      "options": [
+        {
+          "value": "bullet_points",
+          "label": "Bullet points",
+          "description": "Quick, scannable, digestible",
+          "maps_to": {"dimension": "communication.format_preference", "value": "bullets"}
+        },
+        {
+          "value": "numbered_steps",
+          "label": "Numbered steps",
+          "description": "Sequential, clear order",
+          "maps_to": {"dimension": "communication.format_preference", "value": "numbered"}
+        },
+        {
+          "value": "prose",
+          "label": "Flowing prose",
+          "description": "Natural writing, no fragmentation",
+          "maps_to": {"dimension": "communication.format_preference", "value": "prose"}
+        },
+        {
+          "value": "tables",
+          "label": "Tables / comparisons",
+          "description": "Side-by-side structure for options",
+          "maps_to": {"dimension": "communication.format_preference", "value": "tables"}
+        },
+        {
+          "value": "code_blocks",
+          "label": "Code / technical blocks",
+          "description": "Formatted, copyable",
+          "maps_to": {"dimension": "communication.format_preference", "value": "code"}
+        }
+      ],
+      "max_selections": 2,
+      "skippable": true,
+      "meta_profiling": "If user selects prose AND bullets — note format_preference as adaptive. Code blocks selection correlates with tech_comfort >= 7.",
+      "dimension": "communication.format_preference",
+      "why_this_matters": "AI defaults to your preferred structure instead of whatever it feels like."
+    },
+    {
+      "id": "t1_q04",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "Emojis in AI responses — your honest take?",
+      "type": "select",
+      "options": [
+        {
+          "value": "hate_them",
+          "label": "Please no. They make it feel fake and childish.",
+          "maps_to": {"dimension": "communication.emoji_preference", "value": "none"}
+        },
+        {
+          "value": "sparingly",
+          "label": "Occasionally fine — just not every sentence",
+          "maps_to": {"dimension": "communication.emoji_preference", "value": "sparingly"}
+        },
+        {
+          "value": "neutral",
+          "label": "I don't really notice them either way",
+          "maps_to": {"dimension": "communication.emoji_preference", "value": "neutral"}
+        },
+        {
+          "value": "like_them",
+          "label": "I like them — adds personality and clarity",
+          "maps_to": {"dimension": "communication.emoji_preference", "value": "frequent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Did they use any emojis in their own answers during profiling? Cross-reference with stated preference. Incongruence = note.",
+      "dimension": "communication.emoji_preference",
+      "why_this_matters": "Sounds trivial, but it's one of the top complaints about AI tone."
+    },
+    {
+      "id": "t1_q05",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "AI just finished explaining something and ends with 'Let me know if you'd like me to elaborate or if you have any questions!' — you feel...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "filler_hate",
+          "label": "This is exactly the filler I want gone",
+          "description": "If I want more, I'll ask",
+          "maps_to": {"dimension": "communication.filler_tolerance", "value": "zero"}
+        },
+        {
+          "value": "mildly_annoyed",
+          "label": "Mildly annoying, but not a dealbreaker",
+          "maps_to": {"dimension": "communication.filler_tolerance", "value": "low"}
+        },
+        {
+          "value": "fine",
+          "label": "Fine — helpful reminder that I can continue",
+          "maps_to": {"dimension": "communication.filler_tolerance", "value": "moderate"}
+        },
+        {
+          "value": "dont_notice",
+          "label": "Honestly don't notice it",
+          "maps_to": {"dimension": "communication.filler_tolerance", "value": "high"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Strong 'filler_hate' signal compounds with verbosity_preference minimal — double-flag for 'no outro lines' instruction.",
+      "dimension": "communication.filler_tolerance",
+      "why_this_matters": "Removes AI habits that are technically polite but feel hollow to you specifically."
+    },
+    {
+      "id": "t1_q06",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You ask a complex question. AI gives you the short answer first, then says 'want me to go deeper?' vs AI gives you the full breakdown immediately. Which do you prefer?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "short_first",
+          "label": "Short answer first, I'll ask for more if I want it",
+          "maps_to": {"dimension": "communication.depth_default", "value": "brief_first"}
+        },
+        {
+          "value": "full_breakdown",
+          "label": "Full breakdown immediately — I hate going back and forth",
+          "maps_to": {"dimension": "communication.depth_default", "value": "full_upfront"}
+        },
+        {
+          "value": "depends_question",
+          "label": "Depends on the type of question",
+          "maps_to": {"dimension": "communication.depth_default", "value": "adaptive"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "communication.depth_default",
+      "why_this_matters": "AI learns whether to give you the headline or the whole story by default."
+    },
+    {
+      "id": "t1_q07",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You've just done something — shipped a project, finished a hard task. AI says 'Great job, you should be really proud!' Your reaction?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "cringe",
+          "label": "Cringe. Skip the cheerleading, please.",
+          "maps_to": {"dimension": "communication.praise_tolerance", "value": "none"}
+        },
+        {
+          "value": "neutral_prefer",
+          "label": "Neutral acknowledgment is fine, excessive praise isn't",
+          "maps_to": {"dimension": "communication.praise_tolerance", "value": "neutral"}
+        },
+        {
+          "value": "actually_nice",
+          "label": "Honestly? I don't mind it. Feels encouraging.",
+          "maps_to": {"dimension": "communication.praise_tolerance", "value": "welcome"}
+        },
+        {
+          "value": "love_it",
+          "label": "Give me ALL the affirmations",
+          "maps_to": {"dimension": "communication.praise_tolerance", "value": "high"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Cross-reference with validation_need in Tier 4. If high validation need but 'cringe' here — note the contradiction: wants acknowledgment but from peers not tools.",
+      "dimension": "communication.praise_tolerance",
+      "why_this_matters": "AI knows whether to celebrate with you or just acknowledge and move on."
+    },
+    {
+      "id": "t1_q08",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "Humor in AI conversations — where do you sit?",
+      "type": "select",
+      "options": [
+        {
+          "value": "no_humor",
+          "label": "Professional mode only — keep it focused",
+          "maps_to": {"dimension": "communication.humor", "value": "none"}
+        },
+        {
+          "value": "dry_wit",
+          "label": "Dry wit or clever observations — yes please",
+          "maps_to": {"dimension": "communication.humor", "value": "dry"}
+        },
+        {
+          "value": "light_humor",
+          "label": "Light humor here and there — keeps things enjoyable",
+          "maps_to": {"dimension": "communication.humor", "value": "light"}
+        },
+        {
+          "value": "bring_it",
+          "label": "Full personality — I want AI to actually be fun",
+          "maps_to": {"dimension": "communication.humor", "value": "high"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "If they write a funny answer themselves — validate high humor preference even if stated 'none'.",
+      "dimension": "communication.humor",
+      "why_this_matters": "Calibrates AI personality from strict assistant to genuinely enjoyable collaborator."
+    },
+    {
+      "id": "t1_q09",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You show AI your work and ask for feedback. You want it to...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "brutal",
+          "label": "Be brutal — I don't need hand-holding, I need the truth",
+          "maps_to": {"dimension": "communication.feedback_style", "value": "critical_first"}
+        },
+        {
+          "value": "balanced_direct",
+          "label": "Honest and direct — what's broken and how to fix it",
+          "maps_to": {"dimension": "communication.feedback_style", "value": "direct_balanced"}
+        },
+        {
+          "value": "sandwich",
+          "label": "The full picture — what works, what doesn't, specific improvements",
+          "maps_to": {"dimension": "communication.feedback_style", "value": "comprehensive"}
+        },
+        {
+          "value": "led_in",
+          "label": "Lead with what's good first, then the improvements",
+          "maps_to": {"dimension": "communication.feedback_style", "value": "positive_first"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Feedback style preference is one of the highest-signal dimensions for cross-domain AI use. Note this carefully. First choice speed = confidence in preference.",
+      "dimension": "communication.feedback_style",
+      "why_this_matters": "How AI approaches anything you share for review — writing, code, ideas, plans."
+    },
+    {
+      "id": "t1_q10",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You're asking about something technical you half-know. AI uses precise technical jargon vs everyday language. Your preference?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "full_jargon",
+          "label": "Hit me with proper terminology — I can look up what I don't know",
+          "maps_to": {"dimension": "communication.jargon_preference", "value": "expert"}
+        },
+        {
+          "value": "jargon_explained",
+          "label": "Use the right terms but explain them if obscure",
+          "maps_to": {"dimension": "communication.jargon_preference", "value": "semi_expert"}
+        },
+        {
+          "value": "plain_language",
+          "label": "Plain language please — translate the jargon for me",
+          "maps_to": {"dimension": "communication.jargon_preference", "value": "plain"}
+        },
+        {
+          "value": "analogies",
+          "label": "Analogies and examples — make it concrete",
+          "maps_to": {"dimension": "communication.jargon_preference", "value": "analogies"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Compare with tech_comfort from Tier 0. Mismatches (low tech comfort + 'full jargon') may indicate domain expertise in non-technical fields. Note for domain-specific adaptation.",
+      "dimension": "communication.jargon_preference",
+      "why_this_matters": "AI calibrates vocabulary to your level — no oversimplification, no unexplained acronyms."
+    },
+    {
+      "id": "t1_q11",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "AI is working through something complex and explains its reasoning step-by-step as it goes. You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "love_the_transparency",
+          "label": "Love it — I want to follow the logic, not just get the conclusion",
+          "maps_to": {"dimension": "communication.reasoning_visibility", "value": "show_all"}
+        },
+        {
+          "value": "summary_only",
+          "label": "Just show me the conclusion — hide the working",
+          "maps_to": {"dimension": "communication.reasoning_visibility", "value": "conclusion_only"}
+        },
+        {
+          "value": "key_steps",
+          "label": "Show me the key decision points, skip the obvious steps",
+          "maps_to": {"dimension": "communication.reasoning_visibility", "value": "highlights_only"}
+        },
+        {
+          "value": "depends_stakes",
+          "label": "For important decisions yes, for quick tasks no",
+          "maps_to": {"dimension": "communication.reasoning_visibility", "value": "stakes_dependent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Thinking-aloud preference separates people who want AI as a transparent collaborator from those who want a clean results machine. High interest in reasoning often correlates with analytical decision style.",
+      "dimension": "communication.reasoning_visibility",
+      "why_this_matters": "Sets whether AI shows its work or just delivers the answer."
+    },
+    {
+      "id": "t1_q12",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "AI says 'This might work, but I'm not 100% certain' vs AI says 'Do this.' When the answer is genuinely uncertain, you prefer...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "always_hedge",
+          "label": "Always flag uncertainty — I'd rather know than get false confidence",
+          "maps_to": {"dimension": "communication.hedging_tolerance", "value": "prefers_hedged"}
+        },
+        {
+          "value": "confident_anyway",
+          "label": "Give me a confident answer even if uncertain — I'll verify what matters",
+          "maps_to": {"dimension": "communication.hedging_tolerance", "value": "confident_preferred"}
+        },
+        {
+          "value": "hedge_for_high_stakes",
+          "label": "Flag it only when the stakes are high — low stakes, just answer",
+          "maps_to": {"dimension": "communication.hedging_tolerance", "value": "selective_hedging"}
+        },
+        {
+          "value": "give_options",
+          "label": "Don't hedge — give me 2 options and let me pick",
+          "maps_to": {"dimension": "communication.hedging_tolerance", "value": "options_over_hedging"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Hedging tolerance is a trust-calibration dimension. Someone who hates hedging may actually be building blind trust — note. Someone who demands hedging in all cases may have been burned before.",
+      "dimension": "communication.hedging_tolerance",
+      "why_this_matters": "Determines how AI communicates its own uncertainty — whether to say 'probably' or just commit."
+    },
+    {
+      "id": "t1_q13",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "AI is about to tell you something you might not want to hear. You'd prefer it...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "straight_up",
+          "label": "Just say it. Straight up, no padding.",
+          "maps_to": {"dimension": "communication.difficult_message_delivery", "value": "direct"}
+        },
+        {
+          "value": "context_first",
+          "label": "Give me context so I understand WHY before the verdict",
+          "maps_to": {"dimension": "communication.difficult_message_delivery", "value": "context_first"}
+        },
+        {
+          "value": "acknowledge_intent",
+          "label": "Acknowledge what I was going for first, then the reality",
+          "maps_to": {"dimension": "communication.difficult_message_delivery", "value": "empathic_then_honest"}
+        },
+        {
+          "value": "with_path_forward",
+          "label": "Lead with the problem and immediately give me a path forward",
+          "maps_to": {"dimension": "communication.difficult_message_delivery", "value": "problem_plus_solution"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Cross-reference with directness preference (t1_q02) and feedback_style (t1_q09). Consistent 'direct' across all three = very high directness. Inconsistent = context-sensitive.",
+      "dimension": "communication.difficult_message_delivery",
+      "why_this_matters": "Shapes how AI handles hard truths — when your idea has a flaw, when a plan won't work."
+    },
+    {
+      "id": "t1_q14",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "Do you ever switch between languages mid-conversation? (like writing in one language but dropping terms from another)",
+      "type": "select",
+      "options": [
+        {
+          "value": "yes_frequently",
+          "label": "Yes — I naturally mix languages, AI should follow along",
+          "maps_to": {"dimension": "communication.code_switching", "value": "high"},
+          "triggers": ["t1_q14a"]
+        },
+        {
+          "value": "yes_technical",
+          "label": "Sometimes — mostly technical terms stay in English even if I write in another language",
+          "maps_to": {"dimension": "communication.code_switching", "value": "technical_only"}
+        },
+        {
+          "value": "no_one_language",
+          "label": "No — I stick to one language per conversation",
+          "maps_to": {"dimension": "communication.code_switching", "value": "none"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "If language from Tier 0 is non-English but answer here is 'technical_only' — note bilingual pattern for export: respond in native language, keep technical terms in English.",
+      "dimension": "communication.code_switching",
+      "why_this_matters": "AI can mirror your natural multilingual flow instead of staying rigidly in one language."
+    },
+    {
+      "id": "t1_q14a",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "Which languages do you typically mix?",
+      "type": "open_text",
+      "placeholder": "e.g. Polish + English, Spanish + Portuguese...",
+      "skippable": true,
+      "is_followup": true,
+      "parent_question": "t1_q14",
+      "meta_profiling": null,
+      "dimension": "communication.languages_mixed",
+      "why_this_matters": null
+    },
+    {
+      "id": "t1_q15",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "You receive a message where the tone is playfully sarcastic: 'Oh sure, that'll definitely work perfectly.' Your immediate read?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "catch_it",
+          "label": "Got it immediately — sarcasm is clear to me in text",
+          "maps_to": {"dimension": "communication.sarcasm_comprehension", "value": "high"}
+        },
+        {
+          "value": "usually_get_it",
+          "label": "Usually catch it, but sometimes I need a moment",
+          "maps_to": {"dimension": "communication.sarcasm_comprehension", "value": "moderate"}
+        },
+        {
+          "value": "often_miss",
+          "label": "Honestly? I sometimes take it literally, especially in text",
+          "maps_to": {"dimension": "communication.sarcasm_comprehension", "value": "low"}
+        },
+        {
+          "value": "hate_it",
+          "label": "I get it, but I find sarcasm in text annoying — be direct",
+          "maps_to": {"dimension": "communication.sarcasm_comprehension", "value": "dislikes"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Low sarcasm comprehension = AI should avoid ironic or sarcastic framing entirely. Dislikes = same outcome. High + humor preference = AI can use gentle sarcasm.",
+      "dimension": "communication.sarcasm_comprehension",
+      "why_this_matters": "Prevents AI from being accidentally confusing or condescending through tone that doesn't land in text."
+    },
+    {
+      "id": "t1_q16",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "AI remembers something you mentioned in passing three weeks ago and brings it up now. You feel...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "impressed",
+          "label": "Impressed — that's exactly the kind of continuity I want",
+          "maps_to": {"dimension": "communication.memory_appreciation", "value": "high"}
+        },
+        {
+          "value": "slightly_unsettled",
+          "label": "Slightly unsettled — I forgot I said that",
+          "maps_to": {"dimension": "communication.memory_appreciation", "value": "cautious"}
+        },
+        {
+          "value": "depends_context",
+          "label": "Depends what it was — relevant = great, random = weird",
+          "maps_to": {"dimension": "communication.memory_appreciation", "value": "contextual"}
+        },
+        {
+          "value": "prefer_clean_slate",
+          "label": "I'd rather start fresh each time — don't accumulate stuff about me",
+          "maps_to": {"dimension": "communication.memory_appreciation", "value": "minimal"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Memory appreciation signals privacy comfort level and desire for continuity. Cautious or minimal = AI should not surface old details without clear relevance. High = AI should proactively connect threads.",
+      "dimension": "communication.memory_appreciation",
+      "why_this_matters": "Sets how aggressively AI cross-references things you've shared in the past."
+    },
+    {
+      "id": "t1_q17",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "question": "When you're in the middle of explaining something and AI jumps in with an answer before you've finished — you feel:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "interrupted",
+          "label": "Annoyed — I wasn't done. Let me finish my thought.",
+          "maps_to": {"dimension": "communication.interruption_tolerance", "value": "low"}
+        },
+        {
+          "value": "efficient",
+          "label": "Fine actually — if it got the gist, time saved",
+          "maps_to": {"dimension": "communication.interruption_tolerance", "value": "high"}
+        },
+        {
+          "value": "depends_accuracy",
+          "label": "Fine if it got it right, annoying if it misunderstood",
+          "maps_to": {"dimension": "communication.interruption_tolerance", "value": "accuracy_conditional"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "communication.interruption_tolerance",
+      "why_this_matters": "Shapes whether AI completes your thought or waits for full context before responding."
+    },
+    {
+      "id": "t1_q18",
+      "tier": 1,
+      "tier_name": "Communication DNA",
+      "is_conditional": true,
+      "show_if": {"tier0.professional_role": "developer"},
+      "question": "You're reviewing code that someone else wrote. Comments in the code — your preference?",
+      "type": "select",
+      "options": [
+        {
+          "value": "self_documenting",
+          "label": "Clean code shouldn't need comments — names should explain everything",
+          "maps_to": {"dimension": "communication.code_comment_style", "value": "minimal"}
+        },
+        {
+          "value": "explain_why",
+          "label": "Comment the WHY not the WHAT — I can read the code",
+          "maps_to": {"dimension": "communication.code_comment_style", "value": "why_only"}
+        },
+        {
+          "value": "thorough",
+          "label": "Thorough comments — good for onboarding and future me",
+          "maps_to": {"dimension": "communication.code_comment_style", "value": "thorough"}
+        },
+        {
+          "value": "context_dependent",
+          "label": "Depends on complexity — obvious code = none, tricky logic = comment",
+          "maps_to": {"dimension": "communication.code_comment_style", "value": "adaptive"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Code comment style is a proxy for documentation philosophy generally. Thorough comments = likely same person who likes detailed AI explanations.",
+      "dimension": "communication.code_comment_style",
+      "why_this_matters": "AI matches your documentation philosophy when generating or reviewing code."
+    }
+  ]
+}

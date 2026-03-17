@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── meport brand ──────────────────────────────── */
+  --color-bg: #080a09;
+  --color-bg-raised: #0c0e0d;
+  --color-bg-card: oklch(from #ffffff l c h / 0.025);
+  --color-bg-subtle: oklch(from #ffffff l c h / 0.03);
+  --color-bg-hover: oklch(from #ffffff l c h / 0.05);
+  --color-bg-active: oklch(from #ffffff l c h / 0.07);
+
+  --color-accent: #29ef82;
+  --color-accent-hover: #22d474;
+  --color-accent-cyan: #1ec9c9;
+  --color-accent-glow: oklch(from #29ef82 l c h / 0.10);
+  --color-accent-border: oklch(from #29ef82 l c h / 0.15);
+  --color-accent-bg: oklch(from #29ef82 l c h / 0.06);
+
+  --color-text: oklch(from #ffffff l c h / 0.85);
+  --color-text-secondary: oklch(from #ffffff l c h / 0.50);
+  --color-text-muted: oklch(from #ffffff l c h / 0.25);
+  --color-text-ghost: oklch(from #ffffff l c h / 0.10);
+
+  --color-border: oklch(from #ffffff l c h / 0.06);
+  --color-border-hover: oklch(from #ffffff l c h / 0.12);
+
+  --color-error: #f87171;
+  --color-error-bg: oklch(from #f87171 l c h / 0.06);
+  --color-error-border: oklch(from #f87171 l c h / 0.12);
+  --color-warning: #fbbf24;
+  --color-warning-bg: oklch(from #f59e0b l c h / 0.06);
+  --color-warning-border: oklch(from #f59e0b l c h / 0.12);
+  --color-success: #34d399;
+  --color-purple: #a78bfa;
+  --color-purple-bg: oklch(from #a78bfa l c h / 0.06);
+  --color-purple-border: oklch(from #a78bfa l c h / 0.12);
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+
+  /* ─── Radius scale ─── */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* ─── Type scale ─── */
+  --text-2xl: clamp(1.8rem, 4vw, 2.4rem);
+  --text-xl: 1.5rem;
+  --text-lg: 1.15rem;
+  --text-base: 0.85rem;
+  --text-sm: 0.75rem;
+  --text-xs: 0.65rem;
+  --text-micro: 0.55rem;
+
+  /* ─── Spacing scale ─── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+
+  /* ─── Layout ─── */
+  --content-width: 520px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Base ──────────────────────────────────────── */
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+::selection {
+  background: oklch(from #29ef82 l c h / 0.25);
+  color: #fff;
+}
+
+/* ─── Glass ─────────────────────────────────────── */
+
+.glass {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(24px) saturate(1.15);
+  -webkit-backdrop-filter: blur(24px) saturate(1.15);
+}
+
+.glass-hover:hover {
+  border-color: var(--color-border-hover);
+  background: oklch(from #ffffff l c h / 0.05);
+}
+
+/* ─── Animations ────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-0.5deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 60px var(--color-accent-glow), 0 0 120px oklch(from #29ef82 l c h / 0.05); }
+  50% { box-shadow: 0 0 80px oklch(from #29ef82 l c h / 0.15), 0 0 160px var(--color-accent-glow); }
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateX(30px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes card-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-30px); }
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animate-card-enter {
+  animation: card-enter 0.4s var(--ease-out-expo) both;
+}
+
+.animate-card-exit {
+  animation: card-exit 0.25s ease-in both;
+}
+
+/* ─── Scrollbar ─────────────────────────────────── */
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: transparent; border-radius: 4px; transition: background 0.2s; }
+*:hover > ::-webkit-scrollbar-thumb { background: oklch(from #ffffff l c h / 0.12); }
+
+/* ─── Reduced motion ────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

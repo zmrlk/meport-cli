@@ -1,0 +1,69 @@
+{
+  "name": "@meport/core",
+  "version": "0.1.0",
+  "description": "Meport core engine — profiling, inference, and export compilation",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./engine": {
+      "import": "./dist/profiler/engine.js",
+      "types": "./dist/profiler/engine.d.ts"
+    },
+    "./compiler": {
+      "import": "./dist/compiler/index.js",
+      "types": "./dist/compiler/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/schema/types.js",
+      "types": "./dist/schema/types.d.ts"
+    },
+    "./interviewer": {
+      "import": "./dist/ai/interviewer.js",
+      "types": "./dist/ai/interviewer.d.ts"
+    },
+    "./client": {
+      "import": "./dist/ai/client.js",
+      "types": "./dist/ai/client.d.ts"
+    },
+    "./enricher": {
+      "import": "./dist/ai/enricher.js",
+      "types": "./dist/ai/enricher.d.ts"
+    },
+    "./browser-detect": {
+      "import": "./dist/profiler/browser-detect.js",
+      "types": "./dist/profiler/browser-detect.d.ts"
+    },
+    "./file-scanner": {
+      "import": "./dist/profiler/file-scanner.js",
+      "types": "./dist/profiler/file-scanner.d.ts"
+    },
+    "./importer": {
+      "import": "./dist/importer/text-parser.js",
+      "types": "./dist/importer/text-parser.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "files": [
+    "dist",
+    "questions"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "dependencies": {
+    "uuid": "^11.0.0"
+  }
+}

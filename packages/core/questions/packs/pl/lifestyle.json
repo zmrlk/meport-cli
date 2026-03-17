@@ -1,0 +1,248 @@
+{
+  "pack": "lifestyle",
+  "pack_name": "Styl życia",
+  "pack_intro": "Podróże, jedzenie, życie towarzyskie, codzienna rutyna.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "lifestyle_q01",
+      "pack": "lifestyle",
+      "question": "Znajomy pisze: 'Tanie loty do Lizbony w weekend!' Ty...",
+      "type": "select",
+      "dimension": "lifestyle.travel_style",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Kształtuje jak AI pomaga z podróżami — spontanicznie vs planowo.",
+      "options": [
+        {
+          "value": "already_packing",
+          "label": "Już się pakuję — lecimy!",
+          "maps_to": { "dimension": "lifestyle.travel_style", "value": "spontaneous" },
+          "export_rule": "I'm a spontaneous traveler. Show me deals and quick options, not detailed itineraries."
+        },
+        {
+          "value": "check_first",
+          "label": "Brzmi super! Sprawdzę kalendarz i budżet",
+          "maps_to": { "dimension": "lifestyle.travel_style", "value": "flexible_planner" },
+          "export_rule": "I travel flexibly but check logistics first. Help me evaluate feasibility quickly."
+        },
+        {
+          "value": "plan_properly",
+          "label": "Fajny pomysł, ale wolę to porządnie zaplanować na później",
+          "maps_to": { "dimension": "lifestyle.travel_style", "value": "planner" },
+          "export_rule": "I plan trips in advance. Help me research, compare, and organize itineraries."
+        },
+        {
+          "value": "not_my_style",
+          "label": "Nie moja bajka — planuję podróże miesiącami wcześniej",
+          "maps_to": { "dimension": "lifestyle.travel_style", "value": "structured" },
+          "export_rule": "I'm a thorough trip planner. Give me detailed comparisons, checklists, and timelines."
+        }
+      ]
+    },
+    {
+      "id": "lifestyle_q02",
+      "pack": "lifestyle",
+      "question": "Nowa restauracja, menu w języku którego nie znasz. Ty...",
+      "type": "select",
+      "dimension": "lifestyle.food_openness",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Mówi AI jaki jest Twój poziom kulinarnej przygody — wpływa na rekomendacje posiłków.",
+      "options": [
+        {
+          "value": "random",
+          "label": "Wskazuję coś losowo — przygoda!",
+          "maps_to": { "dimension": "lifestyle.food_openness", "value": "adventurous" },
+          "export_rule": "I'm adventurous with food. Suggest new things, unusual cuisines, bold flavors."
+        },
+        {
+          "value": "ask_waiter",
+          "label": "Pytam kelnera o jego ulubione",
+          "maps_to": { "dimension": "lifestyle.food_openness", "value": "open" },
+          "export_rule": "I'm open to food suggestions but like some guidance. Recommend with brief context."
+        },
+        {
+          "value": "translate",
+          "label": "Najpierw Google Translate na menu",
+          "maps_to": { "dimension": "lifestyle.food_openness", "value": "cautious" },
+          "export_rule": "I like to know what I'm eating before trying. Give clear descriptions of dishes."
+        },
+        {
+          "value": "known_place",
+          "label": "Wolę iść gdzieś gdzie już byłem",
+          "maps_to": { "dimension": "lifestyle.food_openness", "value": "familiar" },
+          "export_rule": "I prefer familiar foods. Don't push exotic suggestions — stick to what I like."
+        }
+      ]
+    },
+    {
+      "id": "lifestyle_q03",
+      "pack": "lifestyle",
+      "question": "Długi tydzień pracy, piątek wieczór. Idealne ładowanie baterii?",
+      "type": "select",
+      "dimension": "lifestyle.social_energy",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI sugeruje aktywności i plany towarzyskie.",
+      "options": [
+        {
+          "value": "social",
+          "label": "Znajomi, kolacja, wyjście",
+          "maps_to": { "dimension": "lifestyle.social_energy", "value": "extrovert" },
+          "export_rule": "I recharge through social activity. Suggest group plans and social options."
+        },
+        {
+          "value": "solo",
+          "label": "Solo — kanapa, książka, cisza",
+          "maps_to": { "dimension": "lifestyle.social_energy", "value": "introvert" },
+          "export_rule": "I recharge alone. Don't suggest social activities when I'm tired."
+        },
+        {
+          "value": "small_group",
+          "label": "Mała grupa bliskich znajomych",
+          "maps_to": { "dimension": "lifestyle.social_energy", "value": "ambivert" },
+          "export_rule": "I prefer small, close gatherings over big social events."
+        },
+        {
+          "value": "depends",
+          "label": "Zależy całkowicie od tygodnia",
+          "maps_to": { "dimension": "lifestyle.social_energy", "value": "variable" },
+          "export_rule": "My social needs vary. Check my energy level before suggesting social plans."
+        }
+      ]
+    },
+    {
+      "id": "lifestyle_q04",
+      "pack": "lifestyle",
+      "question": "Niedzielny wieczór. Jutro poniedziałek. Twoje przygotowania wyglądają...",
+      "type": "select",
+      "dimension": "lifestyle.routine_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Mówi AI jak ustrukturyzowane jest Twoje życie — kształtuje pomoc z planowaniem.",
+      "options": [
+        {
+          "value": "no_prep",
+          "label": "Jakie przygotowania? Ogarnę jutro",
+          "maps_to": { "dimension": "lifestyle.routine_preference", "value": "spontaneous" },
+          "export_rule": "I don't plan ahead much. Suggest things in the moment, not for next week."
+        },
+        {
+          "value": "full_prep",
+          "label": "Ciuchy + lunch + lista zadań gotowe",
+          "maps_to": { "dimension": "lifestyle.routine_preference", "value": "structured" },
+          "export_rule": "I like preparation and structure. Help me plan ahead with checklists and schedules."
+        },
+        {
+          "value": "work_structured",
+          "label": "Praca zaplanowana, życie prywatne = na żywioł",
+          "maps_to": { "dimension": "lifestyle.routine_preference", "value": "hybrid" },
+          "export_rule": "Structure my work tasks, but keep personal suggestions flexible and spontaneous."
+        },
+        {
+          "value": "full_schedule",
+          "label": "Pełny plan godzina po godzinie",
+          "maps_to": { "dimension": "lifestyle.routine_preference", "value": "time_blocked" },
+          "export_rule": "I time-block everything. Help me fit things into specific time slots."
+        }
+      ]
+    },
+    {
+      "id": "lifestyle_q05",
+      "pack": "lifestyle",
+      "question": "Jakieś preferencje żywieniowe lub ograniczenia?",
+      "type": "multi_select",
+      "dimension": "lifestyle.dietary",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Zapewnia że AI nigdy nie zasugeruje jedzenia którego nie jesz.",
+      "options": [
+        {
+          "value": "no_restrictions",
+          "label": "Bez ograniczeń — jem wszystko",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "no_restrictions" }
+        },
+        {
+          "value": "vegetarian",
+          "label": "Wegetarianin",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "vegetarian" },
+          "export_rule": "I'm vegetarian. Never suggest meat dishes."
+        },
+        {
+          "value": "vegan",
+          "label": "Weganin",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "vegan" },
+          "export_rule": "I'm vegan. No animal products in any food suggestions."
+        },
+        {
+          "value": "low_carb",
+          "label": "Low-carb / keto",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "low_carb" },
+          "export_rule": "I eat low-carb/keto. Prioritize protein and fats in food suggestions."
+        },
+        {
+          "value": "gluten_free",
+          "label": "Bez glutenu",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "gluten_free" },
+          "export_rule": "I'm gluten-free. Always check for gluten in food suggestions."
+        },
+        {
+          "value": "halal",
+          "label": "Halal",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "halal" },
+          "export_rule": "I eat halal. Respect this in all food-related suggestions."
+        },
+        {
+          "value": "kosher",
+          "label": "Koszerne",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "kosher" },
+          "export_rule": "I eat kosher. Respect this in all food-related suggestions."
+        },
+        {
+          "value": "allergies",
+          "label": "Alergie (podaj w następnym pytaniu)",
+          "maps_to": { "dimension": "lifestyle.dietary", "value": "has_allergies" }
+        }
+      ],
+      "open_text_addon": "Jakieś konkretne alergie lub inne ograniczenia?"
+    },
+    {
+      "id": "lifestyle_q06",
+      "pack": "lifestyle",
+      "question": "Jak wygląda Twój typowy poranek?",
+      "type": "select",
+      "dimension": "lifestyle.morning_routine",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI dobiera czas sugestii i planuje Twój dzień.",
+      "options": [
+        {
+          "value": "structured",
+          "label": "Ustrukturyzowana rutyna — tak samo każdego dnia (trening, kawa, plan)",
+          "maps_to": { "dimension": "lifestyle.morning_routine", "value": "structured" },
+          "export_rule": "I have a structured morning routine. Don't suggest morning tasks that would disrupt it."
+        },
+        {
+          "value": "flexible",
+          "label": "Elastycznie — zależy od nastroju i energii",
+          "maps_to": { "dimension": "lifestyle.morning_routine", "value": "flexible" },
+          "export_rule": "My mornings vary. Adapt morning suggestions to my current energy."
+        },
+        {
+          "value": "late",
+          "label": "Jaki poranek? Zaczynam późno i powoli",
+          "maps_to": { "dimension": "lifestyle.morning_routine", "value": "late_start" },
+          "export_rule": "I'm not a morning person. Don't suggest early tasks or assume I'm productive before noon."
+        },
+        {
+          "value": "chaotic",
+          "label": "Chaotycznie — każdy dzień inaczej, żadnego wzorca",
+          "maps_to": { "dimension": "lifestyle.morning_routine", "value": "chaotic" },
+          "export_rule": "My mornings are unpredictable. Don't assume any morning routine or schedule."
+        }
+      ]
+    }
+  ]
+}

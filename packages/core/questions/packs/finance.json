@@ -1,0 +1,118 @@
+{
+  "pack": "finance",
+  "pack_name": "Finance",
+  "pack_intro": "Spending style and financial comfort — you control where this exports.",
+  "required": false,
+  "sensitive": true,
+  "privacy_note": "Financial data only exports to platforms you explicitly allow. Never shared by default.",
+  "questions": [
+    {
+      "id": "finance_q01",
+      "pack": "finance",
+      "question": "You get an unexpected 10,000 right now. First instinct?",
+      "type": "select",
+      "dimension": "finance.financial_goal",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Reveals your financial mindset — shapes how AI handles money topics.",
+      "options": [
+        {
+          "value": "save",
+          "label": "Save it — emergency fund",
+          "maps_to": { "dimension": "finance.financial_goal", "value": "security" },
+          "export_rule": "I prioritize financial security. Always mention the cost-effective option first."
+        },
+        {
+          "value": "invest",
+          "label": "Invest it",
+          "maps_to": { "dimension": "finance.financial_goal", "value": "growth" },
+          "export_rule": "I think long-term with money. Frame spending as investment when relevant."
+        },
+        {
+          "value": "debt",
+          "label": "Pay off debt",
+          "maps_to": { "dimension": "finance.financial_goal", "value": "debt_free" },
+          "export_rule": "I'm focused on reducing debt. Be cost-conscious in all suggestions."
+        },
+        {
+          "value": "spend",
+          "label": "Spend — I've been needing/wanting things",
+          "maps_to": { "dimension": "finance.financial_goal", "value": "spending" },
+          "export_rule": "I spend when I have money. Help me make smart purchases, don't lecture about saving."
+        },
+        {
+          "value": "mix",
+          "label": "Mix of save + enjoy",
+          "maps_to": { "dimension": "finance.financial_goal", "value": "balanced" },
+          "export_rule": "I balance saving and spending. Suggest the best value, not just the cheapest."
+        }
+      ]
+    },
+    {
+      "id": "finance_q02",
+      "pack": "finance",
+      "question": "Friday night, friends invite you to a pricey restaurant. Budget is tight this month. You...",
+      "type": "select",
+      "dimension": "finance.spending_style",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Tells AI how disciplined you are with spending — affects money advice tone.",
+      "options": [
+        {
+          "value": "go_anyway",
+          "label": "Go anyway — life is short, I'll figure it out",
+          "maps_to": { "dimension": "finance.spending_style", "value": "impulsive" },
+          "export_rule": "I'm an impulse spender. When I ask about purchases, give me a quick reality check but don't lecture."
+        },
+        {
+          "value": "cheaper",
+          "label": "Suggest a cheaper alternative to the group",
+          "maps_to": { "dimension": "finance.spending_style", "value": "practical" },
+          "export_rule": "I look for affordable alternatives. Always mention free/cheaper options first."
+        },
+        {
+          "value": "skip",
+          "label": "Skip it — budget is budget",
+          "maps_to": { "dimension": "finance.spending_style", "value": "disciplined" },
+          "export_rule": "I'm strict with budgets. Respect my financial boundaries in suggestions."
+        },
+        {
+          "value": "check",
+          "label": "Check my account first, then decide",
+          "maps_to": { "dimension": "finance.spending_style", "value": "data_driven" },
+          "export_rule": "I make spending decisions based on data. Help me track and evaluate, not just choose."
+        }
+      ]
+    },
+    {
+      "id": "finance_q03",
+      "pack": "finance",
+      "question": "How should AI handle money topics with you?",
+      "type": "select",
+      "dimension": "finance.ai_advice_level",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Sets the boundary for financial advice.",
+      "options": [
+        {
+          "value": "data_only",
+          "label": "Just track data — no opinions",
+          "maps_to": { "dimension": "finance.ai_advice_level", "value": "passive" },
+          "export_rule": "For finances: track and organize only. No financial advice or opinions."
+        },
+        {
+          "value": "suggestions",
+          "label": "Suggestions welcome, I decide",
+          "maps_to": { "dimension": "finance.ai_advice_level", "value": "advisory" },
+          "export_rule": "You can suggest financial moves, but I make all money decisions."
+        },
+        {
+          "value": "full_advice",
+          "label": "Full advice — be my financial advisor",
+          "maps_to": { "dimension": "finance.ai_advice_level", "value": "active" },
+          "export_rule": "Actively advise me on finances. Flag overspending, suggest savings, optimize costs."
+        }
+      ]
+    }
+  ]
+}

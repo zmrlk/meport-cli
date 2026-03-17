@@ -1,0 +1,288 @@
+{
+  "pack": "story",
+  "pack_name": "Twoja Historia",
+  "pack_intro": "Twoje tło kształtuje to jak AI powinno z Tobą rozmawiać.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "story_q01",
+      "pack": "story",
+      "question": "Jak opisałby Cię najlepszy przyjaciel w jednym zdaniu?",
+      "type": "open_text",
+      "dimension": "identity.self_description",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "To jak się definiujesz mówi o Twoich priorytetach.",
+      "placeholder": "np. 'Developer budujący narzędzia dla firm' albo 'Mama dwójki dzieci, koduje nocami'"
+    },
+    {
+      "id": "story_q02",
+      "pack": "story",
+      "question": "Co najtrudniejszego udało Ci się osiągnąć?",
+      "type": "open_text",
+      "dimension": "identity.key_achievement",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Twoje największe osiągnięcie mówi AI do czego jesteś zdolny.",
+      "placeholder": "np. 'Schudłem 80kg w 4 lata' albo 'Zbudowałem firmę od zera'"
+    },
+    {
+      "id": "story_q03",
+      "pack": "story",
+      "question": "Jak chcesz żeby wyglądało Twoje życie za 3 lata?",
+      "type": "open_text",
+      "dimension": "identity.vision",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Twoja wizja przyszłości kształtuje pod co AI powinno optymalizować.",
+      "placeholder": "np. 'Własna firma' albo 'Wolność finansowa' albo 'Więcej czasu z rodziną'"
+    },
+    {
+      "id": "story_q04",
+      "pack": "story",
+      "question": "Co Cię najbardziej motywuje?",
+      "type": "select",
+      "dimension": "personality.core_motivation",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Twój główny napęd kształtuje jak AI formułuje sugestie.",
+      "options": [
+        {
+          "value": "freedom",
+          "label": "Wolność — robić co chcę, kiedy chcę",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "freedom" },
+          "export_rule": "Frame suggestions in terms of independence and autonomy. I value freedom over security."
+        },
+        {
+          "value": "impact",
+          "label": "Wpływ — budować coś co ma znaczenie",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "impact" },
+          "export_rule": "Connect tasks to bigger purpose. I'm motivated by impact, not just completion."
+        },
+        {
+          "value": "mastery",
+          "label": "Mistrzostwo — być naprawdę dobrym w tym co robię",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "mastery" },
+          "export_rule": "Suggest ways to deepen expertise. I value mastery and depth over breadth."
+        },
+        {
+          "value": "security",
+          "label": "Bezpieczeństwo — stabilność dla mnie i moich bliskich",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "security" },
+          "export_rule": "Consider risk and stability in suggestions. I prioritize security for myself and family."
+        },
+        {
+          "value": "recognition",
+          "label": "Uznanie — żeby inni widzieli co buduję",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "recognition" },
+          "export_rule": "Help me make my work visible. I'm motivated by recognition and being valued."
+        },
+        {
+          "value": "connection",
+          "label": "Więzi — relacje i wspólnota",
+          "maps_to": { "dimension": "personality.core_motivation", "value": "connection" },
+          "export_rule": "Prioritize people and relationships in suggestions. I value connection above achievement."
+        }
+      ]
+    },
+    {
+      "id": "story_q05",
+      "pack": "story",
+      "question": "Masz odpalić coś ważnego. Jaka myśl Cię powstrzymuje?",
+      "type": "select",
+      "dimension": "personality.core_fear",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Zrozumienie Twoich obaw pozwala AI wspierać bez protekcjonalności.",
+      "options": [
+        {
+          "value": "failure",
+          "label": "Porażka publiczna — inni zobaczą że mi się nie udało",
+          "maps_to": { "dimension": "personality.core_fear", "value": "failure" },
+          "export_rule": "Be encouraging but realistic. Don't dismiss risks — help me manage them."
+        },
+        {
+          "value": "not_enough",
+          "label": "Nie jestem wystarczająco dobry — imposter syndrome",
+          "maps_to": { "dimension": "personality.core_fear", "value": "imposter_syndrome" },
+          "export_rule": "Never be patronizing. Treat me as competent. If I doubt myself, ground me in evidence of what I've done."
+        },
+        {
+          "value": "missing_out",
+          "label": "Inni są przede mną a ja stoję w miejscu",
+          "maps_to": { "dimension": "personality.core_fear", "value": "fomo" },
+          "export_rule": "Help me focus on MY path. Don't compare to others. One priority at a time."
+        },
+        {
+          "value": "wasting_time",
+          "label": "Marnuję czas — życie jest krótkie a ja się nie ruszam",
+          "maps_to": { "dimension": "personality.core_fear", "value": "time_pressure" },
+          "export_rule": "Be efficient. Respect my time. Cut to what matters. Every suggestion should move the needle."
+        },
+        {
+          "value": "letting_down",
+          "label": "Zawiodę ludzi — rodzinę, zespół, klientów",
+          "maps_to": { "dimension": "personality.core_fear", "value": "responsibility" },
+          "export_rule": "Help me manage commitments realistically. Flag overcommitment early."
+        },
+        {
+          "value": "none",
+          "label": "Jestem w dobrym miejscu — brak większych obaw",
+          "maps_to": { "dimension": "personality.core_fear", "value": "stable" }
+        }
+      ]
+    },
+    {
+      "id": "story_q06",
+      "pack": "story",
+      "question": "Status związku i sytuacja mieszkaniowa?",
+      "type": "select",
+      "dimension": "context.life_situation",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Wpływa na dostępność czasu i priorytety.",
+      "options": [
+        {
+          "value": "single_alone",
+          "label": "Singiel, mieszkam sam/sama",
+          "maps_to": { "dimension": "context.life_situation", "value": "single_alone" },
+          "export_rule": "I have full control of my schedule. Don't factor in others' needs."
+        },
+        {
+          "value": "single_shared",
+          "label": "Singiel, z rodziną / współlokatorami",
+          "maps_to": { "dimension": "context.life_situation", "value": "single_shared" }
+        },
+        {
+          "value": "partner",
+          "label": "W związku / małżeństwo, bez dzieci",
+          "maps_to": { "dimension": "context.life_situation", "value": "partner" },
+          "export_rule": "Consider that I share decisions with a partner. Big changes affect two people."
+        },
+        {
+          "value": "parent_small",
+          "label": "Rodzic — małe dzieci (dużo czasu pochłaniają)",
+          "maps_to": { "dimension": "context.life_situation", "value": "parent_small_kids" },
+          "export_rule": "My time is extremely limited. Kids come first. Suggest ONLY high-impact, low-time actions."
+        },
+        {
+          "value": "parent_older",
+          "label": "Rodzic — starsze dzieci (trochę luzu)",
+          "maps_to": { "dimension": "context.life_situation", "value": "parent_older_kids" },
+          "export_rule": "I have some flexibility but family is a priority. Factor in evenings/weekends being family time."
+        }
+      ]
+    },
+    {
+      "id": "story_q07",
+      "pack": "story",
+      "question": "Który obszar Twojego życia potrzebuje teraz najwięcej pomocy?",
+      "type": "select",
+      "dimension": "context.primary_need",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Mówi AI co priorytetyzować w każdej interakcji.",
+      "options": [
+        {
+          "value": "career",
+          "label": "Kariera / biznes — rozwój zawodowy",
+          "maps_to": { "dimension": "context.primary_need", "value": "career" },
+          "export_rule": "Optimize suggestions for career growth and professional development."
+        },
+        {
+          "value": "money",
+          "label": "Pieniądze — zarabianie, oszczędzanie, inwestowanie",
+          "maps_to": { "dimension": "context.primary_need", "value": "financial" },
+          "export_rule": "Always consider financial impact. Help me make money-smart decisions."
+        },
+        {
+          "value": "health",
+          "label": "Zdrowie — lepsze zdrowie, fitness, energia",
+          "maps_to": { "dimension": "context.primary_need", "value": "health" },
+          "export_rule": "Weave health-conscious suggestions naturally. Energy and wellbeing are priorities."
+        },
+        {
+          "value": "relationships",
+          "label": "Relacje — rodzina, przyjaciele, życie towarzyskie",
+          "maps_to": { "dimension": "context.primary_need", "value": "relationships" },
+          "export_rule": "Consider social impact of suggestions. Relationships matter to me."
+        },
+        {
+          "value": "productivity",
+          "label": "Produktywność — więcej zrobić, mniej chaosu",
+          "maps_to": { "dimension": "context.primary_need", "value": "productivity" },
+          "export_rule": "Focus on systems and efficiency. Help me reduce chaos and get more done."
+        },
+        {
+          "value": "meaning",
+          "label": "Sens — rozgryźć czego tak naprawdę chcę",
+          "maps_to": { "dimension": "context.primary_need", "value": "meaning" },
+          "export_rule": "Help me think about direction, not just execution. I'm searching for meaning."
+        }
+      ]
+    },
+    {
+      "id": "story_q08",
+      "pack": "story",
+      "question": "Twoje wykształcenie?",
+      "type": "select",
+      "dimension": "identity.education",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Wpływa na to jak AI kalibruje głębokość wyjaśnień i odwołania.",
+      "options": [
+        {
+          "value": "self_taught",
+          "label": "Autodydakta / brak formalnego wykształcenia w mojej dziedzinie",
+          "maps_to": { "dimension": "identity.education", "value": "self_taught" },
+          "export_rule": "I'm self-taught. Don't assume academic background. Practical knowledge over theory."
+        },
+        {
+          "value": "vocational",
+          "label": "Zawodowe / technikum / niepełne studia",
+          "maps_to": { "dimension": "identity.education", "value": "vocational" }
+        },
+        {
+          "value": "bachelors",
+          "label": "Licencjat / inżynier",
+          "maps_to": { "dimension": "identity.education", "value": "bachelors" }
+        },
+        {
+          "value": "masters_phd",
+          "label": "Magister / doktorat",
+          "maps_to": { "dimension": "identity.education", "value": "advanced" },
+          "export_rule": "I have advanced education. You can use academic terminology and cite research when relevant."
+        },
+        {
+          "value": "complicated",
+          "label": "Skomplikowane — rzuciłem / zmieniłem kierunek",
+          "maps_to": { "dimension": "identity.education", "value": "non_linear" },
+          "export_rule": "My education path is non-linear. Don't assume traditional academic knowledge."
+        }
+      ]
+    },
+    {
+      "id": "story_q09",
+      "pack": "story",
+      "question": "Jakimi językami się posługujesz?",
+      "type": "open_text",
+      "dimension": "identity.languages",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "AI powinno wiedzieć w jakich językach czujesz się swobodnie.",
+      "placeholder": "np. polski (ojczysty), angielski (płynny), niemiecki (podstawy)"
+    },
+    {
+      "id": "story_q10",
+      "pack": "story",
+      "question": "Hobby i zainteresowania poza pracą?",
+      "type": "open_text",
+      "dimension": "lifestyle.hobbies",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Daje AI kontekst do rekomendacji i tematów rozmów.",
+      "placeholder": "np. gaming, gotowanie, wędrówki, produkcja muzyki, czytanie sci-fi"
+    }
+  ]
+}

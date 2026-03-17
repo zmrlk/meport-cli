@@ -1,0 +1,40 @@
+{
+  "name": "meport",
+  "version": "0.1.0",
+  "description": "Your AI doesn't know you. Fix that in 30 minutes.",
+  "type": "module",
+  "bin": {
+    "meport": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "ai",
+    "personalization",
+    "profile",
+    "chatgpt",
+    "claude",
+    "cursor",
+    "ollama",
+    "adhd",
+    "export"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@meport/core": "workspace:*",
+    "commander": "^13.0.0",
+    "@inquirer/prompts": "^7.0.0",
+    "chalk": "^5.4.0",
+    "ora": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}

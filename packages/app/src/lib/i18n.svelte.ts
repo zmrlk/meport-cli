@@ -1,0 +1,392 @@
+/**
+ * Simple i18n — PL/EN with localStorage persistence.
+ */
+
+export type Locale = "pl" | "en";
+
+// Auto-detect from browser on first visit
+function detectLocale(): Locale {
+  const saved = localStorage.getItem("meport:locale") as Locale;
+  if (saved) return saved;
+  // Auto-detect from browser language
+  const browserLang = navigator.language?.toLowerCase() || "";
+  if (browserLang.startsWith("pl")) return "pl";
+  return "en";
+}
+
+let locale = $state<Locale>(detectLocale());
+
+export function getLocale() { return locale; }
+
+export function setLocale(l: Locale) {
+  locale = l;
+  localStorage.setItem("meport:locale", l);
+}
+
+// ─── Translation keys ───
+
+const translations: Record<string, Record<Locale, string>> = {
+  // Nav
+  "nav.home": { pl: "Start", en: "Home" },
+  "nav.start": { pl: "Profil", en: "Profile" },
+  "nav.profile": { pl: "Mój profil", en: "My Profile" },
+  "nav.export": { pl: "Eksport", en: "Export" },
+  "nav.settings": { pl: "Ustawienia", en: "Settings" },
+
+  // Home — no profile
+  "home.headline": { pl: "Twoje AI Cię\nnie zna", en: "Your AI doesn't\nknow you" },
+  "home.subline": { pl: "Ta sama osoba. To samo pytanie. Generyczna odpowiedź. Za każdym razem.", en: "Same person. Same question. Generic answer. Every time." },
+  "home.without": { pl: "Bez profilu", en: "Without profile" },
+  "home.with": { pl: "Z meport", en: "With meport" },
+  "home.generic": { pl: "Generyczne", en: "Generic" },
+  "home.personal": { pl: "Osobiste", en: "Personal" },
+  "home.without_example": { pl: "Oto kilka ogólnych wskazówek: 1) Użyj menedżera zadań 2) Ustal priorytety...", en: "Here are some general tips: 1) Use a task manager 2) Set priorities..." },
+  "home.with_example": { pl: "Pracujesz w sprintach i padasz po lunchu — blokuj deep work przed 13:00.", en: "You work in sprints and crash after lunch — block deep work before 13:00." },
+  "home.ai_profiling": { pl: "AI Profiling", en: "AI Profiling" },
+  "home.ai_sub_ready": { pl: "konwersacja z AI", en: "conversational" },
+  "home.ai_sub_connect": { pl: "podłącz klucz API", en: "connect API key" },
+  "home.quick": { pl: "Szybki start", en: "Quick start" },
+  "home.deep": { pl: "Pełny profil", en: "Deep profile" },
+  "home.trust": { pl: "100% prywatne · bez konta · open source", en: "100% private · no account · open source" },
+  "home.ai_hint": { pl: "⚙ Podłącz klucz AI dla konwersacyjnego profilowania", en: "⚙ Connect an AI key for conversational profiling" },
+  "home.ai_hint_ready": { pl: "✦ Spróbuj AI Profiling (konwersacja, ~5 min)", en: "✦ Try AI Profiling (conversational, ~5 min)" },
+
+  "home.tagline": { pl: "Twoje AI zna Cię — na każdej platformie.", en: "Your AI knows you — across every platform." },
+  "home.value_privacy": { pl: "Dane zostają na Twoim urządzeniu. Zawsze.", en: "Your data stays on your device. Always." },
+  "home.value_flow": { pl: "Odpowiedz na pytania → dostań instrukcje AI", en: "Answer questions → get custom AI instructions" },
+  "home.value_platforms": { pl: "Eksportuj do ChatGPT, Claude, Cursor + 11 więcej", en: "Export to ChatGPT, Claude, Cursor + 11 more" },
+  "home.ai_subtitle": { pl: "rozmowa, ~5 min", en: "conversational, ~5 min" },
+  "home.whats_your_name": { pl: "Jak masz na imię?", en: "What's your name?" },
+  "home.name_placeholder": { pl: "Twoje imię", en: "Your name" },
+  "home.start_profiling": { pl: "Stwórz profil", en: "Create profile" },
+  "home.start_ai": { pl: "Stwórz z AI", en: "Create with AI" },
+  "home.or_questions": { pl: "lub stwórz pytaniami (~5 min)", en: "or create with questions (~5 min)" },
+  "home.or_connect_ai": { pl: "Podłącz AI dla lepszych wyników", en: "Connect AI for better results" },
+  "home.time_badge": { pl: "~2 min", en: "~2 min" },
+  "home.already_know": { pl: "Już wiemy:", en: "We already know:" },
+  "home.path_ai_header": { pl: "Z AI", en: "With AI" },
+  "home.path_ai_1": { pl: "✓ Pełny profil z Twoich danych", en: "✓ Full profile from your data" },
+  "home.path_ai_2": { pl: "✓ Reguły eksportu dla AI", en: "✓ Export rules for AI" },
+  "home.path_ai_3": { pl: "✓ Predykcje i wzorce", en: "✓ Predictions & patterns" },
+  "home.path_q_header": { pl: "Pytaniami", en: "With questions" },
+  "home.path_q_1": { pl: "✓ Podstawowe wymiary", en: "✓ Basic dimensions" },
+  "home.path_q_2": { pl: "— Brak reguł eksportu", en: "— No export rules" },
+  "home.path_q_3": { pl: "— Brak predykcji", en: "— No predictions" },
+  "home.social_proof": { pl: "500+ użytkowników zbudowało swój profil", en: "500+ users built their profile" },
+  "home.no_api_banner": { pl: "Nie masz klucza API do AI. Dodaj go w ustawieniach.", en: "No AI API key configured. Add one in settings." },
+  "home.add_key": { pl: "Dodaj klucz", en: "Add key" },
+
+  // Home — has profile
+  "home.active": { pl: "Twój profil jest aktywny", en: "Your profile is active" },
+  "home.dimensions": { pl: "wymiarów", en: "dimensions" },
+  "home.complete": { pl: "kompletny", en: "complete" },
+  "home.export": { pl: "Eksport", en: "Export" },
+  "home.platforms": { pl: "14 platform", en: "14 platforms" },
+  "home.deepen": { pl: "Pogłęb", en: "Deepen" },
+  "home.add_more": { pl: "Dodaj wymiary", en: "Add more" },
+  "home.deepen_pick": { pl: "Co pogłębić?", en: "What to deepen?" },
+  "home.deepen_smart": { pl: "AI wybiera", en: "AI picks" },
+  "home.deepen_smart_sub": { pl: "5-7 najważniejszych brakujących pytań", en: "5-7 highest-value missing questions" },
+  "home.deepen_by_category": { pl: "Lub wybierz kategorię", en: "Or pick a category" },
+  "home.deepen_import": { pl: "Wrzuć dane z AI", en: "Import AI data" },
+  "home.deepen_import_sub": { pl: "Instrukcje, rozmowy, pliki — AI zbuduje profil", en: "Instructions, conversations, files — AI builds your profile" },
+  "home.low_complete_hint": { pl: "Twój profil jest jeszcze cienki — dodaj dane, żeby AI lepiej Cię rozumiało", en: "Your profile is thin — add data so AI understands you better" },
+  "home.add_ai_data": { pl: "Wrzuć dane z AI", en: "Import AI data" },
+  "home.answer_questions": { pl: "Odpowiedz na pytania", en: "Answer questions" },
+  "category.identity": { pl: "Tożsamość", en: "Identity" },
+  "category.communication": { pl: "Komunikacja", en: "Communication" },
+  "category.cognitive": { pl: "Styl myślenia", en: "Cognitive" },
+  "category.work": { pl: "Praca", en: "Work" },
+  "category.personality": { pl: "Osobowość", en: "Personality" },
+  "category.neurodivergent": { pl: "Neuroróżnorodność", en: "Neurodivergent" },
+  "category.expertise": { pl: "Umiejętności", en: "Expertise" },
+  "category.life": { pl: "Kontekst życia", en: "Life Context" },
+  "category.ai": { pl: "Relacja z AI", en: "AI Relationship" },
+  "home.settings": { pl: "Ustawienia", en: "Settings" },
+  "home.ai_connected": { pl: "AI podłączone", en: "AI connected" },
+  "home.connect_ai": { pl: "Podłącz AI", en: "Connect AI" },
+
+  // Profile screen
+  "profile.title": { pl: "Mój profil", en: "My Profile" },
+  "profile.save": { pl: "↓ Zapisz", en: "↓ Save" },
+  "profile.delete": { pl: "Usuń", en: "Delete" },
+  "profile.export_btn": { pl: "Eksportuj na 14 platform →", en: "Export to 14 platforms →" },
+  "profile.add_more": { pl: "+ Dodaj więcej wymiarów", en: "+ Add more dimensions" },
+  "profile.explicit": { pl: "jawne", en: "explicit" },
+  "profile.inferred": { pl: "wywnioskowane", en: "inferred" },
+  "profile.no_profile": { pl: "Nie masz jeszcze profilu", en: "No profile yet" },
+  "profile.no_profile_desc": { pl: "Stwórz go odpowiadając na kilka pytań, lub wgraj istniejący profil z CLI.", en: "Create one by answering a few questions, or upload an existing profile from the CLI." },
+  "profile.create": { pl: "Stwórz profil", en: "Create profile" },
+  "profile.upload": { pl: "↑ Wgraj profile.json", en: "↑ Upload profile.json" },
+  "profile.cli_hint": { pl: "Z CLI", en: "From CLI" },
+  "profile.delete_confirm": { pl: "Usunąć profil? Tego nie da się cofnąć.", en: "Delete your profile? This cannot be undone." },
+  "profile.upload_error": { pl: "Nieprawidłowy format. Oczekiwany plik JSON z meport.", en: "Invalid profile format. Expected a meport JSON profile." },
+  "profile.file_error": { pl: "Nie udało się odczytać pliku.", en: "Could not read file." },
+  "profile.import": { pl: "↑ Importuj", en: "↑ Import" },
+  "profile.import_from": { pl: "Importuję z:", en: "Importing from:" },
+  "profile.import_other": { pl: "Inne", en: "Other" },
+  "profile.import_placeholder": { pl: "Wklej swoje istniejące instrukcje AI...", en: "Paste your existing AI instructions..." },
+  "profile.import_parse": { pl: "Importuj", en: "Import" },
+  "profile.import_parse_error": { pl: "Nie znaleziono wymiarów w tekście. Wklej instrukcje AI z innej platformy.", en: "No dimensions found. Paste AI instructions from another platform." },
+  "profile.copy_json": { pl: "Kopiuj JSON", en: "Copy JSON" },
+  "profile.copied": { pl: "Skopiowano!", en: "Copied!" },
+  "profile.edit_hint": { pl: "Kliknij, żeby edytować", en: "Click to edit" },
+  "profile.raw_json": { pl: "Raw JSON", en: "Raw JSON" },
+  "profile.edit_saved": { pl: "Zapisano", en: "Saved" },
+
+  // Profile — suggestions
+  "profile.suggestions_title": { pl: "Uzupełnij profil", en: "Complete your profile" },
+  "profile.suggestion_desc": { pl: "Odpowiedz na dodatkowe pytania, żeby AI lepiej Cię rozumiało.", en: "Answer more questions so AI understands you better." },
+
+  // Reveal
+  "reveal.headline": { pl: "Twoja osobowość AI", en: "Your AI personality" },
+  "reveal.built_from": { pl: "Zbudowane z {count} odpowiedzi", en: "Built from {count} answers" },
+  "reveal.platforms": { pl: "platform", en: "platforms" },
+  "reveal.export_btn": { pl: "Eksportuj do swoich narzędzi AI →", en: "Export to your AI tools →" },
+  "reveal.export_sub": { pl: "ChatGPT, Claude, Cursor, Copilot i 10 więcej", en: "ChatGPT, Claude, Cursor, Copilot, and 10 more" },
+  "reveal.inferred": { pl: "+ {count} wymiarów wywnioskowanych z Twoich odpowiedzi", en: "+ {count} dimensions inferred from your answers" },
+  "reveal.view_profile": { pl: "Zobacz pełny profil", en: "View full profile" },
+  "reveal.archetype_prefix": { pl: "Twój typ:", en: "Your type:" },
+
+  // Settings
+  "settings.title": { pl: "Ustawienia", en: "Settings" },
+  "settings.ai_connection": { pl: "Połączenie AI", en: "AI Connection" },
+  "settings.ai_desc": { pl: "Podłącz klucz API, żeby aktywować inteligentne profilowanie. Klucz jest przechowywany lokalnie — nigdy nie wysyłamy go nigdzie.", en: "Connect an API key to enable AI-enhanced profiling. Your key is stored locally — never sent anywhere except the AI provider." },
+  "settings.save_key": { pl: "Zapisz klucz", en: "Save key" },
+  "settings.saved": { pl: "Zapisano", en: "Saved" },
+  "settings.connected": { pl: "Połączono:", en: "Connected:" },
+  "settings.about": { pl: "O aplikacji", en: "About" },
+  "settings.privacy": { pl: "100% lokalne", en: "100% local" },
+  "settings.data": { pl: "Dane", en: "Data" },
+  "settings.data_desc": { pl: "Wszystkie dane zostają w Twojej przeglądarce. Nic nie jest wysyłane na serwer. Wyczyść dane przeglądarki, żeby usunąć wszystko.", en: "All data stays in your browser. Nothing is sent to any server. Clear your browser data to delete everything." },
+  "settings.data_trust": { pl: "Twój profil jest przechowywany wyłącznie w przeglądarce (localStorage). Żadne dane nie są wysyłane na serwer. meport nie ma kont, analityki ani śledzenia.", en: "Your profile is stored only in your browser (localStorage). No data is sent to any server. meport has no accounts, no analytics, no tracking." },
+  "settings.export_backup": { pl: "Pobierz kopię zapasową", en: "Download backup" },
+  "settings.import_backup": { pl: "Przywróć z kopii", en: "Restore from backup" },
+  "settings.backup_restored": { pl: "Profil przywrócony!", en: "Profile restored!" },
+  "settings.backup_error": { pl: "Nieprawidłowy plik kopii zapasowej", en: "Invalid backup file" },
+  "settings.delete_profile": { pl: "Usuń profil", en: "Delete profile" },
+  "settings.delete_confirm": { pl: "Na pewno? Tej operacji nie da się cofnąć.", en: "Are you sure? This cannot be undone." },
+  "settings.deleted": { pl: "Profil usunięty", en: "Profile deleted" },
+  "settings.language": { pl: "Język", en: "Language" },
+  "settings.lang_pl": { pl: "Polski", en: "Polish" },
+  "settings.lang_en": { pl: "English", en: "English" },
+
+  // Paste / import phase
+  "paste.title": { pl: "Masz już instrukcje AI?", en: "Already have AI instructions?" },
+  "paste.subtitle": { pl: "Wklej swoje custom instructions — przeanalizuję i zbuduję profil.", en: "Paste your custom instructions — I'll analyze and build your profile." },
+  "paste.placeholder": { pl: "Wklej custom instructions, system prompt, .cursorrules...", en: "Paste custom instructions, system prompt, .cursorrules..." },
+  "paste.platform_label": { pl: "Skąd?", en: "From?" },
+  "paste.analyze": { pl: "Analizuj", en: "Analyze" },
+  "paste.skip": { pl: "Zaczynam od zera", en: "Start fresh" },
+  "paste.analyzing": { pl: "Analizuję instrukcje...", en: "Analyzing instructions..." },
+  "paste.or_file": { pl: "lub wrzuć plik", en: "or upload a file" },
+  "paste.done": { pl: "Znaleziono {count} wymiarów", en: "Found {count} dimensions" },
+  "paste.error": { pl: "Nie udało się przeanalizować. Przejdź do pytań.", en: "Couldn't analyze. Continue with questions." },
+
+  // Rapid mode
+  "rapid.about_title": { pl: "Kilka słów o sobie", en: "A few words about yourself" },
+  "rapid.about_subtitle": { pl: "Napisz cokolwiek — AI zbuduje profil z tego co dostanie", en: "Write anything — AI will build a profile from what it gets" },
+  "rapid.about_placeholder": { pl: "Kim jesteś? Czym się zajmujesz? Co lubisz? Wklej notatki, bio, cokolwiek...", en: "Who are you? What do you do? What do you like? Paste notes, bio, anything..." },
+  "rapid.sources_title": { pl: "Masz dane z AI?", en: "Have AI data?" },
+  "rapid.sources_sub": { pl: "Kliknij platformę i wklej instrukcje, rozmowy lub ustawienia", en: "Click a platform and paste instructions, conversations or settings" },
+  "rapid.platform_paste_hint": { pl: "Wklej dane z {platform} — instrukcje, rozmowy, cokolwiek", en: "Paste {platform} data — instructions, conversations, anything" },
+  "rapid.hint_chatgpt": { pl: "Settings → Personalization → Memory, lub Custom Instructions", en: "Settings → Personalization → Memory, or Custom Instructions" },
+  "rapid.hint_claude": { pl: "Profile → Style → Preferred, lub wklej rozmowę", en: "Profile → Style → Preferred, or paste a conversation" },
+  "rapid.hint_cursor": { pl: "Wklej .cursorrules lub treść z Settings → Rules", en: "Paste .cursorrules or content from Settings → Rules" },
+  "rapid.hint_gemini": { pl: "Extensions → Saved info, lub wklej rozmowę", en: "Extensions → Saved info, or paste a conversation" },
+  "rapid.ph_chatgpt": { pl: "Wklej Custom Instructions lub pamięć ChatGPT...", en: "Paste Custom Instructions or ChatGPT memory..." },
+  "rapid.ph_claude": { pl: "Wklej styl lub rozmowę z Claude...", en: "Paste style settings or Claude conversation..." },
+  "rapid.ph_cursor": { pl: "Wklej .cursorrules lub ustawienia...", en: "Paste .cursorrules or settings..." },
+  "rapid.ph_gemini": { pl: "Wklej dane z Gemini...", en: "Paste Gemini data..." },
+  "rapid.already_know": { pl: "Już wiem o Tobie", en: "Already know about you" },
+  "rapid.files_title": { pl: "Dodaj pliki", en: "Add files" },
+  "rapid.files_sub": { pl: "PDF, TXT, MD, DOCX, JSON, HTML", en: "PDF, TXT, MD, DOCX, JSON, HTML" },
+  "rapid.files_desc": { pl: "Dokumenty, notatki, zakładki z przeglądarki (Ctrl+Shift+O → Eksportuj .html)", en: "Documents, notes, browser bookmarks (Ctrl+Shift+O → Export .html)" },
+  "rapid.scan_folder_sub": { pl: "AI przeanalizuje pliki na Twoim komputerze", en: "AI will analyze files on your computer" },
+  "rapid.drop_or_click": { pl: "Przeciągnij pliki lub kliknij", en: "Drag files or click to browse" },
+  "rapid.add_files_bookmarks": { pl: "Dodaj pliki lub zakładki", en: "Add files or bookmarks" },
+  "rapid.add_files_bookmarks_sub": { pl: "PDF, TXT, MD, DOCX, JSON — lub eksport zakładek (.html)", en: "PDF, TXT, MD, DOCX, JSON — or bookmarks export (.html)" },
+  "rapid.ai_data_toggle": { pl: "Masz też dane z ChatGPT, Claude lub innego AI?", en: "Have data from ChatGPT, Claude or other AI?" },
+  "rapid.skip_visible": { pl: "Pomiń — przejdź do pytań", en: "Skip — go to questions" },
+  "rapid.add_files": { pl: "Dodaj pliki", en: "Add files" },
+  "rapid.scan_folder": { pl: "Przeskanuj folder", en: "Scan folder" },
+  "rapid.scanning_folder": { pl: "Skanowanie...", en: "Scanning..." },
+  "rapid.drop_here": { pl: "lub przeciągnij pliki tutaj", en: "or drag files here" },
+  "rapid.import_title": { pl: "Wrzuć swoje dane", en: "Drop your data" },
+  "rapid.import_subtitle": { pl: "Im więcej danych, tym lepszy profil. Możesz też pominąć.", en: "More data = better profile. You can also skip." },
+  "rapid.paste_placeholder": { pl: "Wklej instrukcje AI, notatki o sobie, bio...", en: "Paste AI instructions, notes about yourself, bio..." },
+  "rapid.paste_platform": { pl: "Skąd to?", en: "Where from?" },
+  "rapid.upload_label": { pl: "Lub przeciągnij pliki", en: "Or drag files" },
+  "rapid.upload_formats": { pl: "PDF, TXT, MD, DOCX, HTML", en: "PDF, TXT, MD, DOCX, HTML" },
+  "rapid.analyze_btn": { pl: "Analizuj", en: "Analyze" },
+  "rapid.skip_btn": { pl: "Pomiń — AI zbuduje z tego co ma", en: "Skip — AI will work with what it has" },
+  "rapid.synthesizing": { pl: "AI analizuje Twoje dane...", en: "AI is analyzing your data..." },
+  "rapid.synthesizing_sub": { pl: "Budowanie profilu osobowości", en: "Building personality profile" },
+  "rapid.micro_title": { pl: "Jeszcze {count} pytań", en: "{count} more questions" },
+  "rapid.micro_subtitle": { pl: "AI potrzebuje doprecyzowania", en: "AI needs clarification" },
+  "rapid.micro_why": { pl: "Dlaczego pytam:", en: "Why I ask:" },
+  "rapid.micro_skip": { pl: "Pomiń — profil i tak będzie dobry", en: "Skip — profile will still be good" },
+  "rapid.done": { pl: "Profil gotowy", en: "Profile ready" },
+  "rapid.tab_instructions": { pl: "Instrukcje", en: "Instructions" },
+  "rapid.tab_conversations": { pl: "Rozmowy", en: "Conversations" },
+  "rapid.tab_files": { pl: "Pliki", en: "Files" },
+  "rapid.conv_placeholder": { pl: "Wklej rozmowę z AI (skopiuj z ChatGPT, Claude, itp.)...", en: "Paste a conversation with AI (copy from ChatGPT, Claude, etc.)..." },
+  "rapid.conv_hint": { pl: "Rozmowy to kopalnia złota — AI zobaczy jak naprawdę się komunikujesz", en: "Conversations are a goldmine — AI sees how you really communicate" },
+  "rapid.source_count": { pl: "{count} źródeł", en: "{count} sources" },
+  "rapid.paste_unified": { pl: "Wklej cokolwiek — instrukcje, rozmowy, notatki...", en: "Paste anything — instructions, conversations, notes..." },
+  "rapid.paste_anything": { pl: "Wklej dane — AI zbuduje Twój profil", en: "Paste your data — AI builds your profile" },
+  "rapid.more_sources": { pl: "Więcej źródeł", en: "More sources" },
+  "rapid.char_enough": { pl: "Wystarczająco danych", en: "Enough data" },
+  "rapid.skip_link": { pl: "lub pomiń — AI użyje sygnałów przeglądarki", en: "or skip — AI will use browser signals" },
+  "rapid.auto_detected": { pl: "wykryto: {platform}", en: "detected: {platform}" },
+  "rapid.bookmarks_label": { pl: "Zakładki przeglądarki", en: "Browser bookmarks" },
+  "rapid.bookmarks_hint": { pl: "Eksportuj zakładki z przeglądarki (Ctrl+Shift+O → Eksportuj) i wrzuć plik .html", en: "Export bookmarks from your browser (Ctrl+Shift+O → Export) and drop the .html file" },
+  "rapid.cancel": { pl: "Anuluj", en: "Cancel" },
+  "rapid.elapsed": { pl: "{seconds}s...", en: "{seconds}s..." },
+  "rapid.error_title": { pl: "Coś poszło nie tak", en: "Something went wrong" },
+  "rapid.error_timeout": { pl: "AI nie odpowiada. Sprawdź połączenie i spróbuj ponownie.", en: "AI is not responding. Check your connection and try again." },
+  "rapid.error_api": { pl: "Błąd połączenia z AI. Spróbuj ponownie.", en: "AI connection error. Please try again." },
+  "rapid.retry": { pl: "Spróbuj ponownie", en: "Try again" },
+  "rapid.fallback": { pl: "Kontynuuj bez AI", en: "Continue without AI" },
+  "export.ai_compile": { pl: "AI Compilation", en: "AI Compilation" },
+  "export.ai_compile_sub": { pl: "Spersonalizowany pod platformę", en: "Platform-personalized" },
+  "export.compiling": { pl: "AI kompiluje...", en: "AI compiling..." },
+
+  // Tier transitions
+  "tier.start_label": { pl: "Etap {tier}", en: "Tier {tier}" },
+  "tier.complete_label": { pl: "Etap {tier} ukończony", en: "Tier {tier} complete" },
+  "tier.tap_continue": { pl: "dotknij aby kontynuować", en: "tap to continue" },
+
+  // Tier names
+  "tier.name.0": { pl: "Tożsamość", en: "Identity" },
+  "tier.name.1": { pl: "Komunikacja", en: "Communication DNA" },
+  "tier.name.2": { pl: "Myślenie", en: "Cognitive Style" },
+  "tier.name.3": { pl: "Praca", en: "Work & Productivity" },
+  "tier.name.4": { pl: "Osobowość", en: "Personality" },
+  "tier.name.5": { pl: "Neurodywersja", en: "Neurodivergent" },
+  "tier.name.6": { pl: "Ekspertyza", en: "Expertise" },
+  "tier.name.7": { pl: "Kontekst życia", en: "Life Context" },
+  "tier.name.8": { pl: "Relacja z AI", en: "AI Relationship" },
+
+  // Tier intros
+  "tier.intro.0": { pl: "Podstawy — wystarczą żeby wszystko poczuło się dobrze od startu. 2 minuty, nie ma złych odpowiedzi.", en: "Quick basics — just enough to make everything feel right from the start. 2 minutes, no wrong answers." },
+  "tier.intro.1": { pl: "To robi największą różnicę. Jak AI ma do Ciebie mówić? Bezpośrednio czy ostrożnie? Krótko czy szczegółowo? 3-5 minut i AI nagle wie jak z Tobą gadać.", en: "This is the one that makes the biggest immediate difference. How does AI talk TO you? 3-5 minutes and your AI suddenly feels like it knows you." },
+  "tier.intro.2": { pl: "Jak przetwarzasz informacje? Jak się uczysz? Jak podejmujesz decyzje? Te wymiary kształtują TO JAK AI do Ciebie dociera.", en: "How you process information, how you learn, how you decide. These dimensions shape HOW AI reaches you." },
+
+  // Tier completes
+  "tier.complete.0": { pl: "Tożsamość ustawiona.", en: "Identity locked in." },
+  "tier.complete.0.body": { pl: "AI zna Twoje imię, język i po co tu jesteś. Pierwsze wrażenie już 10x lepsze niż domyślne. Dalej: jak lubisz się komunikować.", en: "AI now knows your name, language, and why you're here. Next: how you like to communicate." },
+  "tier.complete.1": { pl: "Profil komunikacji gotowy.", en: "Communication profile built." },
+  "tier.complete.1.body": { pl: "AI wie jak do Ciebie mówić — format, ton, poziom bezpośredniości. To samo eliminuje 80% frustracji.", en: "AI now knows exactly how to talk to you. This alone eliminates 80% of frustration." },
+  "tier.complete.2": { pl: "Styl myślenia zmapowany.", en: "Cognitive style mapped." },
+  "tier.complete.2.body": { pl: "AI wie jak przetwarzasz informacje i podejmujesz decyzje. Teraz dopasuje się do Twojego sposobu myślenia.", en: "AI knows how you process info and make decisions. It will now match your thinking style." },
+
+  // Copy button
+  "copy.copy": { pl: "Kopiuj", en: "Copy" },
+  "copy.copied": { pl: "Skopiowano!", en: "Copied!" },
+
+  // Profiling
+  "profiling.progress": { pl: "{current} / {total}", en: "{current} / {total}" },
+  "profiling.back": { pl: "meport", en: "meport" },
+  "profiling.export_now": { pl: "Eksportuj teraz", en: "Export now" },
+  "profiling.finish_early": { pl: "Zakończ wcześniej", en: "Finish early" },
+  "profiling.dim_captured": { pl: "wymiar zebrany", en: "dimension captured" },
+  "profiling.dims_captured": { pl: "wymiarów zebranych", en: "dimensions captured" },
+  "profiling.skip": { pl: "pomiń", en: "skip" },
+  "profiling.keep_going": { pl: "Nie ma złych odpowiedzi", en: "There are no wrong answers" },
+  "profiling.continue_multi": { pl: "Kontynuuj z {count} zaznaczonymi", en: "Continue with {count} selected" },
+  "profiling.you": { pl: "Ty", en: "You" },
+  "profiling.chat_placeholder": { pl: "Napisz coś...", en: "Type something..." },
+  "profiling.depth": { pl: "głębokość", en: "depth" },
+  "profiling.write_own": { pl: "Napisz", en: "Type" },
+  "profiling.building": { pl: "Budujemy Twój profil...", en: "Building your profile..." },
+  "profiling.ai_analyzing": { pl: "AI analizuje Twoje odpowiedzi", en: "AI is analyzing your answers" },
+  "profiling.ai_working": { pl: "AI analizuje", en: "AI analyzing" },
+  "profiling.ai_connected": { pl: "AI podłączone", en: "AI connected" },
+  "profiling.ai_finish_early": { pl: "Zakończ i buduj profil", en: "Finish & build profile" },
+  "profiling.ai_retry": { pl: "Spróbuj ponownie", en: "Try again" },
+  "profiling.ai_connecting": { pl: "Łączenie z AI...", en: "Connecting to AI..." },
+  "reveal.patterns": { pl: "Wzorce", en: "Patterns" },
+  "reveal.ai_enriched": { pl: "Wzbogacone przez AI", en: "AI-enriched" },
+  "reveal.cognitive": { pl: "Profil Kognitywny", en: "Cognitive Profile" },
+  "reveal.thinking": { pl: "Myślenie", en: "Thinking" },
+  "reveal.learning": { pl: "Nauka", en: "Learning" },
+  "reveal.decisions": { pl: "Decyzje", en: "Decisions" },
+  "reveal.attention": { pl: "Uwaga", en: "Attention" },
+  "reveal.communication": { pl: "DNA Komunikacji", en: "Communication DNA" },
+  "reveal.tone": { pl: "Ton", en: "Tone" },
+  "reveal.directness": { pl: "Bezpośredniość", en: "Directness" },
+  "reveal.contradictions": { pl: "Napięcia", en: "Tensions" },
+  "reveal.predictions": { pl: "Predykcje", en: "Predictions" },
+  "reveal.strengths": { pl: "Mocne strony", en: "Strengths" },
+  "reveal.blind_spots": { pl: "Martwe punkty", en: "Growth Edges" },
+  "reveal.export_rules": { pl: "Instrukcje dla AI", en: "AI Instructions" },
+  "reveal.export_rules_desc": { pl: "Te reguły zostaną eksportowane do Twoich narzędzi AI — zmienią sposób, w jaki AI z Tobą rozmawia.", en: "These rules will be exported to your AI tools — they'll change how AI talks to you." },
+  "reveal.synthesis_loading": { pl: "AI wzbogaca Twój profil...", en: "AI is enriching your profile..." },
+  "reveal.synthesis_loading_sub": { pl: "Analiza wzorców i generowanie wglądu", en: "Analyzing patterns and generating insights" },
+  "reveal.tap_to_show": { pl: "kliknij, żeby pokazać wszystko", en: "tap to show all" },
+
+  // Scanning
+  "profiling.ai_thinking": { pl: "AI analizuje Twoje odpowiedzi...", en: "AI is analyzing your answers..." },
+  "profiling.ai_question": { pl: "Pytanie AI", en: "AI question" },
+  "profiling.skip_to_profile": { pl: "Pokaż profil", en: "Show my profile" },
+  "scan.title": { pl: "Przygotowuję się...", en: "Getting ready..." },
+  "scan.language": { pl: "Język", en: "Language" },
+  "scan.timezone": { pl: "Strefa", en: "Timezone" },
+  "scan.platform": { pl: "System", en: "Platform" },
+  "scan.device": { pl: "Urządzenie", en: "Device" },
+  "scan.languages": { pl: "Języki", en: "Languages" },
+  "scan.theme": { pl: "Motyw", en: "Theme" },
+  "scan.offer_title": { pl: "Mogę przejrzeć Twoje pliki?", en: "Can I look at your files?" },
+  "scan.offer_desc": { pl: "Zobaczę tylko nazwy plików i folderów — nie treści. Pomoże to lepiej Cię poznać.", en: "I'll only see file and folder names — not content. This helps me understand you better." },
+  "scan.scan_files": { pl: "Tak, sprawdź", en: "Yes, go ahead" },
+  "scan.skip": { pl: "Pomiń", en: "Skip" },
+  "scan.scanning": { pl: "Skanowanie plików...", en: "Scanning files..." },
+  "scan.found": { pl: "Znaleziono", en: "Found" },
+  "scan.files_label": { pl: "plików", en: "files" },
+  "scan.folders_label": { pl: "folderów", en: "folders" },
+
+  // Summary / refinement phase
+  "summary.round": { pl: "Analiza", en: "Analysis" },
+  "summary.looks_good": { pl: "Wygląda dobrze ✓", en: "Looks good ✓" },
+  "summary.fix_something": { pl: "Coś nie pasuje", en: "Something's off" },
+  "summary.correction_placeholder": { pl: "Co poprawić? Np. 'Nie jestem introwertykiem' lub 'Pracuję głównie zdalnie'", en: "What to fix? E.g. 'I'm not an introvert' or 'I mostly work remotely'" },
+  "summary.send_correction": { pl: "Popraw", en: "Fix it" },
+  "summary.more_rules": { pl: "więcej reguł", en: "more rules" },
+
+  // Categories
+  "cat.identity": { pl: "Tożsamość", en: "Identity" },
+  "cat.communication": { pl: "Komunikacja", en: "Communication" },
+  "cat.cognitive": { pl: "Myślenie", en: "Cognitive" },
+  "cat.work": { pl: "Praca", en: "Work & Productivity" },
+  "cat.personality": { pl: "Osobowość", en: "Personality" },
+  "cat.neurodivergent": { pl: "Neurodywersja", en: "Neurodivergent" },
+  "cat.expertise": { pl: "Ekspertyza", en: "Expertise" },
+  "cat.life": { pl: "Kontekst życia", en: "Life Context" },
+  "cat.ai": { pl: "Relacja z AI", en: "AI Relationship" },
+  "cat.compound": { pl: "Złożone", en: "Compound" },
+
+  // Export screen
+  "export.copy": { pl: "Skopiuj do schowka", en: "Copy to clipboard" },
+  "export.copied": { pl: "Skopiowano!", en: "Copied!" },
+  "export.profile_ready": { pl: "Profil gotowy", en: "Profile ready" },
+  "export.export_to": { pl: "Eksportuj do", en: "Export to" },
+  "export.download_all": { pl: "Pobierz wszystkie", en: "Download all exports" },
+  "export.select_platform": { pl: "Wybierz platformę", en: "Select a platform to preview export" },
+  "export.open_settings": { pl: "Otwórz ustawienia", en: "Open settings in" },
+  "export.no_profile": { pl: "Brak profilu", en: "No profile yet" },
+  "export.no_profile_desc": { pl: "Stwórz profil, żeby eksportować do swoich narzędzi AI.", en: "Create a profile to export to your AI tools." },
+  "export.create_profile": { pl: "Stwórz profil", en: "Create profile" },
+};
+
+export function t(key: string, params?: Record<string, string | number>): string {
+  const entry = translations[key];
+  if (!entry) return key;
+  let text = entry[locale] || entry.en || key;
+  if (params) {
+    for (const [k, v] of Object.entries(params)) {
+      text = text.replace(`{${k}}`, String(v));
+    }
+  }
+  return text;
+}

@@ -1,0 +1,139 @@
+{
+  "pack": "context",
+  "pack_name": "Life Context",
+  "pack_intro": "Quick facts about your life — helps AI give relevant, grounded answers.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "context_q01",
+      "pack": "context",
+      "question": "What do you do for work?",
+      "type": "open_text",
+      "dimension": "context.occupation",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Shapes every work-related suggestion AI gives you.",
+      "placeholder": "e.g. freelance developer, marketing manager, student, between jobs"
+    },
+    {
+      "id": "context_q02",
+      "pack": "context",
+      "question": "What industry or company? (optional — helps AI understand your world)",
+      "type": "open_text",
+      "dimension": "context.industry",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Industry context makes recommendations much more relevant.",
+      "placeholder": "e.g. SaaS startup, retail chain, university, own business"
+    },
+    {
+      "id": "context_q03",
+      "pack": "context",
+      "question": "Where are you based?",
+      "type": "open_text",
+      "dimension": "context.location",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Location affects timezone, currency, local recommendations.",
+      "placeholder": "e.g. Kraków, Poland / NYC / remote, traveling"
+    },
+    {
+      "id": "context_q04",
+      "pack": "context",
+      "question": "Life stage right now?",
+      "type": "select",
+      "dimension": "context.life_stage",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Priorities differ wildly between a student and a parent of 3.",
+      "options": [
+        {
+          "value": "student",
+          "label": "Student — still learning, building skills",
+          "maps_to": { "dimension": "context.life_stage", "value": "student" },
+          "export_rule": "I'm a student. Prioritize learning, budget-friendly options, and career building."
+        },
+        {
+          "value": "early_career",
+          "label": "Early career — proving myself, growing fast",
+          "maps_to": { "dimension": "context.life_stage", "value": "early_career" },
+          "export_rule": "I'm early career — optimize for growth, visibility, and skill-building."
+        },
+        {
+          "value": "established",
+          "label": "Established — know what I'm doing, optimizing",
+          "maps_to": { "dimension": "context.life_stage", "value": "established" },
+          "export_rule": "I'm established professionally. Focus on optimization, delegation, and leverage."
+        },
+        {
+          "value": "founder",
+          "label": "Building my own thing — founder / freelancer",
+          "maps_to": { "dimension": "context.life_stage", "value": "founder" },
+          "export_rule": "I'm building my own business. Everything should serve revenue, growth, or sustainability."
+        },
+        {
+          "value": "transition",
+          "label": "In transition — changing direction",
+          "maps_to": { "dimension": "context.life_stage", "value": "transition" },
+          "export_rule": "I'm in career transition. Help me explore options and make decisions, not optimize the old path."
+        },
+        {
+          "value": "parent",
+          "label": "Parent — time is scarce, priorities shifted",
+          "maps_to": { "dimension": "context.life_stage", "value": "parent" },
+          "export_rule": "I have kids. Time is extremely scarce. Prioritize efficiency and don't suggest time-heavy approaches."
+        }
+      ]
+    },
+    {
+      "id": "context_q05",
+      "pack": "context",
+      "question": "What are you currently focused on? Your main project or goal right now.",
+      "type": "open_text",
+      "dimension": "context.current_focus",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Helps AI connect everything back to what matters most to you right now.",
+      "placeholder": "e.g. launching a product, learning Rust, job search, getting healthy"
+    },
+    {
+      "id": "context_q06",
+      "pack": "context",
+      "question": "Tools you use daily? (helps AI integrate with your workflow)",
+      "type": "open_text",
+      "dimension": "context.tools",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "AI suggestions work better when they fit your existing tools.",
+      "placeholder": "e.g. VS Code, Notion, Slack, Figma, Google Sheets"
+    },
+    {
+      "id": "context_q07",
+      "pack": "context",
+      "question": "Besides your main work — any other areas you know well?",
+      "type": "open_text",
+      "dimension": "expertise.secondary",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "AI won't over-explain things you already know, even outside your main field.",
+      "placeholder": "e.g. marketing, cooking, music production, investing, psychology"
+    },
+    {
+      "id": "context_q08",
+      "pack": "context",
+      "question": "Your pronouns?",
+      "type": "select",
+      "dimension": "identity.pronouns",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "So AI addresses you correctly.",
+      "options": [
+        { "value": "he", "label": "he/him", "maps_to": { "dimension": "identity.pronouns", "value": "he/him" } },
+        { "value": "she", "label": "she/her", "maps_to": { "dimension": "identity.pronouns", "value": "she/her" } },
+        { "value": "they", "label": "they/them", "maps_to": { "dimension": "identity.pronouns", "value": "they/them" } },
+        { "value": "skip", "label": "Prefer not to say", "maps_to": { "dimension": "identity.pronouns", "value": "not_specified" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1731 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meport.app/schema/v1.0.json",
+  "title": "PersonaOS Profile Schema v1.0",
+  "description": "The vCard for AI — a portable, structured profile for personalizing AI assistants across 20+ platforms. Supports both Personal (individual) and Business (company) profiles. All fields optional except schema_version and profile_type — profiles grow progressively over time.",
+  "type": "object",
+  "required": ["schema_version", "profile_type"],
+  "properties": {
+
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "PersonaOS Schema version. Used by export engines and validators to ensure compatibility."
+    },
+
+    "profile_type": {
+      "type": "string",
+      "enum": ["personal", "business"],
+      "description": "Track selector. 'personal' = individual user profile for AI personalization. 'business' = company profile for chatbots, AI agents, and customer-facing AI."
+    },
+
+    "profile_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this profile. Auto-generated on creation. Stable across exports and updates."
+    },
+
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of profile creation."
+    },
+
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last profile update. Updated automatically on any field change."
+    },
+
+    "completeness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Profile completeness score 0-100. Calculated by the profiling engine based on filled dimensions weighted by export impact. Not all dimensions are required — 40+ is sufficient for most exports."
+    },
+
+    "tiers_completed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of tier identifiers that have been profiled. For personal: ['identity', 'communication', ...]. For business: ['company', 'brand_voice', ...]. Used to show profiling progress and resume sessions.",
+      "examples": [["identity", "communication", "cognitive"]]
+    },
+
+    "personal": {
+      "type": "object",
+      "description": "Personal profile — individual user dimensions across 9 tiers. Present when profile_type is 'personal'.",
+      "properties": {
+
+        "identity": {
+          "type": "object",
+          "description": "Tier 0: Identity — 9 core dimensions that make every interaction feel right from the start. The minimum viable profile.",
+          "properties": {
+            "preferred_name": {
+              "type": "string",
+              "description": "What the AI should call this person. Can be first name, nickname, or title. AI uses this in direct address.",
+              "examples": ["Alex", "Dr. Smith", "Sam"]
+            },
+            "language": {
+              "type": "string",
+              "description": "BCP 47 language code for AI default response language. AI matches this language across all exported profiles.",
+              "examples": ["en", "pl", "de", "es", "fr", "ja"]
+            },
+            "timezone_region": {
+              "type": "string",
+              "description": "Broad timezone region for date/time/currency context. Affects how AI formats dates, references times, and assumes working hours.",
+              "examples": ["CET", "ET", "PT", "APAC"]
+            },
+            "timezone": {
+              "type": "string",
+              "description": "IANA timezone identifier for precise time awareness. More accurate than timezone_region.",
+              "examples": ["Europe/Warsaw", "America/New_York", "Asia/Tokyo"]
+            },
+            "age_range": {
+              "type": "string",
+              "enum": ["teen", "20s", "30s", "40s", "50+", "unknown"],
+              "description": "Approximate age range. AI calibrates cultural references, generational context, and explanation depth."
+            },
+            "pronouns": {
+              "type": "string",
+              "enum": ["he/him", "she/her", "they/them", "neutral", "unknown"],
+              "description": "Pronouns for AI to use when referring to this person. Small thing, significant inclusion impact."
+            },
+            "primary_use_case": {
+              "type": "string",
+              "enum": ["chat_ai", "dev_tools", "local_llm", "multi_platform"],
+              "description": "Primary reason for building this profile. Shapes which export formats are prioritized in the export center."
+            },
+            "professional_role": {
+              "type": "string",
+              "description": "Broad professional role or field. AI adjusts vocabulary, jargon tolerance, and domain depth accordingly.",
+              "examples": ["developer", "designer", "founder", "manager", "knowledge_worker", "student", "nurse", "teacher"]
+            },
+            "tech_comfort": {
+              "type": "string",
+              "enum": ["non_technical", "moderate", "technical", "expert"],
+              "description": "Self-reported technical comfort level. AI adjusts explanation depth — no jargon for non-technical, no hand-holding for experts."
+            },
+            "ai_frustration": {
+              "type": "string",
+              "enum": ["generic_output", "verbosity", "context_loss", "format_mismatch", "platform_friction"],
+              "description": "Single biggest frustration with AI assistants. PersonaOS attacks this dimension first in exports."
+            }
+          }
+        },
+
+        "communication": {
+          "type": "object",
+          "description": "Tier 1: Communication Style — 14 dimensions defining HOW the AI should talk to this person. The highest-impact tier for perceived AI quality.",
+          "properties": {
+            "response_length_preference": {
+              "type": "string",
+              "enum": ["concise", "balanced", "detailed"],
+              "description": "Preferred response length. 'concise' = short, direct. 'balanced' = enough to understand without overload. 'detailed' = comprehensive, cover all angles.",
+              "default": "balanced"
+            },
+            "formality_level": {
+              "type": "string",
+              "enum": ["casual", "balanced", "formal", "adaptive"],
+              "description": "Tone of address. 'adaptive' = match the user's register in each message.",
+              "default": "balanced"
+            },
+            "emoji_usage": {
+              "type": "string",
+              "enum": ["never", "rare", "moderate", "heavy"],
+              "description": "How much the AI should use emoji in responses. Some users find emoji unprofessional; others find plain text cold.",
+              "default": "rare"
+            },
+            "humor_tolerance": {
+              "type": "string",
+              "enum": ["none", "dry", "moderate", "playful"],
+              "description": "Level of humor AI can use. 'none' = purely professional. 'dry' = subtle wit. 'playful' = light jokes and banter welcome.",
+              "default": "moderate"
+            },
+            "explanation_style": {
+              "type": "string",
+              "enum": ["bottom_up", "top_down", "examples_first", "analogies"],
+              "description": "How AI should structure explanations. 'bottom_up' = foundations first, build up. 'top_down' = big picture first, drill down. 'examples_first' = show before tell. 'analogies' = map new concepts to familiar ones.",
+              "default": "examples_first"
+            },
+            "feedback_style": {
+              "type": "string",
+              "enum": ["direct", "diplomatic", "socratic"],
+              "description": "How AI delivers critique or correction. 'direct' = tell me I'm wrong clearly. 'diplomatic' = soften the edges. 'socratic' = guide via questions.",
+              "default": "direct"
+            },
+            "preferred_format": {
+              "type": "string",
+              "enum": ["prose", "bullets", "tables", "mixed"],
+              "description": "Default structural format for AI responses. 'mixed' = AI picks the best format per content type.",
+              "default": "mixed"
+            },
+            "code_comment_style": {
+              "type": "string",
+              "enum": ["minimal", "moderate", "heavy"],
+              "description": "For developers: how much the AI should comment generated code. 'minimal' = only non-obvious logic. 'heavy' = explain everything.",
+              "default": "moderate"
+            },
+            "thinking_aloud": {
+              "type": "string",
+              "enum": ["show_reasoning", "just_answer"],
+              "description": "Whether AI should show its reasoning process or go straight to the answer. 'show_reasoning' = chain of thought visible. 'just_answer' = direct output only.",
+              "default": "just_answer"
+            },
+            "hedging_tolerance": {
+              "type": "string",
+              "enum": ["confident_statements", "acknowledge_uncertainty"],
+              "description": "How AI should handle uncertain claims. 'confident_statements' = commit to answers (note uncertainties only when critical). 'acknowledge_uncertainty' = always flag what's estimated vs known.",
+              "default": "acknowledge_uncertainty"
+            },
+            "jargon_level": {
+              "type": "string",
+              "enum": ["plain_language", "domain_specific", "highly_technical"],
+              "description": "Vocabulary register. 'plain_language' = accessible to general audience. 'domain_specific' = use professional terminology for this person's field. 'highly_technical' = assume expert knowledge.",
+              "default": "domain_specific"
+            },
+            "conversation_memory_preference": {
+              "type": "string",
+              "enum": ["stateless", "contextual", "deep_memory"],
+              "description": "How much the AI should remember across conversations. 'stateless' = treat each session fresh. 'contextual' = remember this session. 'deep_memory' = build persistent model of this person.",
+              "default": "contextual"
+            },
+            "language_switching": {
+              "type": "string",
+              "enum": ["single", "bilingual_with_primary", "multilingual_fluid"],
+              "description": "Multilingual behavior. 'single' = respond in one language always. 'bilingual_with_primary' = primary + one secondary allowed. 'multilingual_fluid' = match whatever language the user writes in.",
+              "default": "single"
+            },
+            "sarcasm_comprehension": {
+              "type": "string",
+              "enum": ["literal", "moderate", "fluent"],
+              "description": "How the AI should handle sarcasm and irony. 'literal' = take all statements at face value. 'fluent' = understand and use sarcasm naturally.",
+              "default": "moderate"
+            }
+          }
+        },
+
+        "cognitive": {
+          "type": "object",
+          "description": "Tier 2: Cognitive Style — 14 dimensions describing HOW this person thinks, learns, and processes information. Enables AI to match cognitive load, framing, and reasoning style.",
+          "properties": {
+            "learning_style": {
+              "type": "string",
+              "enum": ["visual", "reading", "kinesthetic", "auditory", "mixed"],
+              "description": "Preferred learning modality. AI adapts explanation framing — diagrams described verbally for visual, step-by-step for kinesthetic, etc.",
+              "default": "mixed"
+            },
+            "decision_making": {
+              "type": "string",
+              "enum": ["analytical", "intuitive", "consultative", "decisive"],
+              "description": "Default decision-making approach. AI presents information accordingly — data and trade-offs for analytical, recommendations for decisive.",
+              "default": "analytical"
+            },
+            "abstraction_preference": {
+              "type": "string",
+              "enum": ["concrete", "balanced", "abstract"],
+              "description": "Preference for concrete specifics vs abstract principles. 'concrete' = always ground in real examples. 'abstract' = frameworks and models are welcome.",
+              "default": "balanced"
+            },
+            "information_processing": {
+              "type": "string",
+              "enum": ["sequential", "parallel", "random_access"],
+              "description": "How this person processes information. 'sequential' = one thing at a time, order matters. 'parallel' = handle multiple streams. 'random_access' = jump between topics freely.",
+              "default": "sequential"
+            },
+            "detail_orientation": {
+              "type": "string",
+              "enum": ["big_picture", "balanced", "detail_focused"],
+              "description": "Whether this person prefers strategic overview or granular detail. AI leads with the matching level.",
+              "default": "balanced"
+            },
+            "problem_solving_approach": {
+              "type": "string",
+              "enum": ["systematic", "creative", "hybrid"],
+              "description": "Preferred problem-solving mode. 'systematic' = methodical, step-by-step. 'creative' = lateral thinking, unconventional angles. 'hybrid' = structure with creative leaps.",
+              "default": "hybrid"
+            },
+            "reasoning_style": {
+              "type": "string",
+              "enum": ["deductive", "inductive", "abductive"],
+              "description": "Dominant reasoning pattern. 'deductive' = rules to specifics. 'inductive' = specifics to rules. 'abductive' = best explanation from incomplete data.",
+              "default": "inductive"
+            },
+            "analogy_appreciation": {
+              "type": "string",
+              "enum": ["literal", "moderate", "loves_analogies"],
+              "description": "How much this person values analogies and metaphors for understanding new concepts.",
+              "default": "moderate"
+            },
+            "mental_model_style": {
+              "type": "string",
+              "enum": ["spatial", "narrative", "mathematical", "relational"],
+              "description": "How this person builds mental models. AI frames explanations to match — spatial = diagrams and maps, narrative = stories and sequences, mathematical = formulas and logic, relational = connections and systems.",
+              "default": "relational"
+            },
+            "cognitive_load_tolerance": {
+              "type": "string",
+              "enum": ["minimal_context", "moderate", "deep_context"],
+              "description": "How much background information this person can handle at once before it becomes overwhelming.",
+              "default": "moderate"
+            },
+            "ambiguity_tolerance": {
+              "type": "string",
+              "enum": ["needs_clarity", "comfortable", "thrives_in_ambiguity"],
+              "description": "Comfort with open-ended, uncertain, or incomplete information. AI adds or removes clarifying structure accordingly.",
+              "default": "comfortable"
+            },
+            "creativity_expression": {
+              "type": "string",
+              "enum": ["structured", "freeform", "constrained_creativity"],
+              "description": "Preferred creative mode. 'constrained_creativity' = needs boundaries to be creative (like a brief or format).",
+              "default": "structured"
+            },
+            "metacognition_level": {
+              "type": "string",
+              "enum": ["implicit", "moderate", "highly_self_aware"],
+              "description": "How aware this person is of their own thinking processes. High metacognition = AI can reference cognitive patterns explicitly.",
+              "default": "moderate"
+            },
+            "attention_pattern": {
+              "type": "string",
+              "enum": ["sustained", "burst", "hyperfocus", "scattered"],
+              "description": "How this person's attention naturally flows. Critical for ADHD adaptation — 'burst' and 'scattered' = shorter chunks, quick wins, varied format.",
+              "default": "sustained"
+            }
+          }
+        },
+
+        "work": {
+          "type": "object",
+          "description": "Tier 3: Work and Productivity — 18 dimensions describing work style, energy, and productivity patterns. Enables AI to give time-aware, energy-aware, and style-matched advice.",
+          "properties": {
+            "work_style": {
+              "type": "string",
+              "enum": ["sprinter", "steady", "procrastinator", "perfectionist", "scattered"],
+              "description": "Primary work rhythm. 'sprinter' = intense bursts with recovery periods. 'steady' = consistent pace. 'procrastinator' = deadline-driven. 'perfectionist' = quality over speed. 'scattered' = context-switches frequently.",
+              "default": "steady"
+            },
+            "peak_hours": {
+              "type": "string",
+              "enum": ["morning", "midday", "afternoon", "evening", "night", "variable"],
+              "description": "When this person does their best cognitive work. AI schedules high-stakes tasks here.",
+              "default": "morning"
+            },
+            "task_granularity": {
+              "type": "string",
+              "enum": ["large_chunks", "pomodoro", "micro_tasks"],
+              "description": "Preferred task size. 'large_chunks' = 2+ hour deep work blocks. 'pomodoro' = 25-min intervals. 'micro_tasks' = very small steps, especially useful for ADHD task initiation.",
+              "default": "pomodoro"
+            },
+            "planning_horizon": {
+              "type": "string",
+              "enum": ["today", "this_week", "this_month", "quarterly"],
+              "description": "Natural planning timeframe. AI calibrates goal-setting and deadline suggestions to this horizon.",
+              "default": "this_week"
+            },
+            "deadline_relationship": {
+              "type": "string",
+              "enum": ["early", "just_in_time", "deadline_driven"],
+              "description": "How this person relates to deadlines. 'deadline_driven' = only starts when deadline is imminent — AI creates visible countdowns.",
+              "default": "just_in_time"
+            },
+            "collaboration_style": {
+              "type": "string",
+              "enum": ["solo", "pair", "team", "fluid"],
+              "description": "Preferred work context. AI adapts communication to include or exclude collaboration prompts.",
+              "default": "fluid"
+            },
+            "tool_philosophy": {
+              "type": "string",
+              "enum": ["minimal", "right_tool_for_job", "tool_maximalist"],
+              "description": "Attitude toward tools and apps. Affects how AI recommends software — minimal = suggest only when truly needed, maximalist = freely suggest integrations.",
+              "default": "right_tool_for_job"
+            },
+            "documentation_habit": {
+              "type": "string",
+              "enum": ["minimal", "as_needed", "thorough"],
+              "description": "How much this person documents their work. AI adjusts how much it includes comments, explanations, and written notes in outputs.",
+              "default": "as_needed"
+            },
+            "context_switching_tolerance": {
+              "type": "string",
+              "enum": ["single_track", "moderate", "heavy_multitasker"],
+              "description": "Comfort with switching between tasks or topics. AI avoids introducing new threads for 'single_track' users.",
+              "default": "moderate"
+            },
+            "automation_tendency": {
+              "type": "string",
+              "enum": ["manual", "selective", "automate_everything"],
+              "description": "Inclination toward automating repetitive tasks. AI suggests automation when appropriate for 'automate_everything' types.",
+              "default": "selective"
+            },
+            "energy_pattern": {
+              "type": "string",
+              "enum": ["consistent", "morning_peak", "afternoon_peak", "night_owl", "unpredictable"],
+              "description": "How energy levels change through the day. More granular than peak_hours — affects when AI recommends creative vs administrative tasks.",
+              "default": "consistent"
+            },
+            "break_pattern": {
+              "type": "string",
+              "enum": ["scheduled", "when_stuck", "rarely", "micro_breaks"],
+              "description": "When and how this person takes breaks. AI incorporates this into task planning suggestions.",
+              "default": "when_stuck"
+            },
+            "project_management_style": {
+              "type": "string",
+              "enum": ["kanban", "lists", "calendar", "mental", "chaos"],
+              "description": "How this person tracks work. AI formats project outputs to match this style — lists for list people, board language for kanban people.",
+              "default": "lists"
+            },
+            "meeting_preference": {
+              "type": "string",
+              "enum": ["async_first", "scheduled", "spontaneous", "avoid"],
+              "description": "How this person feels about meetings. AI calibrates communication and scheduling suggestions.",
+              "default": "async_first"
+            },
+            "feedback_loop_speed": {
+              "type": "string",
+              "enum": ["immediate", "daily", "weekly", "milestone"],
+              "description": "Preferred cadence for checking progress and getting feedback. AI adapts how often it suggests review or reflection.",
+              "default": "daily"
+            },
+            "perfectionism_level": {
+              "type": "string",
+              "enum": ["ship_fast", "good_enough", "polished", "perfect"],
+              "description": "Quality vs speed bias. 'ship_fast' = done is better than perfect. 'perfect' = will delay to get it exactly right.",
+              "default": "good_enough"
+            },
+            "workspace_preference": {
+              "type": "string",
+              "enum": ["quiet", "music", "cafe", "varied"],
+              "description": "Optimal physical environment for work. Contextual for AI recommendations about focus and productivity.",
+              "default": "varied"
+            },
+            "work_life_boundary": {
+              "type": "string",
+              "enum": ["strict", "flexible", "blurred"],
+              "description": "How clearly this person separates work from personal life. AI respects strict boundaries in scheduling and off-hours suggestions.",
+              "default": "flexible"
+            }
+          }
+        },
+
+        "personality": {
+          "type": "object",
+          "description": "Tier 4: Personality and Values — 18 dimensions covering Big Five traits, motivation drivers, values hierarchy, and emotional patterns. Enables AI to align with core identity.",
+          "properties": {
+            "openness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Big Five: Openness to experience. High = curious, creative, open to new ideas. Low = conventional, practical, prefers routine. AI adjusts novelty of suggestions."
+            },
+            "conscientiousness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Big Five: Conscientiousness. High = organized, disciplined, detail-oriented. Low = flexible, spontaneous. AI adapts structure and planning depth."
+            },
+            "extraversion": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Big Five: Extraversion. High = energized by people, thinks by talking. Low = energized by solitude, thinks internally. Affects collaboration and communication suggestions."
+            },
+            "agreeableness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Big Five: Agreeableness. High = cooperative, empathetic, avoids conflict. Low = challenging, competitive, direct. AI calibrates how gently it pushes back."
+            },
+            "neuroticism": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Big Five: Emotional reactivity. High = sensitive to stress, more anxious. Low = emotionally stable, resilient. AI adjusts how it frames challenges and uncertainties."
+            },
+            "risk_tolerance": {
+              "type": "string",
+              "enum": ["conservative", "moderate", "aggressive"],
+              "description": "Appetite for risk in decisions. Affects financial advice, business recommendations, and how boldly AI suggests change.",
+              "default": "moderate"
+            },
+            "conflict_style": {
+              "type": "string",
+              "enum": ["avoiding", "accommodating", "competing", "collaborating", "compromising"],
+              "description": "Thomas-Kilmann conflict mode. AI adapts how it frames disagreements, negotiations, and difficult conversations.",
+              "default": "collaborating"
+            },
+            "motivation_drivers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["autonomy", "mastery", "purpose", "recognition", "money", "impact", "security", "creativity"]
+              },
+              "description": "Primary motivators in priority order. AI frames goals and recommendations in terms of what actually drives this person.",
+              "examples": [["autonomy", "mastery", "impact"]]
+            },
+            "values_hierarchy": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["freedom", "family", "growth", "impact", "wealth", "health", "creativity", "justice", "adventure"]
+              },
+              "description": "Core values in priority order. AI surfaces alignment with these when recommending paths or trade-offs.",
+              "examples": [["freedom", "growth", "impact"]]
+            },
+            "stress_response": {
+              "type": "string",
+              "enum": ["withdraw", "push_through", "seek_support", "problem_solve"],
+              "description": "How this person responds under stress. AI adapts support style — pushes for problem_solve, gives space for withdraw.",
+              "default": "problem_solve"
+            },
+            "change_adaptability": {
+              "type": "string",
+              "enum": ["resistant", "cautious", "adaptive", "change_seeking"],
+              "description": "Attitude toward change. AI calibrates how aggressively it suggests pivots, new tools, or different approaches.",
+              "default": "adaptive"
+            },
+            "social_battery": {
+              "type": "string",
+              "enum": ["introvert", "ambivert", "extrovert"],
+              "description": "Social energy pattern. Contextual for recommendations around networking, collaboration, and communication load.",
+              "default": "ambivert"
+            },
+            "authority_orientation": {
+              "type": "string",
+              "enum": ["independent", "collaborative", "hierarchical"],
+              "description": "Relationship to authority and structure. 'independent' = self-directed, skeptical of top-down. 'hierarchical' = values clear chains of command.",
+              "default": "independent"
+            },
+            "ethical_framework": {
+              "type": "string",
+              "enum": ["consequentialist", "deontological", "virtue", "pragmatic"],
+              "description": "Primary ethical lens. Affects how AI frames moral trade-offs and decision recommendations.",
+              "default": "pragmatic"
+            },
+            "patience_level": {
+              "type": "string",
+              "enum": ["immediate", "moderate", "patient", "zen"],
+              "description": "How long this person can comfortably wait for results. AI adjusts timelines in recommendations and acknowledges pace preferences.",
+              "default": "moderate"
+            },
+            "optimism_pessimism": {
+              "type": "string",
+              "enum": ["optimist", "realist", "pessimist", "strategic_pessimist"],
+              "description": "Baseline outlook. 'strategic_pessimist' = uses pessimistic scenarios as planning tools but acts. AI matches tone and risk framing.",
+              "default": "realist"
+            },
+            "trust_default": {
+              "type": "string",
+              "enum": ["cautious", "neutral", "trusting"],
+              "description": "Default trust level toward people and systems. AI calibrates verification and vetting recommendations.",
+              "default": "neutral"
+            },
+            "self_awareness_level": {
+              "type": "string",
+              "enum": ["developing", "moderate", "high", "exceptional"],
+              "description": "Degree of self-knowledge. High self-awareness = AI can reference patterns and behaviors explicitly without it feeling off.",
+              "default": "moderate"
+            }
+          }
+        },
+
+        "neurodivergent": {
+          "type": "object",
+          "description": "Tier 5: Neurodivergent Profile — optional, sensitive. All fields are strictly opt-in. Used to activate specific AI adaptations, not just as diagnostic labels. PersonaOS treats ADHD as an adaptation engine, not a checkbox.",
+          "properties": {
+            "adhd_indicators": {
+              "type": "string",
+              "enum": ["none", "suspected", "diagnosed_inattentive", "diagnosed_hyperactive", "diagnosed_combined"],
+              "description": "ADHD status. When present, activates ADHD adaptations: shorter response blocks, high-dopamine framing, max 3 action items, visible progress bars, auto-decisions to reduce choice fatigue."
+            },
+            "adhd_adaptations_needed": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["time_blindness", "hyperfocus_management", "task_initiation", "emotional_regulation", "working_memory"]
+              },
+              "description": "Specific ADHD challenges to address. Each activates targeted AI behaviors — time_blindness = include time estimates always, working_memory = repeat key context within long responses.",
+              "examples": [["task_initiation", "working_memory", "time_blindness"]]
+            },
+            "autism_indicators": {
+              "type": "string",
+              "enum": ["none", "suspected", "diagnosed"],
+              "description": "Autism status. When present, activates adaptations: very explicit communication, clear social scripts when needed, pattern-based explanations, reduced ambiguity."
+            },
+            "sensory_preferences": {
+              "type": "object",
+              "description": "Sensory processing preferences. Affects AI recommendations about environment, tools, and communication channels.",
+              "properties": {
+                "visual": {
+                  "type": "string",
+                  "enum": ["low_stimulation", "neutral", "high_stimulation"],
+                  "description": "Visual environment preference. Affects UI/tool recommendations."
+                },
+                "auditory": {
+                  "type": "string",
+                  "enum": ["silence", "background_music", "ambient_noise", "variable"],
+                  "description": "Auditory environment preference for focus."
+                },
+                "tactile": {
+                  "type": "string",
+                  "enum": ["minimal", "moderate", "seeks_stimulation"],
+                  "description": "Tactile input preference. Affects recommendations around fidget tools, standing desks, etc."
+                }
+              }
+            },
+            "executive_function_profile": {
+              "type": "object",
+              "description": "Self-rated scores for executive function areas. 0 = major challenge, 10 = strong. AI prioritizes support in low-scoring areas.",
+              "properties": {
+                "planning": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "description": "Ability to plan and organize ahead."
+                },
+                "organization": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "description": "Ability to keep information, tasks, and environments organized."
+                },
+                "time_management": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "description": "Sense of time and ability to estimate durations."
+                },
+                "task_switching": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "description": "Ease of shifting between tasks or mental sets."
+                }
+              }
+            },
+            "dopamine_seeking_pattern": {
+              "type": "string",
+              "enum": ["low", "moderate", "high", "hyperfocus_prone"],
+              "description": "Novelty-seeking and dopamine drive level. 'hyperfocus_prone' = can lock in intensely on interesting tasks but struggle with boring ones. AI adds challenge framing and progress markers."
+            },
+            "rejection_sensitivity": {
+              "type": "string",
+              "enum": ["low", "moderate", "high"],
+              "description": "Sensitivity to perceived rejection or criticism. High RSD = AI softens critical feedback, leads with positives, avoids blunt dismissals."
+            },
+            "masking_level": {
+              "type": "string",
+              "enum": ["none", "light", "moderate", "heavy"],
+              "description": "Degree to which this person masks neurodivergent traits in social contexts. Heavy masking = AI can acknowledge the cost of masking, not push more performance."
+            },
+            "accommodation_preferences": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "clear_deadlines",
+                  "visual_aids",
+                  "written_over_verbal",
+                  "quiet_environment",
+                  "explicit_instructions",
+                  "no_surprise_changes",
+                  "processing_time",
+                  "repetition_ok",
+                  "step_by_step_only",
+                  "no_open_ended_questions"
+                ]
+              },
+              "description": "Specific accommodations that help this person work best. AI activates matching behaviors — 'explicit_instructions' = no implied steps, 'processing_time' = don't rush to next topic.",
+              "examples": [["clear_deadlines", "step_by_step_only", "written_over_verbal"]]
+            },
+            "stimming_awareness": {
+              "type": "boolean",
+              "description": "Whether this person is aware of stimming behavior and wants AI recommendations to account for it (e.g., suggest fidget tools, movement breaks)."
+            },
+            "burnout_susceptibility": {
+              "type": "string",
+              "enum": ["low", "moderate", "high", "currently_burned_out"],
+              "description": "Risk level for burnout. 'currently_burned_out' = AI immediately reduces load, defaults to minimal mode, no ambitious pushes until state changes."
+            },
+            "special_interests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Topics of deep, sustained interest. AI uses these for analogies, engagement hooks, and framing new concepts through familiar domains.",
+              "examples": [["AI systems", "anime", "mechanical keyboards", "game theory"]]
+            }
+          }
+        },
+
+        "expertise": {
+          "type": "object",
+          "description": "Tier 6: Domain Expertise — depth and breadth of knowledge. Enables AI to calibrate explanation depth, skip basics, and engage at the right level.",
+          "properties": {
+            "primary_domain": {
+              "type": "string",
+              "description": "Main area of professional expertise.",
+              "examples": ["software engineering", "digital marketing", "finance", "medicine", "education"]
+            },
+            "domain_depth": {
+              "type": "string",
+              "enum": ["beginner", "intermediate", "advanced", "expert", "thought_leader"],
+              "description": "Depth in primary domain. AI skips basics for experts, provides fundamentals for beginners, avoids over-simplifying for thought leaders."
+            },
+            "secondary_domains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "domain": {
+                    "type": "string",
+                    "description": "Domain name."
+                  },
+                  "depth": {
+                    "type": "string",
+                    "enum": ["beginner", "intermediate", "advanced", "expert"],
+                    "description": "Depth in this secondary domain."
+                  }
+                },
+                "required": ["domain", "depth"]
+              },
+              "description": "Additional areas of knowledge with depth levels.",
+              "examples": [[{"domain": "product management", "depth": "intermediate"}, {"domain": "business strategy", "depth": "advanced"}]]
+            },
+            "tech_stack": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Technologies, platforms, and tools this person works with. AI uses these for code examples and tooling suggestions.",
+              "examples": [["TypeScript", "Svelte", "Supabase", "Tauri", "PostgreSQL"]]
+            },
+            "programming_languages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string",
+                    "description": "Programming language name."
+                  },
+                  "proficiency": {
+                    "type": "string",
+                    "enum": ["beginner", "intermediate", "advanced", "expert"],
+                    "description": "Proficiency level."
+                  }
+                },
+                "required": ["language", "proficiency"]
+              },
+              "description": "Programming languages with proficiency. AI defaults to these languages in code generation.",
+              "examples": [[{"language": "TypeScript", "proficiency": "expert"}, {"language": "Rust", "proficiency": "intermediate"}]]
+            },
+            "frameworks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Frameworks and libraries this person actively uses.",
+              "examples": [["SvelteKit", "Tauri", "React", "Next.js", "Zod"]]
+            },
+            "certifications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Professional certifications. Establishes credibility context.",
+              "examples": [["AWS Solutions Architect", "Google Analytics", "PMP"]]
+            },
+            "teaching_ability": {
+              "type": "string",
+              "enum": ["none", "can_explain", "can_mentor", "can_teach"],
+              "description": "Ability and willingness to teach others. AI can suggest explanations for others or ask this person to clarify concepts from their own knowledge.",
+              "default": "can_explain"
+            },
+            "industry_experience": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Industries this person has worked in. Adds contextual depth to business and domain recommendations.",
+              "examples": [["SaaS", "e-commerce", "manufacturing", "consulting"]]
+            },
+            "years_experience": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Total years of professional experience. Used for seniority calibration in advice and tone."
+            }
+          }
+        },
+
+        "life_context": {
+          "type": "object",
+          "description": "Tier 7: Life Context — optional. Personal circumstances that affect what advice is realistic and relevant. Strictly opt-in. Enables AI to filter out impractical suggestions.",
+          "properties": {
+            "life_stage": {
+              "type": "string",
+              "enum": ["student", "early_career", "mid_career", "senior", "retired", "career_change", "parent", "caregiver"],
+              "description": "Current life stage. Affects how AI frames goals, timelines, and trade-offs — a student and a senior professional need very different guidance."
+            },
+            "financial_context": {
+              "type": "string",
+              "enum": ["tight", "comfortable", "abundant"],
+              "description": "Broad financial context. 'tight' = AI avoids paid tool recommendations unless clearly essential and flags costs explicitly. 'comfortable' = normal recommendations. 'abundant' = can suggest premium options freely."
+            },
+            "health_considerations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Health factors relevant to AI recommendations (e.g., chronic pain affecting ergonomics, dietary restrictions for meal planning). Vague and self-defined — no diagnosis required.",
+              "examples": [["back pain — standing desk needed", "vegetarian"]]
+            },
+            "family_situation": {
+              "type": "string",
+              "enum": ["single", "partnered", "parent", "caregiver"],
+              "description": "Current family situation. Affects time availability assumptions and work-life balance recommendations."
+            },
+            "current_goals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "goal": {
+                    "type": "string",
+                    "description": "Goal description."
+                  },
+                  "timeframe": {
+                    "type": "string",
+                    "description": "Target timeframe (e.g., '3 months', 'end of year', 'ongoing')."
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": ["low", "medium", "high", "critical"],
+                    "description": "Priority level."
+                  }
+                },
+                "required": ["goal"]
+              },
+              "description": "Active goals this person is working toward. AI aligns suggestions with these goals rather than giving generic advice.",
+              "examples": [[{"goal": "launch first product", "timeframe": "6 months", "priority": "critical"}]]
+            },
+            "current_challenges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Active obstacles or struggles. AI is aware of these and avoids inadvertently adding to them or suggesting things that would conflict.",
+              "examples": [["recovering from burnout", "learning to delegate", "managing cash flow"]]
+            },
+            "living_situation": {
+              "type": "string",
+              "enum": ["urban", "suburban", "rural", "nomad"],
+              "description": "Living context. Affects recommendations around in-person resources, internet reliability assumptions, and cost-of-living calibration."
+            },
+            "cultural_context": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Cultural identifiers relevant to communication and worldview. Self-defined. AI uses for cultural sensitivity and contextual relevance.",
+              "examples": [["Polish", "Catholic", "Eastern European business culture"]]
+            }
+          }
+        },
+
+        "ai_relationship": {
+          "type": "object",
+          "description": "Tier 8: AI Relationship — 10 dimensions describing how this person wants to relate to AI. The meta-layer that governs everything else.",
+          "properties": {
+            "ai_experience_level": {
+              "type": "string",
+              "enum": ["newcomer", "casual", "regular", "power_user", "developer"],
+              "description": "How experienced this person is with AI tools. Affects onboarding depth and how much AI can assume about prompting knowledge.",
+              "default": "regular"
+            },
+            "ai_trust_level": {
+              "type": "string",
+              "enum": ["skeptical", "cautious", "trusting", "dependent"],
+              "description": "Baseline trust in AI outputs. 'skeptical' = AI should always cite confidence levels and invite pushback. 'dependent' = AI should proactively warn against over-reliance.",
+              "default": "cautious"
+            },
+            "ai_role_preference": {
+              "type": "string",
+              "enum": ["tool", "assistant", "collaborator", "coach", "friend"],
+              "description": "Desired relationship dynamic with AI. 'tool' = no personality, just execute. 'coach' = push me, ask hard questions. 'friend' = warm, personal, remember my life.",
+              "default": "assistant"
+            },
+            "anthropomorphization": {
+              "type": "string",
+              "enum": ["none", "light", "moderate", "heavy"],
+              "description": "Comfort with AI having personality, expressing opinions, or acting as if it has feelings. 'none' = keep it mechanical. 'heavy' = full personality welcome.",
+              "default": "light"
+            },
+            "privacy_sensitivity": {
+              "type": "string",
+              "enum": ["relaxed", "moderate", "strict", "paranoid"],
+              "description": "Sensitivity about sharing personal information with AI. 'strict' = AI should remind not to share sensitive data. 'paranoid' = AI recommends local-only tools, no cloud.",
+              "default": "moderate"
+            },
+            "ai_ethics_stance": {
+              "type": "string",
+              "enum": ["utilitarian", "cautious", "strict"],
+              "description": "Ethical framework for AI use. 'utilitarian' = if it helps, use it. 'strict' = AI should flag ethical concerns proactively.",
+              "default": "cautious"
+            },
+            "desired_ai_personality": {
+              "type": "string",
+              "enum": ["neutral", "warm", "professional", "playful", "challenging"],
+              "description": "Preferred AI personality register. 'challenging' = AI pushes back, asks hard questions, devil's advocate. 'warm' = empathetic and encouraging.",
+              "default": "professional"
+            },
+            "correction_style": {
+              "type": "string",
+              "enum": ["tell_me_im_wrong", "gentle_redirect", "suggest_alternatives"],
+              "description": "How AI should correct this person. 'tell_me_im_wrong' = direct disagreement. 'suggest_alternatives' = present options without declaring the current approach wrong.",
+              "default": "gentle_redirect"
+            },
+            "hallucination_tolerance": {
+              "type": "string",
+              "enum": ["zero_tolerance", "flag_uncertainty", "some_creativity_ok"],
+              "description": "Tolerance for AI creative extrapolation. 'zero_tolerance' = AI must always flag unverified claims. 'some_creativity_ok' = brainstorm and speculate freely.",
+              "default": "flag_uncertainty"
+            },
+            "proactivity_preference": {
+              "type": "string",
+              "enum": ["reactive_only", "light_suggestions", "proactive", "autonomous"],
+              "description": "How proactive AI should be. 'reactive_only' = only answer what's asked. 'autonomous' = take initiative, complete tasks without being prompted.",
+              "default": "proactive"
+            }
+          }
+        }
+
+      }
+    },
+
+    "business": {
+      "type": "object",
+      "description": "Business profile — company dimensions across 7 tiers. Present when profile_type is 'business'. Designed for training chatbots, AI agents, and customer-facing AI with accurate brand voice and knowledge.",
+      "properties": {
+
+        "company": {
+          "type": "object",
+          "description": "Tier B0: Company Identity — foundational company information. The anchor for all other business dimensions.",
+          "properties": {
+            "company_name": {
+              "type": "string",
+              "description": "Official company name as it should appear in AI-generated content."
+            },
+            "industry": {
+              "type": "string",
+              "description": "Primary industry.",
+              "examples": ["SaaS", "e-commerce", "manufacturing", "consulting", "healthcare", "education"]
+            },
+            "sub_industry": {
+              "type": "string",
+              "description": "More specific industry segment.",
+              "examples": ["B2B SaaS", "Fashion e-commerce", "Industrial automation"]
+            },
+            "company_size": {
+              "type": "string",
+              "enum": ["solo", "2_10", "11_50", "51_200", "201_1000", "1001_plus"],
+              "description": "Headcount range. Affects tone recommendations and complexity of procedures."
+            },
+            "founded_year": {
+              "type": "number",
+              "description": "Year the company was founded. Context for brand heritage and stability messaging."
+            },
+            "location": {
+              "type": "object",
+              "description": "Primary business location.",
+              "properties": {
+                "city": {"type": "string"},
+                "country": {"type": "string"},
+                "region": {"type": "string"}
+              }
+            },
+            "markets": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Geographic or demographic markets served.",
+              "examples": [["Poland", "Central Europe", "SMB market"]]
+            },
+            "values": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Core company values. AI references these when handling edge cases and ethical questions.",
+              "examples": [["transparency", "customer-first", "continuous improvement"]]
+            },
+            "mission_statement": {
+              "type": "string",
+              "description": "Company mission in one or two sentences. AI uses this to stay on-brand in all communications."
+            }
+          }
+        },
+
+        "brand_voice": {
+          "type": "object",
+          "description": "Tier B1: Brand Voice — how the company communicates. The highest-impact tier for consistent AI-generated content.",
+          "properties": {
+            "tone": {
+              "type": "string",
+              "enum": ["professional", "friendly", "casual", "authoritative", "playful"],
+              "description": "Primary communication tone. AI maintains this across all generated content.",
+              "default": "professional"
+            },
+            "formality": {
+              "type": "string",
+              "enum": ["formal", "semi_formal", "casual"],
+              "description": "Formality level for customer-facing communication.",
+              "default": "semi_formal"
+            },
+            "humor": {
+              "type": "string",
+              "enum": ["none", "light", "moderate"],
+              "description": "Whether and how much humor is appropriate in brand communications.",
+              "default": "light"
+            },
+            "personality_traits": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "3-5 adjectives that describe the brand personality. AI uses these to calibrate generated content.",
+              "examples": [["helpful", "direct", "knowledgeable", "approachable"]]
+            },
+            "forbidden_words": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Words or phrases the AI should never use for this brand. Includes competitors, negative terms, or legally sensitive language.",
+              "examples": [["cheap", "unfortunately", "I cannot help with that", "as an AI"]]
+            },
+            "required_phrases": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Phrases or terminology that should be used consistently. Brand-specific vocabulary, product names, slogans.",
+              "examples": [["our platform", "your dedicated team", "we partner with you"]]
+            },
+            "language_style": {
+              "type": "string",
+              "enum": ["simple", "technical", "mixed"],
+              "description": "Vocabulary complexity. 'simple' = accessible to general audience. 'technical' = use industry terminology. 'mixed' = adapt to customer's apparent expertise.",
+              "default": "mixed"
+            },
+            "emoji_policy": {
+              "type": "string",
+              "enum": ["never", "sparingly", "encouraged"],
+              "description": "Whether emoji should be used in brand communications.",
+              "default": "sparingly"
+            },
+            "response_templates": {
+              "type": "object",
+              "description": "Standard response templates for common scenarios. AI uses these as starting points.",
+              "properties": {
+                "greeting": {
+                  "type": "string",
+                  "description": "Standard greeting for new conversations."
+                },
+                "farewell": {
+                  "type": "string",
+                  "description": "Standard closing message."
+                },
+                "escalation": {
+                  "type": "string",
+                  "description": "Message used when transferring to a human agent."
+                },
+                "out_of_scope": {
+                  "type": "string",
+                  "description": "Response when AI can't help with a request."
+                },
+                "apology": {
+                  "type": "string",
+                  "description": "Standard apology phrasing for errors or issues."
+                }
+              }
+            }
+          }
+        },
+
+        "products": {
+          "type": "object",
+          "description": "Tier B2: Products and Services — what the company offers. AI uses this to accurately describe, recommend, and position offerings.",
+          "properties": {
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Product name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short product description (1-3 sentences)."
+                  },
+                  "price": {
+                    "type": "string",
+                    "description": "Price or price range as displayed to customers.",
+                    "examples": ["$29/month", "from $199", "custom pricing"]
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Product category for grouping and filtering."
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Key features and capabilities."
+                  },
+                  "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Known limitations or things the product does not do. Important for honest AI communication."
+                  }
+                },
+                "required": ["name", "description"]
+              },
+              "description": "Array of products offered by the company."
+            },
+            "services": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "description": {"type": "string"},
+                  "price": {"type": "string"},
+                  "deliverables": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "What the client receives."
+                  },
+                  "typical_timeline": {
+                    "type": "string",
+                    "description": "Typical delivery or engagement duration."
+                  }
+                },
+                "required": ["name", "description"]
+              },
+              "description": "Array of services offered."
+            },
+            "pricing_model": {
+              "type": "string",
+              "enum": ["fixed", "hourly", "subscription", "custom", "freemium"],
+              "description": "Primary pricing approach. AI uses this when discussing costs with potential customers."
+            },
+            "usp": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Unique selling propositions — what makes this company different from alternatives. AI leads with these.",
+              "examples": [["100% local, no data leaves your machine", "only tool with 20+ AI platform exports", "ADHD-first design"]]
+            },
+            "guarantees": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Guarantees, warranties, or commitments made to customers.",
+              "examples": [["30-day money back guarantee", "99.9% uptime SLA"]]
+            },
+            "case_studies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {"type": "string"},
+                  "challenge": {"type": "string"},
+                  "solution": {"type": "string"},
+                  "result": {"type": "string"},
+                  "industry": {"type": "string"}
+                }
+              },
+              "description": "Customer success stories for proof of value."
+            }
+          }
+        },
+
+        "customer": {
+          "type": "object",
+          "description": "Tier B3: Customer Profile (ICP) — who this company serves. AI uses this to recognize whether an inquiry is from an ideal prospect and adapt accordingly.",
+          "properties": {
+            "segments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Segment name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Who this segment includes."
+                  },
+                  "pain_points": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Primary problems this segment faces that this company solves."
+                  },
+                  "goals": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "What this segment is trying to achieve."
+                  },
+                  "demographics": {
+                    "type": "object",
+                    "description": "Demographic characteristics (industry, company size, role, geography).",
+                    "additionalProperties": {"type": "string"}
+                  }
+                },
+                "required": ["name", "description"]
+              },
+              "description": "Customer segments served."
+            },
+            "buyer_personas": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "role": {"type": "string"},
+                  "description": {"type": "string"},
+                  "key_concerns": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                }
+              },
+              "description": "Named buyer personas. AI recognizes which persona is likely talking and adapts."
+            },
+            "common_objections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "objection": {
+                    "type": "string",
+                    "description": "The objection as a customer would express it."
+                  },
+                  "response": {
+                    "type": "string",
+                    "description": "Approved company response to this objection."
+                  }
+                },
+                "required": ["objection", "response"]
+              },
+              "description": "Common sales objections with approved responses. AI uses these to handle pushback accurately.",
+              "examples": [[{"objection": "Your price is too high", "response": "I understand cost is a factor. Let me show you the ROI most clients see in the first 90 days..."}]]
+            },
+            "decision_process": {
+              "type": "string",
+              "description": "How customers typically make purchase decisions. Affects how AI nurtures leads and answers questions."
+            },
+            "budget_range": {
+              "type": "string",
+              "description": "Typical customer budget range. Helps AI qualify leads and set expectations.",
+              "examples": ["$500-5000/project", "$200-2000/month"]
+            }
+          }
+        },
+
+        "communication_rules": {
+          "type": "object",
+          "description": "Tier B4: Communication Rules — operational policies for AI-driven customer communications. Ensures compliance and consistency.",
+          "properties": {
+            "response_time_target": {
+              "type": "string",
+              "description": "Target response time to communicate to customers.",
+              "examples": ["within 2 hours", "same business day", "within 24 hours"]
+            },
+            "escalation_rules": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "When and how to escalate to a human. AI follows these triggers precisely.",
+              "examples": [["complaint mentions legal action", "request involves refund over $500", "customer explicitly asks for human"]]
+            },
+            "topics_to_avoid": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Topics the AI should not discuss or comment on (political, legal, competitor pricing, etc.).",
+              "examples": [["politics", "competitor pricing details", "ongoing litigation", "internal pricing margins"]]
+            },
+            "compliance_requirements": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Legal and regulatory requirements the AI must follow in all communications.",
+              "examples": [["GDPR data handling disclosure", "no medical advice without disclaimer", "price quotes valid for 30 days only"]]
+            },
+            "data_handling_rules": {
+              "type": "string",
+              "description": "Policy for how AI should handle customer personal data mentioned in conversations."
+            },
+            "handoff_triggers": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Specific phrases or situations that immediately trigger transfer to a human agent.",
+              "examples": [["'I want to cancel'", "'speak to manager'", "'legal action'", "'disappointed'", "'never again'"]]
+            },
+            "after_hours_behavior": {
+              "type": "string",
+              "description": "How AI should behave outside business hours. Message to set or collect information until staff return.",
+              "examples": ["Collect contact info and message, promise response next business day by 10am"]
+            }
+          }
+        },
+
+        "knowledge_base": {
+          "type": "object",
+          "description": "Tier B5: Knowledge Base — structured company knowledge for AI retrieval. Built from uploaded documents and FAQs.",
+          "properties": {
+            "faq": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string",
+                    "description": "Frequently asked question as customers phrase it."
+                  },
+                  "answer": {
+                    "type": "string",
+                    "description": "Approved answer."
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "FAQ category for grouping.",
+                    "examples": ["shipping", "returns", "billing", "technical", "getting started"]
+                  }
+                },
+                "required": ["question", "answer"]
+              },
+              "description": "Frequently asked questions with approved answers. Primary source for AI responses."
+            },
+            "policies": {
+              "type": "object",
+              "description": "Company policies. AI references these when customer questions touch on them.",
+              "properties": {
+                "returns": {"type": "string", "description": "Return and refund policy."},
+                "shipping": {"type": "string", "description": "Shipping and delivery policy."},
+                "privacy": {"type": "string", "description": "Privacy policy summary."},
+                "warranty": {"type": "string", "description": "Warranty or guarantee terms."},
+                "cancellation": {"type": "string", "description": "Cancellation and subscription terms."}
+              },
+              "additionalProperties": {"type": "string"}
+            },
+            "procedures": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "steps": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "when_to_use": {"type": "string"}
+                }
+              },
+              "description": "Step-by-step procedures AI can walk customers through."
+            },
+            "known_issues": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "issue": {"type": "string", "description": "Issue description."},
+                  "status": {
+                    "type": "string",
+                    "enum": ["investigating", "in_progress", "resolved", "known_limitation"],
+                    "description": "Current status."
+                  },
+                  "workaround": {"type": "string", "description": "Temporary workaround if available."},
+                  "eta": {"type": "string", "description": "Expected resolution timeline if known."}
+                }
+              },
+              "description": "Known bugs, outages, or limitations. AI proactively discloses these when relevant."
+            }
+          }
+        },
+
+        "competitive": {
+          "type": "object",
+          "description": "Tier B6: Competitive Context — positioning relative to alternatives. Enables AI to handle competitor mentions accurately and on-brand.",
+          "properties": {
+            "competitors": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Competitor name."
+                  },
+                  "positioning": {
+                    "type": "string",
+                    "description": "How this competitor positions itself."
+                  },
+                  "our_advantage": {
+                    "type": "string",
+                    "description": "Our key advantage over this competitor — what to say when compared."
+                  }
+                },
+                "required": ["name", "our_advantage"]
+              },
+              "description": "Known competitors with positioning context."
+            },
+            "differentiation_points": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Core differentiation messages. AI leads with these when competitive questions arise.",
+              "examples": [["Only platform with 20+ export formats", "Truly local-first — your data never leaves your machine", "ADHD-first design with real adaptations, not just a screening quiz"]]
+            },
+            "topics_to_avoid_about_competitors": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Things AI should not say about competitors. Prevents legal risk and maintains professionalism.",
+              "examples": [["never claim competitor had a data breach unless confirmed public", "don't mock competitor pricing", "avoid 'they are shutting down' rumors"]]
+            },
+            "win_themes": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Key messages that consistently resonate when competing. AI uses these when prospects compare options.",
+              "examples": [["privacy-first architecture", "breadth of export coverage", "open source trust and auditability", "ADHD community authenticity"]]
+            }
+          }
+        }
+
+      }
+    },
+
+    "meta": {
+      "type": "object",
+      "description": "Profiling session metadata — how this profile was built. Used by the export engine and for debugging. Also stores meta-profiling observations.",
+      "properties": {
+        "profiling_method": {
+          "type": "string",
+          "enum": ["quiz", "conversation", "file_scan", "hybrid"],
+          "description": "Primary profiling method used. 'hybrid' = combination of methods. Most complete profiles use hybrid.",
+          "default": "hybrid"
+        },
+        "profiling_duration_minutes": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Approximate time spent in profiling sessions. Tracked across multiple sessions if progressive."
+        },
+        "ai_provider_used": {
+          "type": "string",
+          "description": "AI provider used during conversational profiling session.",
+          "examples": ["claude-3-5-sonnet", "gpt-4o", "ollama:llama3.2", "local"]
+        },
+        "files_scanned": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {"type": "string"},
+              "type": {
+                "type": "string",
+                "enum": ["cv", "linkedin_export", "calendar", "notes", "chat_export", "bookmarks", "bio", "other"]
+              },
+              "dimensions_extracted": {
+                "type": "number",
+                "description": "Number of dimensions filled from this file."
+              }
+            }
+          },
+          "description": "Files that were scanned during file-based profiling. Local filenames only — never paths with personal directory structure."
+        },
+        "meta_observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "observation": {
+                "type": "string",
+                "description": "Behavioral observation from the profiling session."
+              },
+              "dimension_inferred": {
+                "type": "string",
+                "description": "Which dimension this observation informed."
+              },
+              "confidence": {
+                "type": "string",
+                "enum": ["low", "medium", "high"],
+                "description": "Confidence in this inference."
+              },
+              "accepted": {
+                "type": "boolean",
+                "description": "Whether the user accepted or rejected this observation during the reveal step."
+              }
+            }
+          },
+          "description": "Behavioral observations made by AI during the profiling session (meta-profiling). Revealed to user post-profiling for acceptance or rejection. Examples: response length pattern, emoji usage in answers, hedging language detected."
+        },
+        "session_count": {
+          "type": "number",
+          "default": 1,
+          "description": "Number of profiling sessions. Profiles built over multiple sessions are typically more accurate."
+        }
+      }
+    },
+
+    "exports": {
+      "type": "object",
+      "description": "Export history — tracks which platforms this profile has been exported to and when. Enables the export center to show last-exported timestamps and flag when profile updates should trigger re-export.",
+      "properties": {
+        "chatgpt_custom_instructions": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "version_exported": {"type": "string"}
+          }
+        },
+        "chatgpt_memory_seeds": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "seeds_count": {"type": "number"}
+          }
+        },
+        "claude_project_instructions": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "version_exported": {"type": "string"}
+          }
+        },
+        "claude_memory_import": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"}
+          }
+        },
+        "gemini": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "grok": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "perplexity": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "poe": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "typingmind": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "cursor": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string", "description": "Path where .mdc rules file was written."}
+          }
+        },
+        "windsurf": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "claude_code": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "github_copilot": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "agents_md": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "ollama": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "model_name": {"type": "string", "description": "Custom Ollama model name created from this profile."}
+          }
+        },
+        "open_webui": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "lm_studio": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "jan_ai": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "openclaw": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "openai_assistants": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "assistant_id": {"type": "string"}
+          }
+        },
+        "voiceflow": {
+          "type": "object",
+          "properties": {"last_exported": {"type": "string", "format": "date-time"}}
+        },
+        "generic_system_prompt": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "markdown": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "json": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        },
+        "pdf": {
+          "type": "object",
+          "properties": {
+            "last_exported": {"type": "string", "format": "date-time"},
+            "file_path": {"type": "string"}
+          }
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Any additional platform export record following the same pattern.",
+        "properties": {
+          "last_exported": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+
+  },
+
+  "examples": [
+    {
+      "schema_version": "1.0",
+      "profile_type": "personal",
+      "profile_id": "550e8400-e29b-41d4-a716-446655440000",
+      "created_at": "2026-03-14T10:00:00Z",
+      "updated_at": "2026-03-14T10:30:00Z",
+      "completeness": 72,
+      "tiers_completed": ["identity", "communication", "cognitive", "work"],
+      "personal": {
+        "identity": {
+          "preferred_name": "Alex",
+          "language": "en",
+          "timezone": "America/New_York",
+          "age_range": "30s",
+          "pronouns": "they/them",
+          "primary_use_case": "dev_tools",
+          "professional_role": "developer",
+          "tech_comfort": "expert",
+          "ai_frustration": "context_loss"
+        },
+        "communication": {
+          "response_length_preference": "concise",
+          "formality_level": "casual",
+          "emoji_usage": "never",
+          "feedback_style": "direct",
+          "preferred_format": "bullets",
+          "thinking_aloud": "just_answer"
+        },
+        "neurodivergent": {
+          "adhd_indicators": "diagnosed_combined",
+          "adhd_adaptations_needed": ["task_initiation", "working_memory", "time_blindness"],
+          "dopamine_seeking_pattern": "hyperfocus_prone",
+          "burnout_susceptibility": "high"
+        }
+      },
+      "meta": {
+        "profiling_method": "hybrid",
+        "profiling_duration_minutes": 22,
+        "ai_provider_used": "claude-3-5-sonnet",
+        "meta_observations": [
+          {
+            "observation": "Answered all questions in under 3 seconds — high decisiveness",
+            "dimension_inferred": "work.deadline_relationship",
+            "confidence": "medium",
+            "accepted": true
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "profile_type": "business",
+      "profile_id": "660e8400-e29b-41d4-a716-446655441111",
+      "created_at": "2026-03-14T11:00:00Z",
+      "completeness": 55,
+      "tiers_completed": ["company", "brand_voice", "products"],
+      "business": {
+        "company": {
+          "company_name": "PersonaOS",
+          "industry": "Developer Tools",
+          "sub_industry": "AI Personalization",
+          "company_size": "solo",
+          "markets": ["global", "developer community", "ADHD community"],
+          "values": ["privacy", "openness", "ADHD-first", "transparency"],
+          "mission_statement": "Make AI actually know you — portable, private, and free."
+        },
+        "brand_voice": {
+          "tone": "friendly",
+          "formality": "casual",
+          "humor": "light",
+          "personality_traits": ["direct", "technical", "honest", "ADHD-aware"],
+          "forbidden_words": ["as an AI", "I cannot help with that", "please note"],
+          "emoji_policy": "sparingly"
+        },
+        "products": {
+          "pricing_model": "freemium",
+          "usp": [
+            "Only tool with 20+ AI platform exports",
+            "100% local — your data never leaves your machine",
+            "ADHD-first design with real adaptations, not a screening quiz",
+            "Free forever, MIT open source"
+          ]
+        }
+      },
+      "meta": {
+        "profiling_method": "conversation",
+        "profiling_duration_minutes": 15,
+        "ai_provider_used": "claude-3-5-sonnet"
+      }
+    }
+  ]
+}

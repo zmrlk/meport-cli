@@ -1,0 +1,370 @@
+{
+  "tier": 6,
+  "tier_name": "Domain Expertise",
+  "tier_intro": "What's your thing? This section maps your actual knowledge — not your job title. AI becomes dramatically more useful when it knows your real depth in a domain rather than guessing from context. 4-6 minutes.",
+  "tier_complete": {
+    "headline": "Expertise map built.",
+    "body": "AI now knows where you're a practitioner vs a learner — and the gap between those two requires very different responses. It won't explain what you already know, and it'll flag when it's reaching the edges of your domain."
+  },
+  "questions": [
+    {
+      "id": "t6_q01",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "If someone asked 'what's your thing?' — you'd say...",
+      "type": "open_text",
+      "placeholder": "E.g. 'I build web apps', 'I do financial modeling', 'I design brand identities', 'I train athletes', 'I write marketing copy'...",
+      "skippable": false,
+      "meta_profiling": "Specificity is everything here. 'Software' vs 'distributed systems in Go' vs 'TypeScript full-stack with Supabase' — each is a different expertise depth signal. Note if they define themselves by tools, outcomes, or industry.",
+      "dimension": "expertise.primary_domain",
+      "why_this_matters": "This is the anchor for everything else — AI calibrates explanation depth, vocabulary, and domain-specific knowledge from this single answer."
+    },
+    {
+      "id": "t6_q02",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "In your main area, where are you honestly?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 6,
+        "min_label": "Actively learning the basics",
+        "max_label": "Could teach advanced courses, known as a reference in my field",
+        "steps": [
+          {"value": 1, "label": "Learning the basics"},
+          {"value": 2, "label": "Functional — can do the work with guidance"},
+          {"value": 3, "label": "Solid — confident and independent"},
+          {"value": 4, "label": "Senior — I handle complex edge cases, I mentor others"},
+          {"value": 5, "label": "Expert — I've built things, solved novel problems, seen the failure modes"},
+          {"value": 6, "label": "Authority — I set direction, I'm who people call"}
+        ]
+      },
+      "skippable": false,
+      "meta_profiling": "Most people underrate themselves by 1 level. If they describe specific failure modes or edge cases in their follow-ups, weight their actual answer up. Dunning-Kruger runs both ways.",
+      "dimension": "expertise.primary_depth",
+      "why_this_matters": "A level 2 developer and a level 5 developer asking 'how do I fix this bug' need entirely different responses."
+    },
+    {
+      "id": "t6_q03",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "How long have you been in your field?",
+      "type": "select",
+      "options": [
+        {"value": "under_1", "label": "Less than 1 year", "maps_to": {"dimension": "expertise.years", "value": "0-1"}},
+        {"value": "1_to_3", "label": "1-3 years", "maps_to": {"dimension": "expertise.years", "value": "1-3"}},
+        {"value": "3_to_7", "label": "3-7 years", "maps_to": {"dimension": "expertise.years", "value": "3-7"}},
+        {"value": "7_to_15", "label": "7-15 years", "maps_to": {"dimension": "expertise.years", "value": "7-15"}},
+        {"value": "over_15", "label": "15+ years", "maps_to": {"dimension": "expertise.years", "value": "15+"}}
+      ],
+      "skippable": false,
+      "meta_profiling": "Cross-reference with self-reported depth — 15 years + level 3 depth = probably humble/burnt-out. 2 years + level 5 = either exceptional or over-confident.",
+      "dimension": "expertise.years",
+      "why_this_matters": "Years in field informs what tacit knowledge AI can assume — someone with 10 years doesn't need first-principles explanations."
+    },
+    {
+      "id": "t6_q04",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Other areas where you're surprisingly knowledgeable — not your job, but where you know more than most people",
+      "type": "multi_select",
+      "options": [
+        {"value": "software_dev", "label": "Software development / programming", "maps_to": {"dimension": "expertise.secondary", "value": "software"}, "triggers": ["t6_q04_dev"]},
+        {"value": "data_analytics", "label": "Data, analytics, SQL, statistics", "maps_to": {"dimension": "expertise.secondary", "value": "data"}},
+        {"value": "product_design", "label": "Product design / UX", "maps_to": {"dimension": "expertise.secondary", "value": "product_design"}},
+        {"value": "marketing", "label": "Marketing, growth, copywriting", "maps_to": {"dimension": "expertise.secondary", "value": "marketing"}},
+        {"value": "finance_investing", "label": "Finance, accounting, investing", "maps_to": {"dimension": "expertise.secondary", "value": "finance"}},
+        {"value": "sales", "label": "Sales, negotiation, deals", "maps_to": {"dimension": "expertise.secondary", "value": "sales"}},
+        {"value": "operations", "label": "Operations, process, systems thinking", "maps_to": {"dimension": "expertise.secondary", "value": "operations"}},
+        {"value": "science_research", "label": "Science, research methodology", "maps_to": {"dimension": "expertise.secondary", "value": "science"}},
+        {"value": "hardware_engineering", "label": "Hardware, electronics, mechanical engineering", "maps_to": {"dimension": "expertise.secondary", "value": "hardware"}},
+        {"value": "health_medicine", "label": "Health, nutrition, medicine (non-professionally)", "maps_to": {"dimension": "expertise.secondary", "value": "health"}},
+        {"value": "legal_compliance", "label": "Law, compliance, regulations", "maps_to": {"dimension": "expertise.secondary", "value": "legal"}},
+        {"value": "creative_arts", "label": "Creative arts — music, writing, visual, film", "maps_to": {"dimension": "expertise.secondary", "value": "creative"}},
+        {"value": "other", "label": "Something else", "triggers": ["t6_q04_other"]}
+      ],
+      "skippable": true,
+      "meta_profiling": "T-shaped vs I-shaped vs generalist emerges here. Multiple secondary domains + senior primary = renaissance type. Note if they hesitate (hedges like 'a bit' or 'sort of').",
+      "dimension": "expertise.secondary_domains",
+      "why_this_matters": "Cross-domain knowledge enables AI to use analogies and connections that land with you — and to not over-explain areas you already understand."
+    },
+    {
+      "id": "t6_q04_dev",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Your daily tools and technologies — check everything you use regularly",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t6_q04",
+      "options": [
+        {"value": "javascript", "label": "JavaScript / TypeScript", "maps_to": {"dimension": "expertise.tech_stack", "value": "js_ts"}},
+        {"value": "python", "label": "Python", "maps_to": {"dimension": "expertise.tech_stack", "value": "python"}},
+        {"value": "rust", "label": "Rust", "maps_to": {"dimension": "expertise.tech_stack", "value": "rust"}},
+        {"value": "go", "label": "Go", "maps_to": {"dimension": "expertise.tech_stack", "value": "go"}},
+        {"value": "java_kotlin", "label": "Java / Kotlin", "maps_to": {"dimension": "expertise.tech_stack", "value": "jvm"}},
+        {"value": "csharp", "label": "C# / .NET", "maps_to": {"dimension": "expertise.tech_stack", "value": "dotnet"}},
+        {"value": "swift", "label": "Swift / iOS", "maps_to": {"dimension": "expertise.tech_stack", "value": "ios"}},
+        {"value": "react", "label": "React / Next.js", "maps_to": {"dimension": "expertise.tech_stack", "value": "react"}},
+        {"value": "svelte", "label": "Svelte / SvelteKit", "maps_to": {"dimension": "expertise.tech_stack", "value": "svelte"}},
+        {"value": "vue", "label": "Vue / Nuxt", "maps_to": {"dimension": "expertise.tech_stack", "value": "vue"}},
+        {"value": "databases_sql", "label": "SQL databases (PostgreSQL, MySQL, SQLite)", "maps_to": {"dimension": "expertise.tech_stack", "value": "sql"}},
+        {"value": "databases_nosql", "label": "NoSQL (MongoDB, Redis, DynamoDB)", "maps_to": {"dimension": "expertise.tech_stack", "value": "nosql"}},
+        {"value": "cloud", "label": "Cloud (AWS, GCP, Azure)", "maps_to": {"dimension": "expertise.tech_stack", "value": "cloud"}},
+        {"value": "devops", "label": "DevOps / CI/CD / Docker / K8s", "maps_to": {"dimension": "expertise.tech_stack", "value": "devops"}},
+        {"value": "mobile", "label": "Mobile (React Native, Flutter)", "maps_to": {"dimension": "expertise.tech_stack", "value": "mobile"}},
+        {"value": "ai_ml", "label": "AI/ML (PyTorch, TensorFlow, LangChain)", "maps_to": {"dimension": "expertise.tech_stack", "value": "ai_ml"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Stack breadth vs depth tradeoff visible here. Full-stack + DevOps + AI = generalist engineer. TypeScript only = frontend specialist. Note if they include unfamiliar tools — good conversation starter.",
+      "dimension": "expertise.tech_stack",
+      "why_this_matters": "AI defaults to your stack for code examples, tool recommendations, and framework-specific advice."
+    },
+    {
+      "id": "t6_q04_other",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "What's the surprising area you know well?",
+      "type": "open_text",
+      "is_followup": true,
+      "parent_question": "t6_q04",
+      "placeholder": "E.g. 'Byzantine history', 'fermentation science', 'property law', 'automotive mechanics'...",
+      "skippable": true,
+      "meta_profiling": "Specificity here is a richness signal. The more niche and precise, the more authentic the claim.",
+      "dimension": "expertise.secondary_other",
+      "why_this_matters": "Unexpected expertise domains become powerful analogy bridges for AI to use."
+    },
+    {
+      "id": "t6_q05",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "How fast do you pick up new tools or skills within your domain?",
+      "type": "select",
+      "options": [
+        {
+          "value": "slow_deliberate",
+          "label": "Slow and deliberate — I need time to understand something properly before using it",
+          "maps_to": {"dimension": "expertise.learning_velocity", "value": "deliberate"}
+        },
+        {
+          "value": "steady",
+          "label": "Steady — I pick things up at a normal pace with documentation and practice",
+          "maps_to": {"dimension": "expertise.learning_velocity", "value": "steady"}
+        },
+        {
+          "value": "fast",
+          "label": "Fast — I can usually get functional with a new tool in hours, not days",
+          "maps_to": {"dimension": "expertise.learning_velocity", "value": "fast"}
+        },
+        {
+          "value": "very_fast",
+          "label": "Very fast within my domain — I pattern-match to what I already know instantly",
+          "maps_to": {"dimension": "expertise.learning_velocity", "value": "expert_transfer"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Expert transfer is the real signal — someone who says 'pattern match to what I know' is describing transfer learning, which is a genuine expertise indicator.",
+      "dimension": "expertise.learning_velocity",
+      "why_this_matters": "Affects how AI introduces new tools — quick overview vs detailed tutorial vs just the diff from what you know."
+    },
+    {
+      "id": "t6_q06",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "How current is your knowledge right now?",
+      "type": "select",
+      "options": [
+        {
+          "value": "cutting_edge",
+          "label": "Cutting edge — I follow the field closely, I know what came out this month",
+          "maps_to": {"dimension": "expertise.knowledge_currency", "value": "current"}
+        },
+        {
+          "value": "recent",
+          "label": "Recent — maybe 6-12 months behind the bleeding edge, but solid",
+          "maps_to": {"dimension": "expertise.knowledge_currency", "value": "recent"}
+        },
+        {
+          "value": "stable",
+          "label": "Stable — my core knowledge is sound but I'm not chasing every new thing",
+          "maps_to": {"dimension": "expertise.knowledge_currency", "value": "stable"}
+        },
+        {
+          "value": "dated",
+          "label": "A bit dated — I know I need to catch up on some things",
+          "maps_to": {"dimension": "expertise.knowledge_currency", "value": "stale"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Self-awareness about knowledge currency is itself an expertise signal — junior people often don't know what they're missing.",
+      "dimension": "expertise.knowledge_currency",
+      "why_this_matters": "AI can flag when it's about to mention something you likely already know vs something you might have missed."
+    },
+    {
+      "id": "t6_q07",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Industries you've actually worked in (not just studied)",
+      "type": "multi_select",
+      "options": [
+        {"value": "tech_software", "label": "Tech / Software", "maps_to": {"dimension": "expertise.industries", "value": "tech"}},
+        {"value": "finance_banking", "label": "Finance / Banking / FinTech", "maps_to": {"dimension": "expertise.industries", "value": "finance"}},
+        {"value": "healthcare", "label": "Healthcare / MedTech / Pharma", "maps_to": {"dimension": "expertise.industries", "value": "healthcare"}},
+        {"value": "ecommerce_retail", "label": "E-commerce / Retail", "maps_to": {"dimension": "expertise.industries", "value": "ecommerce"}},
+        {"value": "manufacturing", "label": "Manufacturing / Industrial", "maps_to": {"dimension": "expertise.industries", "value": "manufacturing"}},
+        {"value": "education", "label": "Education / EdTech", "maps_to": {"dimension": "expertise.industries", "value": "education"}},
+        {"value": "media_creative", "label": "Media / Creative / Entertainment", "maps_to": {"dimension": "expertise.industries", "value": "media"}},
+        {"value": "agency_consulting", "label": "Agency / Consulting / Services", "maps_to": {"dimension": "expertise.industries", "value": "consulting"}},
+        {"value": "startup", "label": "Startup / Early-stage", "maps_to": {"dimension": "expertise.industries", "value": "startup"}},
+        {"value": "enterprise", "label": "Enterprise / Large corp", "maps_to": {"dimension": "expertise.industries", "value": "enterprise"}},
+        {"value": "government_ngo", "label": "Government / NGO / Nonprofit", "maps_to": {"dimension": "expertise.industries", "value": "public_sector"}},
+        {"value": "real_estate", "label": "Real estate / Construction", "maps_to": {"dimension": "expertise.industries", "value": "real_estate"}},
+        {"value": "logistics", "label": "Logistics / Supply chain", "maps_to": {"dimension": "expertise.industries", "value": "logistics"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Breadth across sectors vs depth in one. Startup + enterprise is a common pair that reveals adaptability. Note if industries cluster around a theme (all B2B, all consumer, etc).",
+      "dimension": "expertise.industries",
+      "why_this_matters": "Industry context shapes which examples land, what regulations to mention, and what assumptions are safe."
+    },
+    {
+      "id": "t6_q08",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Could you explain your main expertise to a smart person who knows nothing about it — and make it stick?",
+      "type": "select",
+      "options": [
+        {
+          "value": "yes_easy",
+          "label": "Yes, I do this regularly — I'm good at translating complex things",
+          "maps_to": {"dimension": "expertise.teaching_ability", "value": "strong"}
+        },
+        {
+          "value": "yes_with_effort",
+          "label": "Yes, but it takes effort — I have to really think about the framing",
+          "maps_to": {"dimension": "expertise.teaching_ability", "value": "moderate"}
+        },
+        {
+          "value": "basic_yes",
+          "label": "The basics yes, but the nuanced stuff is hard to convey without shared context",
+          "maps_to": {"dimension": "expertise.teaching_ability", "value": "partial"}
+        },
+        {
+          "value": "no",
+          "label": "Honestly not well — I'm better at doing it than explaining it",
+          "maps_to": {"dimension": "expertise.teaching_ability", "value": "low"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Teaching ability correlates with expertise depth (Feynman technique — if you can't explain it, you don't fully understand it). But some experts are genuinely poor teachers. Note the gap.",
+      "dimension": "expertise.teaching_ability",
+      "why_this_matters": "Tells AI whether to explain concepts from fundamentals or just reference them by name — and whether to offer to explain the 'why' behind things."
+    },
+    {
+      "id": "t6_q09",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Right now, are you more often the person teaching or the person learning?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Almost always learning — I'm newer and absorbing everything",
+        "max_label": "Almost always teaching — I'm the reference point for others",
+        "mid_label": "Both — learning in some areas, teaching in others"
+      },
+      "skippable": true,
+      "meta_profiling": "Mentorship position reveals career stage and confidence better than years-of-experience. Note if they say 'both' and whether it sounds confident or uncertain.",
+      "dimension": "expertise.mentorship_position",
+      "why_this_matters": "AI adjusts whether to offer explanations proactively or assume you'll ask when you need them."
+    },
+    {
+      "id": "t6_q10",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Do insights from other fields actually influence your main work?",
+      "type": "select",
+      "options": [
+        {
+          "value": "yes_constantly",
+          "label": "Yes — I actively borrow from other domains, it's part of how I think",
+          "maps_to": {"dimension": "expertise.cross_pollination", "value": "high"}
+        },
+        {
+          "value": "sometimes",
+          "label": "Sometimes — I'll notice a parallel and use it, but not systematically",
+          "maps_to": {"dimension": "expertise.cross_pollination", "value": "moderate"}
+        },
+        {
+          "value": "rarely",
+          "label": "Rarely — I tend to stay within the established approaches of my field",
+          "maps_to": {"dimension": "expertise.cross_pollination", "value": "low"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "High cross-pollination correlates with interdisciplinary thinking, creativity, and often innovation. Note what fields they mention if they expand.",
+      "dimension": "expertise.cross_pollination",
+      "why_this_matters": "High cross-pollination thinkers appreciate when AI draws analogies from unexpected domains — it's how they think, not a distraction."
+    },
+    {
+      "id": "t6_q11",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "In your domain — what do you WISH you knew better?",
+      "type": "open_text",
+      "placeholder": "Be specific. Not 'I want to learn more' — what's the actual gap that limits you?",
+      "skippable": true,
+      "meta_profiling": "Specific articulation of gaps is itself an expertise indicator. Vague answers ('I want to know more about AI') vs precise ones ('I don't fully understand transformer attention mechanisms') reveal real depth.",
+      "dimension": "expertise.known_gaps",
+      "why_this_matters": "AI can proactively offer depth in these areas and flag when they're relevant to what you're working on."
+    },
+    {
+      "id": "t6_q12",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "When you're working in your domain, what's your most common mode?",
+      "type": "select",
+      "options": [
+        {
+          "value": "building",
+          "label": "Building — creating things, writing code, making deliverables",
+          "maps_to": {"dimension": "expertise.work_mode", "value": "builder"}
+        },
+        {
+          "value": "analyzing",
+          "label": "Analyzing — researching, evaluating, making sense of complex information",
+          "maps_to": {"dimension": "expertise.work_mode", "value": "analyst"}
+        },
+        {
+          "value": "communicating",
+          "label": "Communicating — writing, presenting, persuading, teaching",
+          "maps_to": {"dimension": "expertise.work_mode", "value": "communicator"}
+        },
+        {
+          "value": "leading",
+          "label": "Leading — coordinating, deciding, unblocking others",
+          "maps_to": {"dimension": "expertise.work_mode", "value": "leader"}
+        },
+        {
+          "value": "mixed",
+          "label": "Mixed — my role spans several of these",
+          "maps_to": {"dimension": "expertise.work_mode", "value": "generalist"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Work mode shapes what AI outputs are actually useful — code vs documents vs decision frameworks vs presentations.",
+      "dimension": "expertise.work_mode",
+      "why_this_matters": "A builder wants working code. An analyst wants structured frameworks. A communicator wants polished copy. Same question, different right answers."
+    },
+    {
+      "id": "t6_q13",
+      "tier": 6,
+      "tier_name": "Domain Expertise",
+      "question": "Your expertise in one sentence — as you'd describe it to a smart, curious person at a dinner party",
+      "type": "open_text",
+      "placeholder": "Not your job title. What do you actually DO and why does it matter?",
+      "skippable": true,
+      "meta_profiling": "The dinner party framing removes professional defensiveness. Note: clarity, specificity, and whether they lead with impact vs process vs identity.",
+      "dimension": "expertise.self_narrative",
+      "why_this_matters": "This becomes how AI introduces and frames your expertise when helping with personal branding, bios, pitches, or outreach."
+    }
+  ]
+}

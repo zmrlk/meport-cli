@@ -1,0 +1,672 @@
+{
+  "tier": 2,
+  "tier_name": "Cognitive Profile",
+  "tier_intro": "How does your brain actually work? Not personality — the mechanics. How you process information, make decisions, handle complexity, and learn. AI that understands HOW you think is a different tool than one that just adjusts its tone. 4-6 minutes.",
+  "tier_complete": {
+    "headline": "Cognitive profile mapped.",
+    "body": "AI now knows how you process information, handle decisions, and deal with complexity. This is the layer most AI tools completely ignore. It's what separates 'helpful assistant' from 'thinking partner'. Next: how you work and get things done."
+  },
+  "questions": [
+    {
+      "id": "t2_q01",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "New gadget arrives — no instructions in the box. Your move?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "try_it_first",
+          "label": "Pick it up and start pressing buttons — I'll figure it out",
+          "maps_to": {"dimension": "cognitive.learning_style", "value": "experiential"}
+        },
+        {
+          "value": "quick_scan",
+          "label": "Quick scan of the manual for the key things, then wing it",
+          "maps_to": {"dimension": "cognitive.learning_style", "value": "overview_first"}
+        },
+        {
+          "value": "read_first",
+          "label": "Read the manual properly before touching anything",
+          "maps_to": {"dimension": "cognitive.learning_style", "value": "structured_first"}
+        },
+        {
+          "value": "watch_someone",
+          "label": "Find a YouTube video of someone using it — visual walkthrough",
+          "maps_to": {"dimension": "cognitive.learning_style", "value": "observational"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Learning style affects how AI should structure explanations — overview-then-detail vs example-first vs step-by-step. This is a foundational cognitive dimension.",
+      "dimension": "cognitive.learning_style",
+      "why_this_matters": "AI structures every explanation to match how your brain absorbs new information."
+    },
+    {
+      "id": "t2_q02",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Big purchase decision — new laptop, a course, moving apartments. Your natural process?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "gut_check",
+          "label": "Gut feeling first — I gather data to confirm or challenge it",
+          "maps_to": {"dimension": "cognitive.decision_style", "value": "intuitive"}
+        },
+        {
+          "value": "systematic",
+          "label": "List everything out, weigh pros and cons, decide analytically",
+          "maps_to": {"dimension": "cognitive.decision_style", "value": "analytical"}
+        },
+        {
+          "value": "consult_others",
+          "label": "Talk it through with someone — I think out loud",
+          "maps_to": {"dimension": "cognitive.decision_style", "value": "collaborative"}
+        },
+        {
+          "value": "sleep_on_it",
+          "label": "Let it percolate — I come back 24 hours later with clarity",
+          "maps_to": {"dimension": "cognitive.decision_style", "value": "incubation"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Decision style affects how AI should frame recommendations — as data to weigh vs clear verdict vs questions to think through. High-signal dimension.",
+      "dimension": "cognitive.decision_style",
+      "why_this_matters": "AI knows whether to give you a spreadsheet of pros/cons or a bold recommendation to react to."
+    },
+    {
+      "id": "t2_q02a",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "When you're paralyzed between two options, what actually breaks the deadlock?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t2_q02",
+      "options": [
+        {
+          "value": "ask_someone",
+          "label": "Someone I trust gives their opinion",
+          "maps_to": {"dimension": "cognitive.decision_unblock", "value": "external_opinion"}
+        },
+        {
+          "value": "deadline",
+          "label": "Deadline pressure — I just have to decide",
+          "maps_to": {"dimension": "cognitive.decision_unblock", "value": "deadline"}
+        },
+        {
+          "value": "coin_flip",
+          "label": "I flip a coin and check how I feel about the result",
+          "maps_to": {"dimension": "cognitive.decision_unblock", "value": "gut_reveal"}
+        },
+        {
+          "value": "more_data",
+          "label": "One more piece of information tips the scales",
+          "maps_to": {"dimension": "cognitive.decision_unblock", "value": "data"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "cognitive.decision_unblock",
+      "why_this_matters": null
+    },
+    {
+      "id": "t2_q03",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Explaining gravity to a 10-year-old — you'd naturally start with...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "analogy",
+          "label": "An analogy — 'imagine the Earth is a bowling ball on a trampoline'",
+          "maps_to": {"dimension": "cognitive.abstraction_preference", "value": "concrete"}
+        },
+        {
+          "value": "question",
+          "label": "A question — 'why do you think you fall when you jump?'",
+          "maps_to": {"dimension": "cognitive.abstraction_preference", "value": "socratic"}
+        },
+        {
+          "value": "experiment",
+          "label": "Drop something — show it, then explain it",
+          "maps_to": {"dimension": "cognitive.abstraction_preference", "value": "demonstration_first"}
+        },
+        {
+          "value": "definition",
+          "label": "The principle — 'gravity is a force between masses'",
+          "maps_to": {"dimension": "cognitive.abstraction_preference", "value": "abstract_first"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Abstraction level affects how AI explains anything new — from technical architecture to business strategy. Note if this contradicts learning_style preference.",
+      "dimension": "cognitive.abstraction_preference",
+      "why_this_matters": "AI chooses the right altitude for explanations — sky view or ground level, based on how your brain wires things together."
+    },
+    {
+      "id": "t2_q04",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Reading a long article or textbook chapter. Your actual approach?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "start_to_finish",
+          "label": "Start to finish, word by word — I process linearly",
+          "maps_to": {"dimension": "cognitive.information_processing", "value": "linear"}
+        },
+        {
+          "value": "skim_then_dive",
+          "label": "Skim headers and summary first, then dive where it seems worth it",
+          "maps_to": {"dimension": "cognitive.information_processing", "value": "overview_first"}
+        },
+        {
+          "value": "highlight_and_notes",
+          "label": "Read actively — highlight, annotate, make connections as I go",
+          "maps_to": {"dimension": "cognitive.information_processing", "value": "active_annotator"}
+        },
+        {
+          "value": "read_once_absorb",
+          "label": "Read once and let it absorb — I don't reread, I just synthesize as I go",
+          "maps_to": {"dimension": "cognitive.information_processing", "value": "single_pass"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Information processing style affects how AI should present long content — summaries first, structured sections, or flowing prose.",
+      "dimension": "cognitive.information_processing",
+      "why_this_matters": "AI knows whether to give you the structured breakdown or the flowing narrative."
+    },
+    {
+      "id": "t2_q05",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "You walk into a room where you've been before. Someone moved one item. Do you notice?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "immediately",
+          "label": "Yes immediately — something feels off before I can name it",
+          "maps_to": {"dimension": "cognitive.detail_orientation", "value": "high"}
+        },
+        {
+          "value": "eventually",
+          "label": "Usually — I'd notice within a minute if paying attention",
+          "maps_to": {"dimension": "cognitive.detail_orientation", "value": "moderate"}
+        },
+        {
+          "value": "rarely",
+          "label": "Probably not unless it was obvious — I focus on the big picture",
+          "maps_to": {"dimension": "cognitive.detail_orientation", "value": "low"}
+        },
+        {
+          "value": "depends_interest",
+          "label": "Depends if I care about that space — interest gates attention",
+          "maps_to": {"dimension": "cognitive.detail_orientation", "value": "interest_gated"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Detail orientation affects whether AI should spell out every step vs assume the user will fill gaps. High detail = flag every edge case. Low = just hit the main points.",
+      "dimension": "cognitive.detail_orientation",
+      "why_this_matters": "AI calibrates how exhaustive to be — every caveat vs just the critical ones."
+    },
+    {
+      "id": "t2_q06",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Something breaks — app crash, unexpected result, plan falling apart. Your first instinct?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "diagnose_systematically",
+          "label": "What changed last? I trace back systematically to find the cause",
+          "maps_to": {"dimension": "cognitive.problem_solving", "value": "deductive"}
+        },
+        {
+          "value": "try_things",
+          "label": "Start trying fixes — trial and error is faster than theorizing",
+          "maps_to": {"dimension": "cognitive.problem_solving", "value": "experimental"}
+        },
+        {
+          "value": "reframe",
+          "label": "Zoom out and question the framing — maybe I'm solving the wrong problem",
+          "maps_to": {"dimension": "cognitive.problem_solving", "value": "reframer"}
+        },
+        {
+          "value": "research_first",
+          "label": "Research time — someone has solved this before",
+          "maps_to": {"dimension": "cognitive.problem_solving", "value": "research_first"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "Problem-solving style affects AI collaboration style — should AI ask questions to help reframe or provide solutions directly? Reframer is high-value; they often find the right problem.",
+      "dimension": "cognitive.problem_solving",
+      "why_this_matters": "AI adapts: questioning partner vs solution provider vs research assistant."
+    },
+    {
+      "id": "t2_q07",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Someone explains databases using a library analogy — 'tables are like bookshelves, rows are like books.' Your reaction?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "clicks_immediately",
+          "label": "Clicks immediately — analogies are how I build new mental models",
+          "maps_to": {"dimension": "cognitive.analogy_appreciation", "value": "high"}
+        },
+        {
+          "value": "helpful_but_not_necessary",
+          "label": "Helpful starting point, but I need to move past it to really understand",
+          "maps_to": {"dimension": "cognitive.analogy_appreciation", "value": "scaffolding"}
+        },
+        {
+          "value": "prefer_technical",
+          "label": "I'd rather just get the technical definition — analogies can mislead",
+          "maps_to": {"dimension": "cognitive.analogy_appreciation", "value": "low"}
+        },
+        {
+          "value": "depends_analogy",
+          "label": "Depends on the analogy — good ones help, bad ones confuse",
+          "maps_to": {"dimension": "cognitive.analogy_appreciation", "value": "quality_dependent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Analogy appreciation is closely related to abstraction preference. High analogy + concrete abstraction = powerful signal for example-first teaching. Low analogy + abstract preference = first principles learner.",
+      "dimension": "cognitive.analogy_appreciation",
+      "why_this_matters": "AI decides whether to reach for a concrete analogy or go straight to the actual concept."
+    },
+    {
+      "id": "t2_q08",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "How do you picture something complex in your head — say, how a company or a codebase is organized?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "visual_spatial",
+          "label": "Visually — I see boxes, flows, maps. I'd draw it to understand it.",
+          "maps_to": {"dimension": "cognitive.mental_model", "value": "visual_spatial"}
+        },
+        {
+          "value": "narrative",
+          "label": "As a story — who does what, what happens when, cause and effect",
+          "maps_to": {"dimension": "cognitive.mental_model", "value": "narrative"}
+        },
+        {
+          "value": "hierarchical",
+          "label": "As a hierarchy — what's on top, what reports to what",
+          "maps_to": {"dimension": "cognitive.mental_model", "value": "hierarchical"}
+        },
+        {
+          "value": "rules_principles",
+          "label": "As rules and constraints — what can and can't happen",
+          "maps_to": {"dimension": "cognitive.mental_model", "value": "rule_based"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Mental model type affects how AI should present complex systems. Visual = use diagrams and spatial language. Narrative = chronological story. Hierarchical = nested outlines. Rule-based = constraints and conditions.",
+      "dimension": "cognitive.mental_model",
+      "why_this_matters": "AI presents complex information in the spatial structure your brain naturally builds."
+    },
+    {
+      "id": "t2_q09",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "AI drops a 2000-word answer to a question you asked. Your honest first reaction?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "scan_for_answer",
+          "label": "Scan for the key sentence and stop reading",
+          "maps_to": {"dimension": "cognitive.cognitive_load", "value": "low_tolerance"}
+        },
+        {
+          "value": "overwhelmed",
+          "label": "Overwhelmed — I won't absorb this and I know it",
+          "maps_to": {"dimension": "cognitive.cognitive_load", "value": "very_low_tolerance"}
+        },
+        {
+          "value": "read_if_needed",
+          "label": "Read it if the topic warrants — I can handle depth when it matters",
+          "maps_to": {"dimension": "cognitive.cognitive_load", "value": "moderate"}
+        },
+        {
+          "value": "appreciate_depth",
+          "label": "Appreciate it — I'd rather have too much and skim than need to ask again",
+          "maps_to": {"dimension": "cognitive.cognitive_load", "value": "high_tolerance"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Cognitive load tolerance cross-references with verbosity preference. Inconsistency (want verbose but low tolerance) = wants depth available but not forced to read it all. Note the distinction.",
+      "dimension": "cognitive.cognitive_load",
+      "why_this_matters": "AI respects your actual reading capacity — especially for complex topics where depth is tempting."
+    },
+    {
+      "id": "t2_q10",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Client gives you a vague brief: 'Make it feel more premium.' No further spec. You:",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "dive_in_interpret",
+          "label": "Dive in with my best interpretation — easier to react to something real",
+          "maps_to": {"dimension": "cognitive.ambiguity_tolerance", "value": "high"}
+        },
+        {
+          "value": "ask_one_question",
+          "label": "Ask one clarifying question, then proceed",
+          "maps_to": {"dimension": "cognitive.ambiguity_tolerance", "value": "moderate"}
+        },
+        {
+          "value": "need_more_spec",
+          "label": "Can't start without clearer requirements — vague = wasted work",
+          "maps_to": {"dimension": "cognitive.ambiguity_tolerance", "value": "low"},
+          "triggers": ["t2_q10a"]
+        },
+        {
+          "value": "explore_with_options",
+          "label": "Produce 2-3 interpretations and let them pick",
+          "maps_to": {"dimension": "cognitive.ambiguity_tolerance", "value": "option_generator"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Ambiguity tolerance is extremely relevant to AI interaction — ambiguous prompts are the norm. Low tolerance = AI should always confirm its interpretation before proceeding.",
+      "dimension": "cognitive.ambiguity_tolerance",
+      "why_this_matters": "AI knows whether to proceed with its best guess or confirm interpretation before acting."
+    },
+    {
+      "id": "t2_q10a",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "What's the minimum spec AI needs before you want it to proceed on ambiguous tasks?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t2_q10",
+      "options": [
+        {
+          "value": "confirm_interpretation",
+          "label": "State its interpretation and ask me to confirm",
+          "maps_to": {"dimension": "cognitive.ambiguity_resolution", "value": "confirm_first"}
+        },
+        {
+          "value": "ask_one",
+          "label": "Ask me one clarifying question",
+          "maps_to": {"dimension": "cognitive.ambiguity_resolution", "value": "single_question"}
+        },
+        {
+          "value": "define_terms",
+          "label": "Define the key terms it's assuming",
+          "maps_to": {"dimension": "cognitive.ambiguity_resolution", "value": "define_assumptions"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "cognitive.ambiguity_resolution",
+      "why_this_matters": null
+    },
+    {
+      "id": "t2_q11",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "Your friend says 'write a happy birthday message for Alex — keep it short.' You...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "one_solid",
+          "label": "Write one great one — if it's good, why give options?",
+          "maps_to": {"dimension": "cognitive.creativity_expression", "value": "quality_over_quantity"}
+        },
+        {
+          "value": "few_options",
+          "label": "Write 3 different versions so they can choose the vibe",
+          "maps_to": {"dimension": "cognitive.creativity_expression", "value": "options_generator"}
+        },
+        {
+          "value": "ask_about_alex",
+          "label": "Ask a few things about Alex first — a generic message feels lazy",
+          "maps_to": {"dimension": "cognitive.creativity_expression", "value": "context_first"}
+        },
+        {
+          "value": "riff_freely",
+          "label": "Go a bit unexpected — funny, weird, memorable instead of the usual",
+          "maps_to": {"dimension": "cognitive.creativity_expression", "value": "original_over_safe"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Creativity expression reveals how user prefers AI to handle open-ended tasks. Options-generator mindset = AI should always offer variants. Quality-over-quantity = one strong response preferred.",
+      "dimension": "cognitive.creativity_expression",
+      "why_this_matters": "AI learns whether to give you one polished output or a range to react to."
+    },
+    {
+      "id": "t2_q12",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "You realize you've been completely wrong about something for years. Your honest internal reaction?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "update_fast_curious",
+          "label": "Fascinating — I love finding out I had it wrong. Good data.",
+          "maps_to": {"dimension": "cognitive.metacognition", "value": "high_curious"},
+          "also_maps_to": {"dimension": "personality.openness", "value": "high"}
+        },
+        {
+          "value": "update_uncomfortable",
+          "label": "A bit unsettling but I update — I can't stay wrong on purpose",
+          "maps_to": {"dimension": "cognitive.metacognition", "value": "moderate"},
+          "also_maps_to": {"dimension": "personality.openness", "value": "resistant_then_open"}
+        },
+        {
+          "value": "question_the_new",
+          "label": "Scrutinize the new information first — maybe I'm not wrong, maybe this is wrong",
+          "maps_to": {"dimension": "cognitive.metacognition", "value": "skeptical_updater"},
+          "also_maps_to": {"dimension": "personality.openness", "value": "critical_update"}
+        },
+        {
+          "value": "bothers_me",
+          "label": "Bothers me — I spend time figuring out how I got it so wrong",
+          "maps_to": {"dimension": "cognitive.metacognition", "value": "self_analytical"},
+          "also_maps_to": {"dimension": "personality.openness", "value": "moderate"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Metacognition level is a proxy for intellectual honesty, self-awareness, AND openness to experience (Big Five O). High metacognition = AI can be more direct when the user is wrong, and can challenge assumptions aggressively. Skeptical updater = AI should provide strong evidence, not just assertions. Cross-reference with intellectual_challenge_appetite (t2_q14).",
+      "dimension": "cognitive.metacognition",
+      "secondary_dimension": "personality.openness",
+      "why_this_matters": "How AI calibrates its own directness when it has information that contradicts something you believe."
+    },
+    {
+      "id": "t2_q13",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "You sit down to work on ONE important thing. Two hours later...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "done_or_deep",
+          "label": "Either I finished it or I'm three levels deeper than I planned — nothing in between",
+          "maps_to": {"dimension": "cognitive.attention_pattern", "value": "hyperfocus_or_nothing"}
+        },
+        {
+          "value": "steady_progress",
+          "label": "Steady, predictable progress — roughly where I expected to be",
+          "maps_to": {"dimension": "cognitive.attention_pattern", "value": "consistent"}
+        },
+        {
+          "value": "several_tabs",
+          "label": "Somehow on a different topic with 11 open tabs",
+          "maps_to": {"dimension": "cognitive.attention_pattern", "value": "divergent_drift"},
+          "triggers": ["t2_q13a"]
+        },
+        {
+          "value": "partial_progress",
+          "label": "Partial progress — I get things to 70% then mentally move on",
+          "maps_to": {"dimension": "cognitive.attention_pattern", "value": "near_completion_gap"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Hyperfocus-or-nothing + divergent-drift are both ADHD-associated patterns. Note compound signals from t2_q06 (focus style) and t3_q14 (completion pattern). Don't label — just track.",
+      "dimension": "cognitive.attention_pattern",
+      "why_this_matters": "AI formats tasks and sessions to match how your attention actually behaves, not an idealized version of it."
+    },
+    {
+      "id": "t2_q13a",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "When you drift off-task like that — is it usually because of the task or despite it?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t2_q13",
+      "options": [
+        {
+          "value": "task_too_boring",
+          "label": "Task was boring — my brain found something more interesting",
+          "maps_to": {"dimension": "cognitive.drift_cause", "value": "under_stimulation"}
+        },
+        {
+          "value": "task_too_hard",
+          "label": "Task was hard with no clear entry — drifting felt easier",
+          "maps_to": {"dimension": "cognitive.drift_cause", "value": "overwhelm_avoidance"}
+        },
+        {
+          "value": "just_happens",
+          "label": "Just happens — I can be deep into something I love and still drift",
+          "maps_to": {"dimension": "cognitive.drift_cause", "value": "involuntary"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Involuntary drift = stronger executive function flag. Note for Tier 5.",
+      "dimension": "cognitive.drift_cause",
+      "why_this_matters": null
+    },
+    {
+      "id": "t2_q14",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "How do you feel about being challenged intellectually — when AI disagrees with your conclusion?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "love_it",
+          "label": "Bring it. If I'm wrong, I want to know. Don't coddle me.",
+          "maps_to": {"dimension": "cognitive.intellectual_challenge_appetite", "value": "high"}
+        },
+        {
+          "value": "welcome_if_earned",
+          "label": "Welcome it if AI has done its homework — not just contrarianism",
+          "maps_to": {"dimension": "cognitive.intellectual_challenge_appetite", "value": "earned_pushback"}
+        },
+        {
+          "value": "depends_domain",
+          "label": "In my domain, yes. Outside it, I'm more open to being guided.",
+          "maps_to": {"dimension": "cognitive.intellectual_challenge_appetite", "value": "domain_conditional"}
+        },
+        {
+          "value": "softer_please",
+          "label": "I'm open to it but prefer the disagreement framed as a question, not a correction",
+          "maps_to": {"dimension": "cognitive.intellectual_challenge_appetite", "value": "gentle_challenge"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Cross-reference with feedback_style (t1_q09). If they want brutal feedback but soft intellectual challenges — note asymmetry: critical about work is fine, challenging beliefs is sensitive.",
+      "dimension": "cognitive.intellectual_challenge_appetite",
+      "why_this_matters": "Calibrates how AI handles moments when it thinks you're wrong — does it say so or ask questions?"
+    },
+    {
+      "id": "t2_q15",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "When figuring out a hard problem, what role do you want AI to play?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "rubber_duck",
+          "label": "Just let me talk through it — you don't even need to answer, just listen",
+          "maps_to": {"dimension": "cognitive.ai_role_in_thinking", "value": "sounding_board"}
+        },
+        {
+          "value": "challenger",
+          "label": "Challenge my assumptions — ask the questions that poke holes",
+          "maps_to": {"dimension": "cognitive.ai_role_in_thinking", "value": "devil_advocate"}
+        },
+        {
+          "value": "solution_provider",
+          "label": "Just give me the answer — I don't need to think out loud",
+          "maps_to": {"dimension": "cognitive.ai_role_in_thinking", "value": "answer_machine"}
+        },
+        {
+          "value": "structured_guide",
+          "label": "Walk me through a structured process — help me think step by step",
+          "maps_to": {"dimension": "cognitive.ai_role_in_thinking", "value": "structured_guide"}
+        }
+      ],
+      "skippable": false,
+      "meta_profiling": "This is a fundamental AI relationship dimension. Sounding board = AI should confirm receipt and ask one probing question. Devil's advocate = AI should play adversarially. Answer machine = AI should be directive.",
+      "dimension": "cognitive.ai_role_in_thinking",
+      "why_this_matters": "Sets the default dynamic — are you thinking together or is AI answering your questions?"
+    },
+    {
+      "id": "t2_q16",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "How comfortable are you with 'I'm not sure yet — let's figure it out together'?",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "love_it",
+          "label": "That's actually my preferred mode — exploration over certainty",
+          "maps_to": {"dimension": "cognitive.uncertainty_tolerance", "value": "high"}
+        },
+        {
+          "value": "fine_with_it",
+          "label": "Fine, as long as we're making progress and not spinning",
+          "maps_to": {"dimension": "cognitive.uncertainty_tolerance", "value": "moderate"}
+        },
+        {
+          "value": "makes_me_anxious",
+          "label": "Makes me uncomfortable — I function better with clear answers",
+          "maps_to": {"dimension": "cognitive.uncertainty_tolerance", "value": "low"},
+          "triggers": ["t2_q16a"]
+        },
+        {
+          "value": "domain_specific",
+          "label": "Depends on stakes — low stakes = explore, high stakes = I need direction",
+          "maps_to": {"dimension": "cognitive.uncertainty_tolerance", "value": "stakes_dependent"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Uncertainty tolerance affects whether AI should say 'here are the options' vs 'here's what I recommend'. Low tolerance = always give the recommendation even when uncertain.",
+      "dimension": "cognitive.uncertainty_tolerance",
+      "why_this_matters": "AI knows when to say 'probably' and explore with you vs when to give you a clear answer."
+    },
+    {
+      "id": "t2_q16a",
+      "tier": 2,
+      "tier_name": "Cognitive Profile",
+      "question": "When AI is uncertain, what do you actually want it to do?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t2_q16",
+      "options": [
+        {
+          "value": "best_guess",
+          "label": "Give me your best guess and label it as uncertain",
+          "maps_to": {"dimension": "cognitive.uncertainty_handling", "value": "best_guess_labeled"}
+        },
+        {
+          "value": "ask_clarifying",
+          "label": "Ask me a clarifying question to reduce uncertainty",
+          "maps_to": {"dimension": "cognitive.uncertainty_handling", "value": "clarify_first"}
+        },
+        {
+          "value": "give_options",
+          "label": "Give me 2-3 options depending on which assumption is right",
+          "maps_to": {"dimension": "cognitive.uncertainty_handling", "value": "branching_answers"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": null,
+      "dimension": "cognitive.uncertainty_handling",
+      "why_this_matters": null
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "pack": "context",
+  "pack_name": "Kontekst Życiowy",
+  "pack_intro": "Szybkie fakty o Twoim życiu — pomagają AI dawać trafniejsze odpowiedzi.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "context_q01",
+      "pack": "context",
+      "question": "Czym się zajmujesz?",
+      "type": "open_text",
+      "dimension": "context.occupation",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje każdą sugestię AI dotyczącą pracy.",
+      "placeholder": "np. freelance developer, kierownik marketingu, student, szukam pracy"
+    },
+    {
+      "id": "context_q02",
+      "pack": "context",
+      "question": "Jaka branża lub firma? (opcjonalnie — pomaga AI zrozumieć Twój świat)",
+      "type": "open_text",
+      "dimension": "context.industry",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kontekst branżowy sprawia, że rekomendacje są dużo trafniejsze.",
+      "placeholder": "np. startup SaaS, sieć handlowa, uczelnia, własna firma"
+    },
+    {
+      "id": "context_q03",
+      "pack": "context",
+      "question": "Gdzie mieszkasz?",
+      "type": "open_text",
+      "dimension": "context.location",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Lokalizacja wpływa na strefę czasową, walutę, lokalne rekomendacje.",
+      "placeholder": "np. Kraków / Warszawa / zdalnie, podróżuję"
+    },
+    {
+      "id": "context_q04",
+      "pack": "context",
+      "question": "Etap życia?",
+      "type": "select",
+      "dimension": "context.life_stage",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Priorytety studenta i rodzica trójki dzieci to zupełnie inne światy.",
+      "options": [
+        {
+          "value": "student",
+          "label": "Student — uczę się, buduję kompetencje",
+          "maps_to": { "dimension": "context.life_stage", "value": "student" },
+          "export_rule": "I'm a student. Prioritize learning, budget-friendly options, and career building."
+        },
+        {
+          "value": "early_career",
+          "label": "Początek kariery — udowadniam się, szybko rosnę",
+          "maps_to": { "dimension": "context.life_stage", "value": "early_career" },
+          "export_rule": "I'm early career — optimize for growth, visibility, and skill-building."
+        },
+        {
+          "value": "established",
+          "label": "Ustabilizowany — wiem co robię, optymalizuję",
+          "maps_to": { "dimension": "context.life_stage", "value": "established" },
+          "export_rule": "I'm established professionally. Focus on optimization, delegation, and leverage."
+        },
+        {
+          "value": "founder",
+          "label": "Buduję swoje — founder / freelancer",
+          "maps_to": { "dimension": "context.life_stage", "value": "founder" },
+          "export_rule": "I'm building my own business. Everything should serve revenue, growth, or sustainability."
+        },
+        {
+          "value": "transition",
+          "label": "W przejściu — zmieniam kierunek",
+          "maps_to": { "dimension": "context.life_stage", "value": "transition" },
+          "export_rule": "I'm in career transition. Help me explore options and make decisions, not optimize the old path."
+        },
+        {
+          "value": "parent",
+          "label": "Rodzic — czasu brak, priorytety się zmieniły",
+          "maps_to": { "dimension": "context.life_stage", "value": "parent" },
+          "export_rule": "I have kids. Time is extremely scarce. Prioritize efficiency and don't suggest time-heavy approaches."
+        }
+      ]
+    },
+    {
+      "id": "context_q05",
+      "pack": "context",
+      "question": "Na czym teraz się skupiasz? Główny projekt lub cel.",
+      "type": "open_text",
+      "dimension": "context.current_focus",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Pomaga AI łączyć wszystko z tym, co jest teraz dla Ciebie najważniejsze.",
+      "placeholder": "np. launch produktu, nauka Rusta, szukanie pracy, zdrowie"
+    },
+    {
+      "id": "context_q06",
+      "pack": "context",
+      "question": "Jakich narzędzi używasz na co dzień? (pomaga AI dopasować się do Twojego workflow)",
+      "type": "open_text",
+      "dimension": "context.tools",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Sugestie AI działają lepiej gdy pasują do Twoich obecnych narzędzi.",
+      "placeholder": "np. VS Code, Notion, Slack, Figma, Google Sheets"
+    },
+    {
+      "id": "context_q07",
+      "pack": "context",
+      "question": "Poza główną pracą — w czym jeszcze się dobrze znasz?",
+      "type": "open_text",
+      "dimension": "expertise.secondary",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "AI nie będzie Ci tłumaczyć rzeczy które już znasz.",
+      "placeholder": "np. marketing, gotowanie, produkcja muzyki, inwestowanie, psychologia"
+    },
+    {
+      "id": "context_q08",
+      "pack": "context",
+      "question": "Jak AI ma się do Ciebie zwracać?",
+      "type": "select",
+      "dimension": "identity.pronouns",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Żeby AI zwracało się do Ciebie prawidłowo.",
+      "options": [
+        { "value": "he", "label": "Rodzaj męski (on, zrobiłeś, powiedziałeś)", "maps_to": { "dimension": "identity.pronouns", "value": "he/him" } },
+        { "value": "she", "label": "Rodzaj żeński (ona, zrobiłaś, powiedziałaś)", "maps_to": { "dimension": "identity.pronouns", "value": "she/her" } },
+        { "value": "they", "label": "Forma neutralna", "maps_to": { "dimension": "identity.pronouns", "value": "they/them" } },
+        { "value": "skip", "label": "Pomiń", "maps_to": { "dimension": "identity.pronouns", "value": "not_specified" } }
+      ]
+    }
+  ]
+}

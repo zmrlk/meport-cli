@@ -1,0 +1,8 @@
+{
+  "name": "meport",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r --parallel dev"
+  }
+}

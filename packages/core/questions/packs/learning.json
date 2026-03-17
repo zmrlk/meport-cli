@@ -1,0 +1,99 @@
+{
+  "pack": "learning",
+  "pack_name": "Learning & Skills",
+  "pack_intro": "How you learn and what you're working on.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "learning_q01",
+      "pack": "learning",
+      "question": "When learning something new, you prefer:",
+      "type": "select",
+      "dimension": "learning.format_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Shapes how AI teaches you — video vs reading vs practice.",
+      "skip_if": "cognitive.learning_style.confidence > 0.8",
+      "options": [
+        {
+          "value": "video",
+          "label": "Video tutorials — I need to see it done",
+          "maps_to": { "dimension": "learning.format_preference", "value": "video" },
+          "export_rule": "I learn best from video. Link tutorials when available. Describe visually."
+        },
+        {
+          "value": "reading",
+          "label": "Articles and documentation — I read fast",
+          "maps_to": { "dimension": "learning.format_preference", "value": "reading" },
+          "export_rule": "I learn through reading. Give me detailed written explanations and docs links."
+        },
+        {
+          "value": "practice",
+          "label": "Hands-on practice — give me exercises",
+          "maps_to": { "dimension": "learning.format_preference", "value": "practice" },
+          "export_rule": "I learn by practicing. Give me exercises and challenges, not just explanations."
+        },
+        {
+          "value": "projects",
+          "label": "Build a project — I learn by shipping real things",
+          "maps_to": { "dimension": "learning.format_preference", "value": "project_based" },
+          "export_rule": "I learn by building. Frame learning as 'build X to learn Y', not abstract exercises."
+        }
+      ]
+    },
+    {
+      "id": "learning_q02",
+      "pack": "learning",
+      "question": "What are you currently learning or want to learn?",
+      "type": "open_text",
+      "dimension": "learning.current_goals",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Lets AI tailor examples and references to your learning areas.",
+      "placeholder": "e.g. Rust, machine learning, Spanish, public speaking"
+    },
+    {
+      "id": "learning_q03",
+      "pack": "learning",
+      "question": "Realistic hours per week you can spend learning?",
+      "type": "select",
+      "dimension": "learning.time_commitment",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Helps AI suggest appropriately-sized learning chunks.",
+      "options": [
+        {
+          "value": "1_2h",
+          "label": "1-2 hours",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "minimal" },
+          "export_rule": "I have 1-2h/week for learning. Keep recommendations bite-sized."
+        },
+        {
+          "value": "3_5h",
+          "label": "3-5 hours",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "moderate" },
+          "export_rule": "I have 3-5h/week for learning. Suggest structured weekly progress."
+        },
+        {
+          "value": "5_10h",
+          "label": "5-10 hours",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "dedicated" },
+          "export_rule": "I dedicate 5-10h/week to learning. Suggest intensive study plans."
+        },
+        {
+          "value": "10_plus",
+          "label": "10+ hours",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "intensive" },
+          "export_rule": "I spend 10+ hours/week learning. Full curriculum-style plans welcome."
+        },
+        {
+          "value": "unpredictable",
+          "label": "Unpredictable — varies wildly",
+          "maps_to": { "dimension": "learning.time_commitment", "value": "variable" },
+          "export_rule": "My learning time is unpredictable. Give me modular content I can pick up anytime."
+        }
+      ]
+    }
+  ]
+}

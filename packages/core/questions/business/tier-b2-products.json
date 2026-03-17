@@ -1,0 +1,204 @@
+{
+  "tier": "B2",
+  "tier_name": "Products & Services",
+  "tier_intro": "What do you actually sell? Your AI agent needs to know your offering inside out — so it can answer questions accurately, handle objections, and never promise something you don't deliver. File uploads welcome here.",
+  "tier_complete": {
+    "headline": "Product knowledge loaded.",
+    "body": "Your AI agent now knows what you sell, how you price it, what makes it special, and what it can't do. It will never over-promise or give a customer false expectations. Next: teach it who your customers are."
+  },
+  "questions": [
+    {
+      "id": "b2_q01",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "Describe your main products or services — or upload a catalog, menu, or product list.",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "xlsx", "csv", "txt", "png", "jpg"],
+      "allow_text_fallback": true,
+      "text_placeholder": "Or describe your main offerings in your own words. Even a rough list helps.",
+      "skippable": false,
+      "meta_profiling": "How detailed and organized the product description is reveals brand maturity. Single offerings vs. complex catalog = very different AI needs.",
+      "dimension": "business.products.catalog",
+      "why_this_matters": "This is the core knowledge your AI agent needs. Without it, every product question gets deflected. With it, customers get accurate answers instantly."
+    },
+    {
+      "id": "b2_q02",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "What are your top 3 most popular or most important offerings?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "Name and one-line description for each. These are what AI should know best.",
+      "skippable": true,
+      "meta_profiling": "Top sellers reveal where AI effort should concentrate. If they match the full catalog upload, no issue. If different, signals a priority mismatch to investigate.",
+      "dimension": "business.products.top_sellers",
+      "why_this_matters": "AI prioritizes depth of knowledge on your most important offerings — so the 80% of questions about your top products get the best answers."
+    },
+    {
+      "id": "b2_q03",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "How do you charge for your products or services?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "fixed_price", "label": "Fixed price — customers know the cost upfront" },
+        { "value": "hourly", "label": "Hourly rate — time-based billing" },
+        { "value": "subscription", "label": "Subscription — recurring monthly or annual fee" },
+        { "value": "quote_based", "label": "Quote-based — every project is different, we give custom prices" },
+        { "value": "freemium", "label": "Freemium — free tier plus paid upgrades" },
+        { "value": "tiered_plans", "label": "Tiered plans — basic / pro / enterprise (or similar)" },
+        { "value": "marketplace", "label": "Marketplace / commission — we take a percentage" },
+        { "value": "mixed", "label": "Mixed — different pricing models for different offerings" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Pricing model complexity determines how much the AI can answer vs. deflect. Quote-based = AI can never give prices, only route to sales.",
+      "dimension": "business.products.pricing_model",
+      "why_this_matters": "AI must know whether it can quote prices or not. Getting this wrong creates either false commitments or frustrating non-answers."
+    },
+    {
+      "id": "b2_q04",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "How open is your pricing?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "fully_public", "label": "Fully public — prices are on our website, AI can share them" },
+        { "value": "on_request", "label": "On request — we share pricing when asked, but it's not public" },
+        { "value": "quote_only", "label": "Quote only — AI should never give a specific number, always route to sales" },
+        { "value": "negotiable", "label": "Negotiable — we have list prices but deals happen, AI should be careful" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Pricing transparency is a compliance decision. Quote-only or negotiable means AI needs strict guardrails to avoid under- or over-committing.",
+      "dimension": "business.products.pricing_transparency",
+      "why_this_matters": "Nothing breaks trust faster than an AI quoting a price that the sales team then overrides. This setting prevents that exact scenario."
+    },
+    {
+      "id": "b2_q05",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "What makes you genuinely different from competitors? Why do customers choose you?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "Be honest. What do you actually do better? Speed? Quality? Price? Service? Niche expertise?",
+      "skippable": false,
+      "meta_profiling": "Quality and specificity of USP reveals how clearly the company understands its market position. Vague answers = positioning work needed.",
+      "dimension": "business.products.usp",
+      "why_this_matters": "When a customer compares you to a competitor, AI needs a genuine, compelling answer. This is it. Weak here = lost sales."
+    },
+    {
+      "id": "b2_q06",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "Do you offer any guarantees, warranties, or promises to customers?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "e.g. '30-day money back', '2-year warranty', 'satisfaction guaranteed or we redo it', 'SLA 99.9% uptime'",
+      "skippable": true,
+      "meta_profiling": "Presence and specificity of guarantees signals customer confidence and brand maturity. Absence may indicate a missed retention opportunity.",
+      "dimension": "business.products.guarantees",
+      "why_this_matters": "Guarantees reduce purchase hesitation. AI proactively mentions them when customers are on the fence — but only if it knows they exist."
+    },
+    {
+      "id": "b2_q07",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "What should AI tell customers you CAN'T help with, or things you DON'T offer?",
+      "type": "open_text",
+      "file_scannable": false,
+      "placeholder": "e.g. 'We don't do rush orders', 'We only serve B2B', 'No refunds on digital downloads', 'No international shipping'",
+      "skippable": true,
+      "meta_profiling": "Limitations reveal operational boundaries and common misunderstandings. Detailed answer = company has dealt with many out-of-scope requests.",
+      "dimension": "business.products.limitations",
+      "why_this_matters": "AI that clearly communicates 'that's outside our scope' and redirects appropriately saves everyone time. Better than a frustrated customer who expected something different."
+    },
+    {
+      "id": "b2_q08",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "Does your offering change seasonally or by time of year?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "no_changes", "label": "No — our offering is consistent year-round" },
+        { "value": "seasonal_products", "label": "Yes — we add or remove products seasonally" },
+        { "value": "seasonal_pricing", "label": "Yes — pricing or demand varies by season" },
+        { "value": "campaign_based", "label": "Campaign-based — we run sales and promos at specific times" },
+        { "value": "heavily_seasonal", "label": "Heavily seasonal — our whole business shifts by season" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Seasonality signals whether AI knowledge base needs scheduled updates and whether it should flag when information might be outdated.",
+      "dimension": "business.products.seasonal",
+      "why_this_matters": "An AI describing last season's menu or discontinued products creates real problems. Flagging seasonality triggers update reminders."
+    },
+    {
+      "id": "b2_q09",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "Do you do custom or bespoke work?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "standard_only", "label": "Standard offerings only — no customization" },
+        { "value": "some_customization", "label": "Some customization — we can adapt within limits" },
+        { "value": "fully_custom", "label": "Fully custom — every project is unique, scope varies" },
+        { "value": "custom_upcharge", "label": "Custom work available at additional cost" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Custom work = higher conversation complexity. AI needs to know when to gather requirements vs. quote directly.",
+      "dimension": "business.products.custom_work",
+      "why_this_matters": "Custom work requests need different handling — more questions, different pricing process. AI behaves differently when it knows this is a custom inquiry."
+    },
+    {
+      "id": "b2_q10",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "How do you deliver what you sell?",
+      "type": "multi_select",
+      "file_scannable": false,
+      "options": [
+        { "value": "physical_delivery", "label": "Physical delivery / shipping" },
+        { "value": "in_store_pickup", "label": "In-store or in-person pickup" },
+        { "value": "on_site_service", "label": "On-site service (we come to the customer)" },
+        { "value": "digital_download", "label": "Digital download / instant access" },
+        { "value": "saas_access", "label": "SaaS / online platform access" },
+        { "value": "consulting_meetings", "label": "Meetings / consultations / calls" },
+        { "value": "mixed", "label": "Combination of the above" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Delivery method affects the types of questions customers will ask. Physical = tracking, shipping times. Digital = access issues, passwords. Service = scheduling.",
+      "dimension": "business.products.delivery_method",
+      "why_this_matters": "Delivery type shapes 30-40% of all customer inquiries. AI needs to know whether to help with tracking, scheduling, access credentials, or something else entirely."
+    },
+    {
+      "id": "b2_q11",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "What is your return, refund, or cancellation policy? (upload or describe)",
+      "type": "file_upload",
+      "file_scannable": true,
+      "accepted_formats": ["pdf", "docx", "txt"],
+      "allow_text_fallback": true,
+      "text_placeholder": "One sentence to a paragraph is enough. Or upload the policy doc.",
+      "skippable": true,
+      "meta_profiling": "Presence and clarity of refund policy signals customer trust investment. Vague or missing policy = customer service friction.",
+      "dimension": "business.products.returns_policy",
+      "why_this_matters": "Refund and return questions are among the most common. AI that can answer them confidently and accurately reduces support tickets and customer frustration."
+    },
+    {
+      "id": "b2_q12",
+      "tier": "B2",
+      "tier_name": "Products & Services",
+      "question": "Any other product or service information you want AI to know about?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "Awards, certifications, partnerships, accreditations, production methods, supply chain highlights — anything that builds credibility",
+      "skippable": true,
+      "meta_profiling": "Additional context reveals what the company is proud of but often forgets to mention. These details strengthen AI responses when trust-building matters.",
+      "dimension": "business.products.additional_context",
+      "why_this_matters": "The things companies are proudest of often aren't in the FAQ. This is where those trust-builders live — and AI uses them at the right moment."
+    }
+  ]
+}

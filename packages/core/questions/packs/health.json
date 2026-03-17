@@ -1,0 +1,93 @@
+{
+  "pack": "health",
+  "pack_name": "Health & Fitness",
+  "pack_intro": "Fitness, sleep, diet — private data you control.",
+  "required": false,
+  "sensitive": true,
+  "privacy_note": "Health data only exports to platforms you explicitly allow. Never shared by default.",
+  "questions": [
+    {
+      "id": "health_q01",
+      "pack": "health",
+      "question": "Your relationship with exercise is...",
+      "type": "select",
+      "dimension": "health.fitness_level",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Tells AI your fitness context — from beginner to experienced.",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular routine — I know what I'm doing",
+          "maps_to": { "dimension": "health.fitness_level", "value": "experienced" },
+          "export_rule": "I exercise regularly and know what I'm doing. Skip beginner advice — give me advanced tips."
+        },
+        {
+          "value": "on_off",
+          "label": "On-off — I go through phases",
+          "maps_to": { "dimension": "health.fitness_level", "value": "inconsistent" },
+          "export_rule": "My fitness is inconsistent. Help me maintain momentum. Don't judge gaps."
+        },
+        {
+          "value": "want_to_start",
+          "label": "Want to start but struggling to stick with it",
+          "maps_to": { "dimension": "health.fitness_level", "value": "beginner" },
+          "export_rule": "I'm building a fitness habit. Start simple, build gradually. Celebrate small wins."
+        },
+        {
+          "value": "not_priority",
+          "label": "Not a priority right now",
+          "maps_to": { "dimension": "health.fitness_level", "value": "inactive" },
+          "export_rule": "Fitness is not my focus right now. Don't push exercise advice unless I ask."
+        }
+      ]
+    },
+    {
+      "id": "health_q02",
+      "pack": "health",
+      "question": "It's 11 PM, alarm set for 7 AM. Realistically you...",
+      "type": "select",
+      "dimension": "health.sleep_pattern",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Sleep quality affects energy recommendations.",
+      "options": [
+        {
+          "value": "disciplined",
+          "label": "Asleep by 11:30 — I protect my sleep",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "good" },
+          "export_rule": "I maintain good sleep hygiene. Factor in my sleep schedule when suggesting timelines."
+        },
+        {
+          "value": "phone_scroll",
+          "label": "Phone scrolling until 1 AM, hate myself tomorrow",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "poor_screens" },
+          "export_rule": "I struggle with late-night screen time. If suggesting evening tasks, remind me to wrap up before 11 PM."
+        },
+        {
+          "value": "variable",
+          "label": "Depends — some nights disciplined, some not",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "variable" },
+          "export_rule": "My sleep varies. Don't assume I'm well-rested or exhausted — ask if relevant."
+        },
+        {
+          "value": "irregular",
+          "label": "My schedule is completely irregular",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "irregular" },
+          "export_rule": "My sleep schedule is irregular. Don't assume any standard wake/sleep times."
+        }
+      ]
+    },
+    {
+      "id": "health_q03",
+      "pack": "health",
+      "question": "Any allergies, conditions, or restrictions AI should know about?",
+      "type": "open_text",
+      "dimension": "health.conditions",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Safety — ensures AI never suggests something harmful to you.",
+      "placeholder": "e.g. nut allergy, lactose intolerant, asthma (or skip)"
+    }
+  ]
+}

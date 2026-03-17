@@ -1,0 +1,93 @@
+{
+  "pack": "health",
+  "pack_name": "Zdrowie i fitness",
+  "pack_intro": "Fitness, sen, dieta — prywatne dane pod Twoją kontrolą.",
+  "required": false,
+  "sensitive": true,
+  "privacy_note": "Dane zdrowotne eksportują się tylko na platformy które jawnie zatwierdzisz. Nigdy nie udostępniane domyślnie.",
+  "questions": [
+    {
+      "id": "health_q01",
+      "pack": "health",
+      "question": "Twoja relacja z ćwiczeniami to...",
+      "type": "select",
+      "dimension": "health.fitness_level",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Mówi AI o Twoim kontekście fitness — od początkującego do doświadczonego.",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regularna rutyna — wiem co robię",
+          "maps_to": { "dimension": "health.fitness_level", "value": "experienced" },
+          "export_rule": "I exercise regularly and know what I'm doing. Skip beginner advice — give me advanced tips."
+        },
+        {
+          "value": "on_off",
+          "label": "Na zmianę — przechodzę przez fazy",
+          "maps_to": { "dimension": "health.fitness_level", "value": "inconsistent" },
+          "export_rule": "My fitness is inconsistent. Help me maintain momentum. Don't judge gaps."
+        },
+        {
+          "value": "want_to_start",
+          "label": "Chcę zacząć ale trudno mi się utrzymać",
+          "maps_to": { "dimension": "health.fitness_level", "value": "beginner" },
+          "export_rule": "I'm building a fitness habit. Start simple, build gradually. Celebrate small wins."
+        },
+        {
+          "value": "not_priority",
+          "label": "Nie jest teraz priorytetem",
+          "maps_to": { "dimension": "health.fitness_level", "value": "inactive" },
+          "export_rule": "Fitness is not my focus right now. Don't push exercise advice unless I ask."
+        }
+      ]
+    },
+    {
+      "id": "health_q02",
+      "pack": "health",
+      "question": "Jest 23:00, budzik na 7:00. Realistycznie...",
+      "type": "select",
+      "dimension": "health.sleep_pattern",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Jakość snu wpływa na rekomendacje dotyczące energii.",
+      "options": [
+        {
+          "value": "disciplined",
+          "label": "Śpię o 23:30 — chronię swój sen",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "good" },
+          "export_rule": "I maintain good sleep hygiene. Factor in my sleep schedule when suggesting timelines."
+        },
+        {
+          "value": "phone_scroll",
+          "label": "Scrolluję telefon do 1:00, nienawidzę się rano",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "poor_screens" },
+          "export_rule": "I struggle with late-night screen time. If suggesting evening tasks, remind me to wrap up before 11 PM."
+        },
+        {
+          "value": "variable",
+          "label": "Zależy — czasem zdyscyplinowany, czasem nie",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "variable" },
+          "export_rule": "My sleep varies. Don't assume I'm well-rested or exhausted — ask if relevant."
+        },
+        {
+          "value": "irregular",
+          "label": "Mój grafik jest kompletnie nieregularny",
+          "maps_to": { "dimension": "health.sleep_pattern", "value": "irregular" },
+          "export_rule": "My sleep schedule is irregular. Don't assume any standard wake/sleep times."
+        }
+      ]
+    },
+    {
+      "id": "health_q03",
+      "pack": "health",
+      "question": "Jakieś alergie, schorzenia lub ograniczenia o których AI powinno wiedzieć?",
+      "type": "open_text",
+      "dimension": "health.conditions",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Bezpieczeństwo — zapewnia że AI nigdy nie zasugeruje czegoś szkodliwego.",
+      "placeholder": "np. alergia na orzechy, nietolerancja laktozy, astma (lub pomiń)"
+    }
+  ]
+}

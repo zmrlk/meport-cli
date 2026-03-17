@@ -1,0 +1,315 @@
+{
+  "tier": "B4",
+  "tier_name": "Communication Rules",
+  "tier_intro": "Where are the guardrails? What should AI do — and what should it never touch? This tier sets the rules of engagement: escalation paths, sensitive topics, legal boundaries, and how to handle tricky situations.",
+  "tier_complete": {
+    "headline": "Communication rules set.",
+    "body": "Your AI agent now knows exactly what it can handle, when to step aside, and what to never say. It won't go rogue on pricing negotiations, legal questions, or angry customers without a clear plan. Next: load the knowledge base."
+  },
+  "questions": [
+    {
+      "id": "b4_q01",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "How quickly do customers expect a response?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "under_1_min", "label": "Under 1 minute — live chat, customers expect instant replies" },
+        { "value": "under_1_hour", "label": "Within 1 hour — fast but not instant" },
+        { "value": "same_day", "label": "Same business day" },
+        { "value": "24_hours", "label": "Within 24 hours" },
+        { "value": "2_3_days", "label": "2–3 business days" },
+        { "value": "no_strict_expectation", "label": "No strict expectation — customers are patient" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Response time expectation shapes urgency language and escalation speed. Under 1 minute = AI must be reliable, not a bottleneck.",
+      "dimension": "business.communication.response_time",
+      "why_this_matters": "AI sets accurate expectations when it can't resolve something immediately — 'You'll hear from us within 2 hours' vs. 'someone will be in touch in a few days' are very different."
+    },
+    {
+      "id": "b4_q02",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Which channels does AI need to operate on?",
+      "type": "multi_select",
+      "file_scannable": false,
+      "options": [
+        { "value": "website_chat", "label": "Website live chat" },
+        { "value": "email", "label": "Email" },
+        { "value": "whatsapp", "label": "WhatsApp" },
+        { "value": "instagram", "label": "Instagram DMs" },
+        { "value": "facebook", "label": "Facebook Messenger" },
+        { "value": "sms", "label": "SMS / text" },
+        { "value": "phone_ai", "label": "Phone (AI voice)" },
+        { "value": "in_app", "label": "In-app support chat" },
+        { "value": "slack_teams", "label": "Slack or Teams (internal)" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Channel mix reveals where the customer base lives and what formality level to expect. WhatsApp = casual. Email = formal. This informs per-channel tone adjustments.",
+      "dimension": "business.communication.channels",
+      "why_this_matters": "AI adapts its response style to the channel — shorter and more direct on WhatsApp, more structured in email. Same message, different format."
+    },
+    {
+      "id": "b4_q03",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "When should AI hand off to a human? What triggers escalation?",
+      "type": "multi_select",
+      "file_scannable": false,
+      "allow_custom": true,
+      "options": [
+        { "value": "customer_is_angry", "label": "Customer is clearly angry or very upset" },
+        { "value": "complex_technical", "label": "Complex technical issue AI can't resolve" },
+        { "value": "legal_mention", "label": "Customer mentions legal action, lawyers, or regulators" },
+        { "value": "payment_dispute", "label": "Payment dispute or billing issue" },
+        { "value": "refund_large", "label": "Large refund or significant financial decision" },
+        { "value": "sensitive_data", "label": "Customer needs to share sensitive personal data" },
+        { "value": "custom_quote", "label": "Custom project requiring human judgment" },
+        { "value": "repeatedly_unsatisfied", "label": "Customer repeats the same complaint multiple times" },
+        { "value": "vip_customer", "label": "Known VIP or high-value customer" },
+        { "value": "safety_concern", "label": "Any safety or health concern" },
+        { "value": "customer_requests_human", "label": "Customer explicitly asks for a human" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Escalation triggers reveal risk tolerance and customer service maturity. Companies with legal history = legal mention always triggers escalation. Missing 'customer requests human' = possible trust issue.",
+      "dimension": "business.communication.escalation_triggers",
+      "why_this_matters": "AI that escalates too rarely damages trust. AI that escalates too much defeats the purpose. Calibrating this correctly is the most important operational decision in this tier."
+    },
+    {
+      "id": "b4_q04",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Topics AI should NEVER discuss or engage with:",
+      "type": "multi_select",
+      "file_scannable": false,
+      "allow_custom": true,
+      "options": [
+        { "value": "competitor_details", "label": "Specific competitor information" },
+        { "value": "internal_pricing", "label": "Internal pricing details or negotiation" },
+        { "value": "legal_advice", "label": "Legal advice or legal interpretation" },
+        { "value": "medical_advice", "label": "Medical advice" },
+        { "value": "financial_advice", "label": "Personal financial advice" },
+        { "value": "political_topics", "label": "Political views or current events" },
+        { "value": "employee_info", "label": "Information about specific employees" },
+        { "value": "upcoming_products", "label": "Unannounced products or future plans" },
+        { "value": "internal_processes", "label": "Internal processes, systems, or suppliers" },
+        { "value": "ongoing_incidents", "label": "Ongoing incidents or known issues" }
+      ],
+      "skippable": false,
+      "meta_profiling": "No-go topics reveal legal exposure, competitive sensitivity, and trust boundaries. Every item selected is a past incident or a live risk.",
+      "dimension": "business.communication.topics_to_avoid",
+      "why_this_matters": "Without these guardrails, AI will happily discuss competitors, speculate about legal liability, or reveal internal information. Each item here is a hard block."
+    },
+    {
+      "id": "b4_q05",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Are there industry-specific regulations AI must be aware of?",
+      "type": "multi_select",
+      "file_scannable": false,
+      "options": [
+        { "value": "gdpr", "label": "GDPR — EU data protection" },
+        { "value": "hipaa", "label": "HIPAA — US healthcare data" },
+        { "value": "pci_dss", "label": "PCI DSS — payment card security" },
+        { "value": "financial_regulations", "label": "Financial services regulations (FCA, MiFID, etc.)" },
+        { "value": "consumer_protection", "label": "Consumer protection laws (distance selling, cooling-off periods)" },
+        { "value": "accessibility", "label": "Accessibility requirements (ADA, WCAG)" },
+        { "value": "industry_code_of_conduct", "label": "Industry code of conduct or self-regulation" },
+        { "value": "none", "label": "No specific regulations apply" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Compliance requirements are the single most important legal input. GDPR + payment handling = specific data handling rules activate automatically.",
+      "dimension": "business.communication.compliance",
+      "why_this_matters": "AI that asks for a credit card number over chat, or stores names without consent, creates compliance violations. These flags activate the right guardrails automatically."
+    },
+    {
+      "id": "b4_q06",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "What personal data can AI ask customers for? What is strictly off-limits?",
+      "type": "open_text",
+      "file_scannable": false,
+      "multiline": true,
+      "placeholder": "OK to ask: name, email, order number, company name\nNEVER ask: credit card numbers, passwords, social security numbers, medical information",
+      "skippable": false,
+      "meta_profiling": "Data handling policy is a compliance requirement, not a preference. If they haven't thought about this, flag it as a risk.",
+      "dimension": "business.communication.data_handling",
+      "why_this_matters": "AI must know exactly what information it is allowed to collect. Asking for anything sensitive without this policy creates legal liability."
+    },
+    {
+      "id": "b4_q07",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "When your business is closed or unavailable, AI should...",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "inform_and_hours", "label": "Tell customers you're closed and share business hours" },
+        { "value": "take_message", "label": "Take a message and promise a follow-up when you're open" },
+        { "value": "full_service", "label": "Handle everything fully — AI runs 24/7 regardless" },
+        { "value": "redirect_urgent", "label": "Handle routine, redirect urgent to an emergency contact" },
+        { "value": "inform_and_self_serve", "label": "Inform and direct to self-service resources (docs, FAQ, status page)" }
+      ],
+      "skippable": false,
+      "meta_profiling": "After-hours policy reveals operational maturity. Full service 24/7 = high investment in AI autonomy. Take-message = AI as intake tool only.",
+      "dimension": "business.communication.after_hours",
+      "why_this_matters": "This determines what AI does with midnight messages. Getting it wrong means either false promises or missed opportunities."
+    },
+    {
+      "id": "b4_q08",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "After resolving an issue, should AI follow up with the customer?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "yes_always", "label": "Yes — always check if the solution actually worked" },
+        { "value": "yes_complex_only", "label": "Yes, but only for complex issues — routine is fine without" },
+        { "value": "no", "label": "No — close the conversation when resolved, don't follow up" },
+        { "value": "ask_customer", "label": "Ask the customer if they'd like a follow-up" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Follow-up policy signals customer retention investment. Always follow up = high relationship value. Never = transactional business model.",
+      "dimension": "business.communication.follow_up",
+      "why_this_matters": "Follow-up messages close the loop and dramatically improve customer satisfaction scores — but only if timed and toned correctly."
+    },
+    {
+      "id": "b4_q09",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Is AI allowed to suggest additional products or services (upselling/cross-selling)?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "yes_proactively", "label": "Yes — proactively suggest relevant upgrades and add-ons" },
+        { "value": "yes_if_natural", "label": "Yes, but only when it naturally fits the conversation" },
+        { "value": "only_when_asked", "label": "Only if customer asks — never push unprompted" },
+        { "value": "never", "label": "Never — we don't want AI selling, only supporting" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Upsell permission is a revenue decision. 'Never' often signals brand fear of feeling pushy. 'Proactively' = sales-forward culture. Neither is wrong — just different.",
+      "dimension": "business.communication.upsell_permission",
+      "why_this_matters": "AI can quietly become a revenue channel or pure cost center — this setting determines which. Even 'only if natural' can meaningfully improve average order value."
+    },
+    {
+      "id": "b4_q10",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "When a customer is upset, how should AI shift its approach?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "more_formal", "label": "More formal and careful — dial back warmth, be precise" },
+        { "value": "more_empathetic", "label": "More empathetic — acknowledge feelings first, facts second" },
+        { "value": "same_tone", "label": "Keep the same tone — consistency matters more than adaptation" },
+        { "value": "immediately_escalate", "label": "Immediately escalate to a human — don't let AI handle angry customers" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Upset-customer handling is a brand empathy signal. 'Immediately escalate' = past bad experience with AI mishandling complaints. 'Same tone' = strong brand consistency.",
+      "dimension": "business.communication.tone_shift",
+      "why_this_matters": "The tone used when a customer is angry determines whether AI de-escalates or makes things worse. This is the highest-stakes communication setting."
+    },
+    {
+      "id": "b4_q11",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Do you need AI to respond in multiple languages?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "single_language", "label": "Single language only — just respond in our language" },
+        { "value": "detect_and_match", "label": "Detect customer language and respond in it automatically" },
+        { "value": "specific_languages", "label": "Specific languages only — I'll list which ones" },
+        { "value": "english_always", "label": "Always respond in English regardless of customer language" }
+      ],
+      "skippable": false,
+      "meta_profiling": "Multilingual needs reveal customer geography and brand ambition. Auto-detect = sophisticated international audience.",
+      "dimension": "business.communication.multilingual",
+      "why_this_matters": "Responding in a customer's language increases trust and resolution rate significantly. AI can do this automatically — but only if told to."
+    },
+    {
+      "id": "b4_q12",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "What's the ideal length for AI responses to customer questions?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "very_short", "label": "Very short — 1-2 sentences, customers want quick answers" },
+        { "value": "concise", "label": "Concise — enough to fully answer, no extras" },
+        { "value": "thorough", "label": "Thorough — complete answers even if longer, customers appreciate detail" },
+        { "value": "depends_on_question", "label": "Depends — short for simple, long for complex" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Preferred response length correlates with channel and audience. Chat + simple product = short. Email + complex B2B = long. Mismatch creates friction.",
+      "dimension": "business.communication.response_length",
+      "why_this_matters": "Customers who want quick answers get annoyed by essays. Customers who need full explanations feel dismissed by two-line responses. This calibrates the default."
+    },
+    {
+      "id": "b4_q13",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Should AI follow response templates or respond naturally?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "natural_always", "label": "Natural — AI generates fresh, contextual responses every time" },
+        { "value": "templates_always", "label": "Templates — AI should follow approved scripts for consistency" },
+        { "value": "templates_for_common", "label": "Templates for common scenarios, natural for everything else" },
+        { "value": "templates_as_guide", "label": "Templates as a guide, AI can adapt the language" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Template vs. natural preference reveals brand control needs. Regulated industries prefer templates. Customer-experience-first brands prefer natural.",
+      "dimension": "business.communication.templates_vs_natural",
+      "why_this_matters": "Pure templates feel robotic but ensure compliance. Pure natural feels human but may go off-script. The right blend is unique to each business."
+    },
+    {
+      "id": "b4_q14",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Are there required legal disclaimers AI must include in any response?",
+      "type": "open_text",
+      "file_scannable": true,
+      "placeholder": "e.g. 'This is not legal advice', 'Past performance does not guarantee future results', 'This information is for general guidance only', cookie consent language, etc.",
+      "skippable": true,
+      "meta_profiling": "Disclaimer requirements are a compliance signal. Financial services and healthcare typically have mandatory disclaimer language that must appear in certain contexts.",
+      "dimension": "business.communication.disclaimers",
+      "why_this_matters": "Forgetting a required disclaimer creates legal liability. AI applies them consistently and in the right context — humans are inconsistent under pressure."
+    },
+    {
+      "id": "b4_q15",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Must every conversation start with a specific required greeting?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "no_required_greeting", "label": "No requirement — AI can greet naturally" },
+        { "value": "required_greeting", "label": "Yes — there's a specific greeting we require" },
+        { "value": "branded_intro", "label": "Yes — AI must introduce itself as our brand / company" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Required greetings often come from brand guidelines or call center scripts. Rigid requirement = strong brand control culture.",
+      "dimension": "business.communication.greeting_required",
+      "why_this_matters": "Consistent opening greetings reinforce brand identity at first contact. If there's a required format, AI follows it every time without fail."
+    },
+    {
+      "id": "b4_q16",
+      "tier": "B4",
+      "tier_name": "Communication Rules",
+      "question": "Must every conversation end with a specific sign-off?",
+      "type": "select",
+      "file_scannable": false,
+      "options": [
+        { "value": "no_required_signoff", "label": "No requirement — AI can close naturally" },
+        { "value": "required_signoff", "label": "Yes — there's a specific sign-off we always use" },
+        { "value": "ask_for_satisfaction", "label": "Always end by checking if the customer was satisfied" }
+      ],
+      "skippable": true,
+      "meta_profiling": "Required sign-offs, like required greetings, signal brand control investment. Companies with strong service cultures often have both.",
+      "dimension": "business.communication.sign_off_required",
+      "why_this_matters": "A consistent close reinforces brand experience at the final impression point. AI never forgets — unlike busy human agents under volume pressure."
+    }
+  ]
+}

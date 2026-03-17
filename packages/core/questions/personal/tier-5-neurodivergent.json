@@ -1,0 +1,594 @@
+{
+  "tier": 5,
+  "tier_name": "Neurodivergent Profile",
+  "tier_intro": "This section is completely optional. It helps AI adapt to how YOUR brain actually works — not how textbooks say brains should work. No diagnosis needed. No judgment. We're asking about experiences and adaptations, not labels. Skip anything that doesn't feel relevant.",
+  "tier_complete": {
+    "headline": "Brain OS profile saved.",
+    "body": "Most AI tools assume everyone's brain works the same way. Yours now doesn't. AI will adapt pacing, structure, reminders, and task framing to how you actually function — not the neurotypical default. This is one of the highest-impact sections in the whole profile."
+  },
+  "questions": [
+    {
+      "id": "t5_q01",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "When you sit down to start something important, your brain...",
+      "type": "select",
+      "options": [
+        {
+          "value": "just_starts",
+          "label": "Just starts — I sit down, I begin, no drama",
+          "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "easy"}
+        },
+        {
+          "value": "needs_ritual",
+          "label": "Needs a warm-up — coffee, music, clearing desk, a small easy task first",
+          "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "ritual_dependent"}
+        },
+        {
+          "value": "procrastinates_then_rush",
+          "label": "Procrastinates until pressure kicks in, then hyperfocuses at the last minute",
+          "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "deadline_activated"},
+          "triggers": ["t5_q01a"]
+        },
+        {
+          "value": "paralyzed",
+          "label": "Often freezes — knows what to do but can't make the first move",
+          "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "initiation_blocked"},
+          "triggers": ["t5_q01a"]
+        },
+        {
+          "value": "depends_interest",
+          "label": "Completely depends — easy if it's interesting, nearly impossible if it's not",
+          "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "interest_gated"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Response speed and length here are secondary signals. Paralysis/deadline patterns are strong ADHD indicators. 'Depends on interest' = interest-based nervous system.",
+      "dimension": "neurodivergent.task_initiation",
+      "why_this_matters": "AI can adjust how it frames task starts — breaking them into smaller entry points or adding urgency framing based on what actually gets you moving."
+    },
+    {
+      "id": "t5_q01a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "What actually helps you start when you're stuck?",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t5_q01",
+      "options": [
+        {"value": "body_double", "label": "Someone else in the room (or on video) working alongside me", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "body_doubling"}},
+        {"value": "timer", "label": "Setting a timer — even 5 minutes", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "timers"}},
+        {"value": "declare_intention", "label": "Telling someone what I'm about to do", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "accountability"}},
+        {"value": "smallest_step", "label": "Breaking it to the smallest possible first action", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "micro_steps"}},
+        {"value": "environment_change", "label": "Changing location (cafe, different room)", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "environment_change"}},
+        {"value": "music_noise", "label": "Specific music or background noise", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "auditory_anchor"}},
+        {"value": "nothing_works", "label": "Honestly, nothing reliable — it's random", "maps_to": {"dimension": "neurodivergent.task_initiation", "value": "unpredictable"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Which adaptations they've already discovered tells you about their self-awareness and coping sophistication.",
+      "dimension": "neurodivergent.adhd_adaptations",
+      "why_this_matters": "AI can actively suggest or simulate these conditions when helping you start tasks."
+    },
+    {
+      "id": "t5_q02",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "You think 'I'll just do this quick thing — 10 minutes max.' You look up and it's been...",
+      "type": "select",
+      "options": [
+        {
+          "value": "accurate",
+          "label": "About what I expected — my time estimates are usually close",
+          "maps_to": {"dimension": "neurodivergent.time_perception", "value": "accurate"}
+        },
+        {
+          "value": "slightly_off",
+          "label": "A bit longer, but not drastically — maybe 1.5x what I thought",
+          "maps_to": {"dimension": "neurodivergent.time_perception", "value": "slightly_impaired"}
+        },
+        {
+          "value": "way_longer",
+          "label": "45 minutes to 2 hours — time genuinely disappears",
+          "maps_to": {"dimension": "neurodivergent.time_perception", "value": "impaired"},
+          "triggers": ["t5_q02a"]
+        },
+        {
+          "value": "no_idea",
+          "label": "I genuinely have no idea until I check my phone — could be 10 min or 3 hours",
+          "maps_to": {"dimension": "neurodivergent.time_perception", "value": "severely_impaired"},
+          "triggers": ["t5_q02a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Time blindness is one of the most impactful ADHD traits for AI assistance. Note their certainty — people with time blindness often phrase this with humor or resignation.",
+      "dimension": "neurodivergent.time_perception",
+      "why_this_matters": "Time blindness changes how AI should structure task estimates, reminders, and planning — it's not about discipline, it's about perception."
+    },
+    {
+      "id": "t5_q02a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Which tools or strategies actually help you with time?",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t5_q02",
+      "options": [
+        {"value": "visual_timer", "label": "Visual timers (Time Timer, phone timer visible on screen)"},
+        {"value": "alarms", "label": "Multiple calendar alarms — including 'start getting ready' alerts"},
+        {"value": "time_anchors", "label": "Anchoring to fixed events ('after lunch', 'before 3pm call')"},
+        {"value": "pomodoro", "label": "Pomodoro or fixed work/break intervals"},
+        {"value": "external_deadlines", "label": "External deadlines from other people — self-imposed ones don't work"},
+        {"value": "nothing", "label": "Nothing reliable — I'm just always late or surprised"}
+      ],
+      "skippable": true,
+      "meta_profiling": "Check if they mention external deadlines specifically — strong signal that self-regulation is insufficient alone.",
+      "dimension": "neurodivergent.time_tools",
+      "why_this_matters": "AI can proactively use the strategies that actually work for you."
+    },
+    {
+      "id": "t5_q03",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "When something REALLY grabs your attention — a project, a topic, a problem...",
+      "type": "select",
+      "options": [
+        {
+          "value": "no_hyperfocus",
+          "label": "I don't really experience this — I stay pretty consistent regardless of interest",
+          "maps_to": {"dimension": "neurodivergent.hyperfocus", "value": "absent"}
+        },
+        {
+          "value": "mild_flow",
+          "label": "I get into flow states, but I can exit when needed",
+          "maps_to": {"dimension": "neurodivergent.hyperfocus", "value": "mild_flow"}
+        },
+        {
+          "value": "hyperfocus_exits",
+          "label": "I go deep and lose track of time, but external interruptions can pull me out",
+          "maps_to": {"dimension": "neurodivergent.hyperfocus", "value": "moderate"}
+        },
+        {
+          "value": "hyperfocus_locked",
+          "label": "I fully disappear — hours pass, I forget to eat, interruptions feel physically jarring",
+          "maps_to": {"dimension": "neurodivergent.hyperfocus", "value": "intense"},
+          "triggers": ["t5_q03a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Intensity of description is itself a signal — people with strong hyperfocus often describe it vividly or with a mix of pride and frustration.",
+      "dimension": "neurodivergent.hyperfocus",
+      "why_this_matters": "Hyperfocus is a superpower and a liability. AI can help harness it strategically and protect against its costs."
+    },
+    {
+      "id": "t5_q03a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "After a hyperfocus session, you typically feel...",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t5_q03",
+      "options": [
+        {"value": "energized", "label": "Energized — that was productive and satisfying"},
+        {"value": "crash_mild", "label": "Slightly drained — need a break but recovered quickly"},
+        {"value": "crash_severe", "label": "Wiped out — rest of day is often gone"},
+        {"value": "disoriented", "label": "Disoriented — takes a while to re-enter normal life"}
+      ],
+      "skippable": true,
+      "meta_profiling": "Post-hyperfocus crash pattern informs how AI should structure recovery time in planning.",
+      "dimension": "neurodivergent.hyperfocus_recovery",
+      "why_this_matters": "Knowing the recovery cost helps AI plan what to schedule after deep work sessions."
+    },
+    {
+      "id": "t5_q04",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "You're doing a boring but necessary task. Your brain starts wanting to...",
+      "type": "multi_select",
+      "options": [
+        {"value": "check_phone", "label": "Check phone — notifications, social, anything", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "digital_stimulation"}},
+        {"value": "new_tab", "label": "Open a new tab 'just quickly'", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "task_switching"}},
+        {"value": "snack", "label": "Get a snack or drink — suddenly very hungry", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "oral_stimulation"}},
+        {"value": "reorganize", "label": "Reorganize or clean something nearby", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "productive_procrastination"}},
+        {"value": "daydream", "label": "Just... drift off into thinking about something else entirely", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "internal_escape"}},
+        {"value": "music_podcast", "label": "Put on music or a podcast to make it bearable", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "auditory_stimulation"}},
+        {"value": "push_through", "label": "Push through — I have decent tolerance for boring work", "maps_to": {"dimension": "neurodivergent.dopamine_seeking", "value": "low"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Multiple selections = higher dopamine-seeking tendency. Phone + new tab + snack = strong ADHD pattern. Note if they selected 'push through' alongside others — might be masking.",
+      "dimension": "neurodivergent.dopamine_seeking",
+      "why_this_matters": "AI can gamify, chunk, or pair boring tasks with stimulation based on your specific patterns."
+    },
+    {
+      "id": "t5_q05",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Your ideal work environment sound level is...",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "Complete silence — any noise breaks concentration",
+        "max_label": "Loud and busy — I focus better in a cafe or with music",
+        "mid_label": "Low background noise or ambient sounds"
+      },
+      "skippable": true,
+      "meta_profiling": "Extremes on either end can indicate sensory processing differences. Note this against their task initiation style.",
+      "dimension": "neurodivergent.sensory_audio",
+      "why_this_matters": "Affects environment recommendations, focus music suggestions, and whether to recommend background noise tools."
+    },
+    {
+      "id": "t5_q06",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Someone gives you a 4-step verbal instruction. You...",
+      "type": "select",
+      "options": [
+        {
+          "value": "remember_all",
+          "label": "Remember all 4 steps easily and execute them",
+          "maps_to": {"dimension": "neurodivergent.working_memory", "value": "strong"}
+        },
+        {
+          "value": "remember_first_last",
+          "label": "Remember the first and last steps, fuzzy on the middle",
+          "maps_to": {"dimension": "neurodivergent.working_memory", "value": "moderate"}
+        },
+        {
+          "value": "write_it_down",
+          "label": "Immediately write it down — I know I'll lose it otherwise",
+          "maps_to": {"dimension": "neurodivergent.working_memory", "value": "compensated"}
+        },
+        {
+          "value": "remember_two",
+          "label": "Retain about 2 steps before it starts dropping off",
+          "maps_to": {"dimension": "neurodivergent.working_memory", "value": "limited"}
+        },
+        {
+          "value": "ask_repeat",
+          "label": "Ask them to slow down or repeat — verbal instructions don't stick",
+          "maps_to": {"dimension": "neurodivergent.working_memory", "value": "impaired"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Working memory is one of the most consistently impacted areas in ADHD. The 'compensated' response shows strong self-awareness.",
+      "dimension": "neurodivergent.working_memory",
+      "why_this_matters": "AI adjusts how it delivers multi-step instructions — chunking, numbered lists, or asking you to confirm each step."
+    },
+    {
+      "id": "t5_q07",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "You're mid-task when someone interrupts you. Getting back to where you were feels like...",
+      "type": "select",
+      "options": [
+        {
+          "value": "easy_resumption",
+          "label": "Easy — I pick right back up",
+          "maps_to": {"dimension": "neurodivergent.task_switching", "value": "flexible"}
+        },
+        {
+          "value": "takes_moment",
+          "label": "Takes a moment to reload — maybe 2-5 minutes to get back",
+          "maps_to": {"dimension": "neurodivergent.task_switching", "value": "moderate"}
+        },
+        {
+          "value": "lost_thread",
+          "label": "The thread is partially lost — I usually have to re-read what I was doing",
+          "maps_to": {"dimension": "neurodivergent.task_switching", "value": "impaired"}
+        },
+        {
+          "value": "task_dead",
+          "label": "The task is basically dead — I rarely return to it after interruption",
+          "maps_to": {"dimension": "neurodivergent.task_switching", "value": "severely_impaired"},
+          "triggers": ["t5_q07a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Interruption sensitivity is separate from introversion. Someone who gets frustrated at interruptions may be protecting fragile focus, not being antisocial.",
+      "dimension": "neurodivergent.task_switching",
+      "why_this_matters": "AI can build in 'do not interrupt' framing and help you use context notes to resume interrupted tasks."
+    },
+    {
+      "id": "t5_q07a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "What helps you protect focus from interruptions?",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t5_q07",
+      "options": [
+        {"value": "do_not_disturb", "label": "Phone/notifications off — no incoming signals"},
+        {"value": "headphones", "label": "Headphones on (even without music) — visual signal to others"},
+        {"value": "location", "label": "Being somewhere people don't expect me (different room, cafe)"},
+        {"value": "time_blocks", "label": "Scheduled 'no meeting' blocks communicated to others"},
+        {"value": "written_notes", "label": "Writing where I am before I get interrupted so I can return"}
+      ],
+      "skippable": true,
+      "meta_profiling": "Practical coping strategies indicate someone who has had to figure this out the hard way.",
+      "dimension": "neurodivergent.focus_protection",
+      "why_this_matters": "AI can suggest these strategies proactively when you start deep work sessions."
+    },
+    {
+      "id": "t5_q08",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Someone doesn't respond to your message for 3 hours. You...",
+      "type": "select",
+      "options": [
+        {
+          "value": "dont_notice",
+          "label": "Don't notice or think about it until I see the reply",
+          "maps_to": {"dimension": "neurodivergent.rejection_sensitivity", "value": "low"}
+        },
+        {
+          "value": "mild_wonder",
+          "label": "Mildly wonder what's up, but it doesn't stick",
+          "maps_to": {"dimension": "neurodivergent.rejection_sensitivity", "value": "moderate"}
+        },
+        {
+          "value": "replay_message",
+          "label": "Start replaying the message — did I say something wrong?",
+          "maps_to": {"dimension": "neurodivergent.rejection_sensitivity", "value": "elevated"}
+        },
+        {
+          "value": "assume_negative",
+          "label": "Assume they're upset with me or I messed up — strong gut feeling",
+          "maps_to": {"dimension": "neurodivergent.rejection_sensitivity", "value": "high"},
+          "triggers": ["t5_q08a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Rejection Sensitive Dysphoria is common with ADHD. The intensity of negative assumption vs reality is the key signal. Note if they add context or excuses in their answer.",
+      "dimension": "neurodivergent.rejection_sensitivity",
+      "why_this_matters": "AI can frame feedback carefully and avoid phrasing that could be misread as rejection or disapproval."
+    },
+    {
+      "id": "t5_q08a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "When you get critical feedback, even constructive, your first physical reaction is often...",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t5_q08",
+      "options": [
+        {"value": "gut_drop", "label": "A gut drop — physical feeling of dread or shame before I even process the content"},
+        {"value": "flush_defensive", "label": "Flush of defensiveness — my first instinct is to explain or justify"},
+        {"value": "shut_down", "label": "Shut down — I need time before I can engage with it"},
+        {"value": "fine", "label": "Fine actually — the first answer was about silence, not criticism specifically"}
+      ],
+      "skippable": true,
+      "meta_profiling": "Physical/somatic responses to feedback indicate RSD specifically, not just general sensitivity.",
+      "dimension": "neurodivergent.rsd",
+      "why_this_matters": "AI adjusts critique delivery — leading with what works before what doesn't, using 'I noticed' framing over 'you did wrong'."
+    },
+    {
+      "id": "t5_q09",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Around new people or in professional settings, how much do you filter your natural behavior?",
+      "type": "spectrum",
+      "spectrum": {
+        "min": 1,
+        "max": 5,
+        "min_label": "I'm the same everywhere — what you see is what you get",
+        "max_label": "I perform a 'professional version' — exhausting but feels necessary",
+        "mid_label": "I adjust somewhat — normal code-switching"
+      },
+      "skippable": true,
+      "meta_profiling": "High masking scores combined with other neurodivergent indicators = likely masking ADHD or autism. Exhaustion from masking is a real cost AI should acknowledge.",
+      "dimension": "neurodivergent.masking",
+      "why_this_matters": "AI can be a place where you don't have to mask — knowing this, it won't police your informal language or assume you need professional tone."
+    },
+    {
+      "id": "t5_q10",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "When something unexpected ruins your plan — your calendar changes, a task goes sideways, someone cancels — your gut reaction is...",
+      "type": "scenario",
+      "options": [
+        {
+          "value": "adapt_easily",
+          "label": "Adapt easily — I pivot and figure it out",
+          "maps_to": {"dimension": "neurodivergent.emotional_regulation", "value": "flexible"}
+        },
+        {
+          "value": "annoyed_recovers",
+          "label": "Briefly annoyed, recover within 30 minutes",
+          "maps_to": {"dimension": "neurodivergent.emotional_regulation", "value": "moderate"}
+        },
+        {
+          "value": "disrupted_hours",
+          "label": "Disrupted for a few hours — the day feels 'ruined' even if logically it isn't",
+          "maps_to": {"dimension": "neurodivergent.emotional_regulation", "value": "elevated"}
+        },
+        {
+          "value": "full_dysregulation",
+          "label": "Full emotional reaction that's hard to control — intensity feels disproportionate and I know it",
+          "maps_to": {"dimension": "neurodivergent.emotional_regulation", "value": "dysregulated"},
+          "triggers": ["t5_q10a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "The qualifier 'I know it' in the last option is important — it signals self-awareness about disproportionality, which is common in ADHD emotional dysregulation.",
+      "dimension": "neurodivergent.emotional_regulation",
+      "why_this_matters": "AI can build in 'disruption buffers' in planning and avoid scheduling back-to-back critical tasks where one failure cascades."
+    },
+    {
+      "id": "t5_q10a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "What helps you recover when emotions are running hot?",
+      "type": "multi_select",
+      "is_followup": true,
+      "parent_question": "t5_q10",
+      "options": [
+        {"value": "movement", "label": "Physical movement — walk, exercise, anything that burns it off"},
+        {"value": "alone_time", "label": "Being alone until it passes — no input"},
+        {"value": "talk_it_out", "label": "Talking to someone (or writing it out)"},
+        {"value": "sleep", "label": "Sleep or rest — it's usually better the next day"},
+        {"value": "distraction", "label": "Total distraction — TV, game, something absorbing"},
+        {"value": "nothing", "label": "Nothing consistent — I just have to wait it out"}
+      ],
+      "skippable": true,
+      "meta_profiling": "Regulation strategies reveal how developed their coping toolkit is.",
+      "dimension": "neurodivergent.regulation_strategies",
+      "why_this_matters": "AI can suggest these strategies proactively when it detects stress signals in conversation."
+    },
+    {
+      "id": "t5_q11",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "When you're thinking hard, excited, or deep in concentration — your body tends to...",
+      "type": "multi_select",
+      "options": [
+        {"value": "leg_bounce", "label": "Bounce or tap my leg", "maps_to": {"dimension": "neurodivergent.stimming", "value": "motor"}},
+        {"value": "fidget_object", "label": "Fidget with something — pen, ring, phone", "maps_to": {"dimension": "neurodivergent.stimming", "value": "object"}},
+        {"value": "pace_move", "label": "Pace or need to move around", "maps_to": {"dimension": "neurodivergent.stimming", "value": "vestibular"}},
+        {"value": "sound", "label": "Make sounds — hum, click, mutter to myself", "maps_to": {"dimension": "neurodivergent.stimming", "value": "auditory"}},
+        {"value": "still", "label": "Stay pretty still — no noticeable movement patterns", "maps_to": {"dimension": "neurodivergent.stimming", "value": "absent"}},
+        {"value": "not_aware", "label": "I'm not usually aware of what my body is doing", "maps_to": {"dimension": "neurodivergent.body_awareness", "value": "low"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Stimming awareness is a direct indicator of sensory/nervous system difference. Note if they express any shame in their response.",
+      "dimension": "neurodivergent.stimming",
+      "why_this_matters": "Confirms sensory processing patterns and helps AI understand that movement-friendly work setups may be beneficial."
+    },
+    {
+      "id": "t5_q12",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Topics or domains where you can talk for hours without getting bored — list them (or describe)",
+      "type": "open_text",
+      "placeholder": "E.g. 'mechanical keyboards, Roman history, fermentation, Rust programming, urban planning...'",
+      "skippable": true,
+      "meta_profiling": "The specificity and depth of their answer reveals how developed their special interests are. Multiple specific topics vs one deep one vs vague answers all differ meaningfully.",
+      "dimension": "neurodivergent.special_interests",
+      "why_this_matters": "AI can use these as engagement hooks, learning metaphors, and dopamine boosters when you need motivation for other tasks."
+    },
+    {
+      "id": "t5_q13",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Your natural sleep schedule, if you had zero obligations, would be...",
+      "type": "select",
+      "options": [
+        {
+          "value": "early_riser",
+          "label": "Early to bed, early to rise — I'm naturally a morning person",
+          "maps_to": {"dimension": "neurodivergent.sleep_chronotype", "value": "morning"}
+        },
+        {
+          "value": "conventional",
+          "label": "Roughly conventional — 11pm-7am feels natural",
+          "maps_to": {"dimension": "neurodivergent.sleep_chronotype", "value": "intermediate"}
+        },
+        {
+          "value": "night_owl",
+          "label": "Night owl — I come alive at 11pm and hate mornings",
+          "maps_to": {"dimension": "neurodivergent.sleep_chronotype", "value": "evening"}
+        },
+        {
+          "value": "extreme_night",
+          "label": "Extreme — I'd naturally sleep 3am-11am if I could",
+          "maps_to": {"dimension": "neurodivergent.sleep_chronotype", "value": "extreme_evening"}
+        },
+        {
+          "value": "irregular",
+          "label": "No consistent pattern — it shifts around",
+          "maps_to": {"dimension": "neurodivergent.sleep_chronotype", "value": "irregular"}
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Delayed sleep phase is more common in ADHD. Irregular pattern can indicate either ADHD or high stress.",
+      "dimension": "neurodivergent.sleep_chronotype",
+      "why_this_matters": "AI adapts scheduling recommendations and peak-hour suggestions to your actual biology, not societal defaults."
+    },
+    {
+      "id": "t5_q14",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Which of these actually help YOU work better? Select everything that's genuinely useful.",
+      "type": "multi_select",
+      "options": [
+        {"value": "body_double", "label": "Body doubling — someone present (physical or virtual)", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "body_doubling"}},
+        {"value": "timers_visible", "label": "Visible countdown timers during work", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "timers"}},
+        {"value": "music_focus", "label": "Specific music (lo-fi, binaural beats, brown noise)", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "auditory_anchor"}},
+        {"value": "movement_breaks", "label": "Scheduled movement breaks every 20-30 min", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "movement"}},
+        {"value": "visual_progress", "label": "Seeing progress visually — task lists with checkboxes, progress bars", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "visual_progress"}},
+        {"value": "hard_deadlines", "label": "Hard external deadlines (self-imposed don't work)", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "external_deadlines"}},
+        {"value": "novelty", "label": "Novelty and variety — switching between tasks keeps me engaged", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "novelty"}},
+        {"value": "single_priority", "label": "Being given ONE thing to focus on — too many options paralyzes", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "single_priority"}},
+        {"value": "scripted_starts", "label": "Scripted 'getting started' rituals that remove decisions", "maps_to": {"dimension": "neurodivergent.adhd_adaptations", "value": "rituals"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "This is the direct adaptation inventory — selections here directly configure AI behavior. Note any contradictions with previous answers (e.g., novelty + single priority both selected = context-dependent).",
+      "dimension": "neurodivergent.adhd_adaptations",
+      "why_this_matters": "These become the actual settings AI uses to structure how it helps you — directly configures output style and interaction patterns."
+    },
+    {
+      "id": "t5_q15",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Right now, your energy reserves feel like...",
+      "type": "select",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full — I feel like myself, motivated, able to take on things",
+          "maps_to": {"dimension": "neurodivergent.burnout_level", "value": "low"}
+        },
+        {
+          "value": "running_on_fumes",
+          "label": "Running on fumes — I'm functional but everything takes more effort",
+          "maps_to": {"dimension": "neurodivergent.burnout_level", "value": "moderate"}
+        },
+        {
+          "value": "depleted",
+          "label": "Depleted — I'm pushing through but not sustainably",
+          "maps_to": {"dimension": "neurodivergent.burnout_level", "value": "elevated"},
+          "triggers": ["t5_q15a"]
+        },
+        {
+          "value": "burnt_out",
+          "label": "Burnt out — basic things feel huge, I've lost the 'want to'",
+          "maps_to": {"dimension": "neurodivergent.burnout_level", "value": "high"},
+          "triggers": ["t5_q15a"]
+        }
+      ],
+      "skippable": true,
+      "meta_profiling": "Burnout self-awareness is important. Note if they answer matter-of-factly vs with deflection. High burnout + high masking = significant risk.",
+      "dimension": "neurodivergent.burnout_level",
+      "why_this_matters": "AI adjusts ambition level, task complexity, and check-in frequency based on your current reserves — not an idealized version of you."
+    },
+    {
+      "id": "t5_q15a",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Is this recent, or has it been the background state for a while?",
+      "type": "select",
+      "is_followup": true,
+      "parent_question": "t5_q15",
+      "options": [
+        {"value": "recent", "label": "Recent — something specific happened", "maps_to": {"dimension": "neurodivergent.burnout_duration", "value": "acute"}},
+        {"value": "months", "label": "A few months", "maps_to": {"dimension": "neurodivergent.burnout_duration", "value": "subacute"}},
+        {"value": "long_time", "label": "Honestly, a long time — this is just how things are", "maps_to": {"dimension": "neurodivergent.burnout_duration", "value": "chronic"}}
+      ],
+      "skippable": true,
+      "meta_profiling": "Chronic burnout requires AI to actively push back on overcommitment, not just accommodate it.",
+      "dimension": "neurodivergent.burnout_duration",
+      "why_this_matters": "Chronic burnout changes the whole approach — AI prioritizes recovery and sustainability over productivity."
+    },
+    {
+      "id": "t5_q16",
+      "tier": 5,
+      "tier_name": "Neurodivergent Profile",
+      "question": "Anything else about how your brain works that you'd want AI to know? No need for labels — just describe.",
+      "type": "open_text",
+      "placeholder": "E.g. 'I need instructions in writing, not spoken', 'I work much better at night', 'sensory stuff with certain textures', 'I'm autistic and prefer direct communication', anything...",
+      "skippable": true,
+      "meta_profiling": "Open text here catches everything the structured questions miss. Also reveals self-narrative and identity around neurodivergence — matter-of-fact vs careful framing says a lot.",
+      "dimension": "neurodivergent.freeform",
+      "why_this_matters": "You know your brain better than any question bank does. This is your override field."
+    }
+  ]
+}

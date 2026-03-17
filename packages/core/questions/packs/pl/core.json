@@ -1,0 +1,464 @@
+{
+  "pack": "core",
+  "pack_name": "DNA Komunikacji",
+  "pack_intro": "Jak chcesz żeby AI się z Tobą komunikowało.",
+  "required": true,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "core_q01",
+      "pack": "core",
+      "question": "AI przegląda Twoją pracę i mówi: 'Świetna robota! Kilka drobnych sugestii...' Twoja reakcja?",
+      "type": "select",
+      "dimension": "communication.feedback_style",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Określa czy AI zaczyna od pochwał czy przechodzi od razu do poprawek.",
+      "options": [
+        {
+          "value": "skip_praise",
+          "label": "Pomiń pochwały — pokaż co jest do poprawy",
+          "maps_to": { "dimension": "communication.feedback_style", "value": "direct" },
+          "export_rule": "When reviewing my work, skip praise. Show me what's broken and how to fix it."
+        },
+        {
+          "value": "brief_then_fix",
+          "label": "Krótkie potwierdzenie, potem od razu do poprawek",
+          "maps_to": { "dimension": "communication.feedback_style", "value": "balanced" },
+          "export_rule": "Brief acknowledgment of what works, then focus on what needs fixing."
+        },
+        {
+          "value": "appreciate_first",
+          "label": "Lubię wiedzieć co zrobiłem dobrze zanim usłyszę co jest źle",
+          "maps_to": { "dimension": "communication.feedback_style", "value": "supportive" },
+          "export_rule": "Start with what's working well, then transition to improvements."
+        }
+      ]
+    },
+    {
+      "id": "core_q02",
+      "pack": "core",
+      "question": "AI tłumaczy jak coś skonfigurować. Który format Ci najbardziej pomaga?",
+      "type": "select",
+      "dimension": "communication.format_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI strukturyzuje każdą odpowiedź.",
+      "options": [
+        {
+          "value": "step_by_step",
+          "label": "Numerowana lista krok po kroku",
+          "maps_to": { "dimension": "communication.format_preference", "value": "structured" },
+          "export_rule": "Use numbered step-by-step lists for instructions. Bullets for everything else."
+        },
+        {
+          "value": "code_first",
+          "label": "Pokaż kod/przykład najpierw, wyjaśnij potem",
+          "maps_to": { "dimension": "communication.format_preference", "value": "examples_first" },
+          "export_rule": "Code examples and working solutions first. Explain the reasoning after."
+        },
+        {
+          "value": "visual",
+          "label": "Diagram lub struktura wizualna",
+          "maps_to": { "dimension": "communication.format_preference", "value": "visual" },
+          "export_rule": "Use diagrams, tables, and visual structures when possible."
+        },
+        {
+          "value": "depends",
+          "label": "Zależy od tematu — mieszaj formaty",
+          "maps_to": { "dimension": "communication.format_preference", "value": "adaptive" },
+          "export_rule": "Vary format based on content: lists for steps, code blocks for examples, prose for concepts."
+        }
+      ]
+    },
+    {
+      "id": "core_q03",
+      "pack": "core",
+      "question": "Potrzebujesz pomocy w podjęciu decyzji. Wolisz żeby AI:",
+      "type": "select",
+      "dimension": "ai.relationship_model",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Ustala czy AI daje opcje, rekomenduje czy po prostu decyduje.",
+      "options": [
+        {
+          "value": "options",
+          "label": "Dało mi 2-3 opcje z za/przeciw — sam wybiorę",
+          "maps_to": { "dimension": "ai.relationship_model", "value": "advisor" },
+          "export_rule": "When I need to decide: present 2-3 options with trade-offs. I'll choose."
+        },
+        {
+          "value": "recommend",
+          "label": "Dało rekomendację z uzasadnieniem — sam zdecyduję",
+          "maps_to": { "dimension": "ai.relationship_model", "value": "expert" },
+          "export_rule": "Give me your recommendation with clear reasoning. I'll decide whether to follow it."
+        },
+        {
+          "value": "just_do_it",
+          "label": "Po prostu to ogarnęło — ufam Twojemu osądowi w większości spraw",
+          "maps_to": { "dimension": "ai.relationship_model", "value": "autonomous" },
+          "export_rule": "For routine decisions, just handle it. Only ask me for big/irreversible choices."
+        }
+      ]
+    },
+    {
+      "id": "core_q04",
+      "pack": "core",
+      "question": "AI daje Ci błędną odpowiedź. Co jest najważniejsze?",
+      "type": "select",
+      "dimension": "ai.correction_style",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI radzi sobie z niepewnością i błędami.",
+      "options": [
+        {
+          "value": "admit_fast",
+          "label": "Przyznać się natychmiast — bez bronieniа, bez wymówek",
+          "maps_to": { "dimension": "ai.correction_style", "value": "immediate" },
+          "export_rule": "If you're wrong, say so immediately. No defending, no excuses. Just correct it."
+        },
+        {
+          "value": "explain_why",
+          "label": "Wyjaśnić DLACZEGO się pomyliło, żebym też się nauczył",
+          "maps_to": { "dimension": "ai.correction_style", "value": "educational" },
+          "export_rule": "When corrected, explain what went wrong and why — so we both learn."
+        },
+        {
+          "value": "be_upfront",
+          "label": "Uprzedzać o niepewności ZANIM da odpowiedź",
+          "maps_to": { "dimension": "ai.correction_style", "value": "transparent" },
+          "export_rule": "Flag uncertainty upfront. Say 'I'm not sure about X' before answering, not after."
+        }
+      ]
+    },
+    {
+      "id": "core_q05",
+      "pack": "core",
+      "question": "AI rzuca żartem podczas pracy. Twoja reakcja?",
+      "type": "select",
+      "dimension": "communication.humor",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Humor może ocieplić AI albo irytować — zależy od Ciebie.",
+      "options": [
+        {
+          "value": "love_it",
+          "label": "Super — lubię lekką atmosferę",
+          "maps_to": { "dimension": "communication.humor", "value": "welcome" },
+          "export_rule": "Light humor is welcome. Keep the tone conversational and fun."
+        },
+        {
+          "value": "sometimes",
+          "label": "Czasem OK, ale nie kiedy jestem skupiony",
+          "maps_to": { "dimension": "communication.humor", "value": "contextual" },
+          "export_rule": "Occasional humor OK, but match my energy. If I'm focused or stressed, stay serious."
+        },
+        {
+          "value": "no_thanks",
+          "label": "Nie — zostań profesjonalny",
+          "maps_to": { "dimension": "communication.humor", "value": "none" },
+          "export_rule": "No humor. Stay focused and professional."
+        }
+      ]
+    },
+    {
+      "id": "core_q06",
+      "pack": "core",
+      "question": "Jak formalnie AI ma do Ciebie mówić?",
+      "type": "select",
+      "dimension": "communication.formality",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Ustawia cały ton każdej interakcji z AI.",
+      "options": [
+        {
+          "value": "casual",
+          "label": "Luźno — mów do mnie jak kumpel",
+          "maps_to": { "dimension": "communication.formality", "value": "casual" },
+          "export_rule": "Be casual and friendly. No formalities. Talk like a smart friend, not a service."
+        },
+        {
+          "value": "professional",
+          "label": "Profesjonalnie ale nie sztywno",
+          "maps_to": { "dimension": "communication.formality", "value": "professional" },
+          "export_rule": "Be professional but warm. No corporate stiffness, no overly casual slang."
+        },
+        {
+          "value": "match_me",
+          "label": "Dopasuj się — zmieniam ton zależnie od kontekstu",
+          "maps_to": { "dimension": "communication.formality", "value": "adaptive" },
+          "export_rule": "Mirror my tone. If I write casually, be casual. If I'm formal, match that."
+        }
+      ]
+    },
+    {
+      "id": "core_q07",
+      "pack": "core",
+      "question": "Czy AI ma śledzić i przypominać o rzeczach z poprzednich rozmów?",
+      "type": "select",
+      "dimension": "ai.accountability",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Jedni chcą żeby AI pamiętało i pilnowało. Inni — każda rozmowa od nowa.",
+      "options": [
+        {
+          "value": "yes_please",
+          "label": "Tak — pamiętaj i wracaj do tematów",
+          "maps_to": { "dimension": "ai.accountability", "value": "proactive" },
+          "export_rule": "Remember what we discussed. Follow up on tasks, decisions, and goals from previous conversations."
+        },
+        {
+          "value": "only_if_asked",
+          "label": "Tylko jeśli sam wrócę do tematu",
+          "maps_to": { "dimension": "ai.accountability", "value": "passive" },
+          "export_rule": "Don't follow up on past conversations unless I bring it up. Each conversation is fresh."
+        },
+        {
+          "value": "important_only",
+          "label": "Tylko ważne rzeczy — deadliny, zobowiązania",
+          "maps_to": { "dimension": "ai.accountability", "value": "selective" },
+          "export_rule": "Follow up only on important commitments and deadlines. Skip casual check-ins."
+        }
+      ]
+    },
+    {
+      "id": "core_q08",
+      "pack": "core",
+      "question": "Czy AI ma Ci sugerować rzeczy o które nie pytałeś?",
+      "type": "select",
+      "dimension": "ai.proactivity",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Jedni lubią proaktywne sugestie, inni się irytują.",
+      "options": [
+        {
+          "value": "yes",
+          "label": "Tak — zaskocz mnie przydatnymi pomysłami",
+          "maps_to": { "dimension": "ai.proactivity", "value": "proactive" },
+          "export_rule": "Be proactive. If you notice something relevant I didn't ask about, mention it."
+        },
+        {
+          "value": "sometimes",
+          "label": "Tylko jeśli to naprawdę trafne",
+          "maps_to": { "dimension": "ai.proactivity", "value": "selective" },
+          "export_rule": "Only suggest unsolicited things if they're clearly relevant and high-value. Don't spam ideas."
+        },
+        {
+          "value": "no",
+          "label": "Nie — odpowiadaj na to co pytam",
+          "maps_to": { "dimension": "ai.proactivity", "value": "reactive" },
+          "export_rule": "Answer exactly what I ask. Don't add unsolicited suggestions or 'you might also want to...'"
+        }
+      ]
+    },
+    {
+      "id": "core_q09",
+      "pack": "core",
+      "question": "AI uważa że się mylisz. Co powinno zrobić?",
+      "type": "select",
+      "dimension": "ai.disagreement",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Czy AI ma być yes-manem czy prawdziwym partnerem.",
+      "options": [
+        {
+          "value": "push_back",
+          "label": "Powiedzieć wprost — chcę być challengowany",
+          "maps_to": { "dimension": "ai.disagreement", "value": "challenge" },
+          "export_rule": "If you think I'm wrong, say so directly. Challenge my assumptions. I respect pushback."
+        },
+        {
+          "value": "gentle",
+          "label": "Delikatnie wspomnieć — 'rozważałeś...'",
+          "maps_to": { "dimension": "ai.disagreement", "value": "gentle" },
+          "export_rule": "If you disagree, raise it gently. 'Have you considered...' not 'You're wrong because...'"
+        },
+        {
+          "value": "just_do_it",
+          "label": "Robić co mówię — sam się przekonam",
+          "maps_to": { "dimension": "ai.disagreement", "value": "comply" },
+          "export_rule": "Do what I ask even if you think it's suboptimal. I'll learn from my own mistakes."
+        }
+      ]
+    },
+    {
+      "id": "core_q10",
+      "pack": "core",
+      "question": "Jakieś konkretne słowa/frazy które Cię denerwują w AI?",
+      "type": "open_text",
+      "dimension": "communication.pet_peeves",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Każdy ma swoje AI-izmy których nienawidzi.",
+      "placeholder": "np. 'Oczywiście!', 'Chętnie pomogę', 'Jako AI...', 'Świetne pytanie!'"
+    },
+    {
+      "id": "core_q11",
+      "pack": "core",
+      "question": "AI musi wytłumaczyć coś złożonego. Jak powinno to zrobić?",
+      "type": "select",
+      "dimension": "communication.explanation_depth",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa czy AI daje Ci TL;DR czy szczegółowe omówienia.",
+      "options": [
+        {
+          "value": "tldr",
+          "label": "TL;DR — daj mi sedno, szczegóły zapytam sam",
+          "maps_to": { "dimension": "communication.explanation_depth", "value": "minimal" },
+          "export_rule": "For complex topics: lead with the conclusion in 1-2 sentences. Only elaborate if I ask."
+        },
+        {
+          "value": "analogies",
+          "label": "Użyj analogii — 'to działa jak...'",
+          "maps_to": { "dimension": "communication.explanation_depth", "value": "analogies" },
+          "export_rule": "Explain complex concepts with real-world analogies. Make abstract things concrete."
+        },
+        {
+          "value": "technical",
+          "label": "Pokaż szczegóły techniczne — chcę rozumieć JAK to działa",
+          "maps_to": { "dimension": "communication.explanation_depth", "value": "technical" },
+          "export_rule": "Give technical, detailed explanations. I want to understand the mechanism, not just the result."
+        },
+        {
+          "value": "adaptive",
+          "label": "Dopasuj — prosto dla prostych, szczegółowo dla złożonych",
+          "maps_to": { "dimension": "communication.explanation_depth", "value": "adaptive" },
+          "export_rule": "Match explanation depth to topic complexity. Simple things = 1 line. Complex = structured breakdown."
+        }
+      ]
+    },
+    {
+      "id": "core_q12",
+      "pack": "core",
+      "question": "Utknąłeś na problemie. Co najbardziej pomaga?",
+      "type": "select",
+      "dimension": "ai.when_stuck",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa czy AI daje Ci rybę czy uczy łowić.",
+      "options": [
+        {
+          "value": "answer",
+          "label": "Po prostu daj mi odpowiedź — uczę się przez zobaczenie rozwiązania",
+          "maps_to": { "dimension": "ai.when_stuck", "value": "direct_answer" },
+          "export_rule": "When I'm stuck, give me the solution directly. Don't make me guess."
+        },
+        {
+          "value": "hint",
+          "label": "Daj mi wskazówkę — sam to rozgryzie",
+          "maps_to": { "dimension": "ai.when_stuck", "value": "hint" },
+          "export_rule": "When I'm stuck, give me a nudge in the right direction. Don't spoil the answer."
+        },
+        {
+          "value": "socratic",
+          "label": "Zadaj mi pytania które mnie tam doprowadzą",
+          "maps_to": { "dimension": "ai.when_stuck", "value": "socratic" },
+          "export_rule": "When I'm stuck, use Socratic questioning — ask me things that help me find the answer myself."
+        },
+        {
+          "value": "example",
+          "label": "Pokaż mi podobny rozwiązany przykład",
+          "maps_to": { "dimension": "ai.when_stuck", "value": "example" },
+          "export_rule": "When I'm stuck, show me a similar problem that's already solved. I learn by pattern matching."
+        }
+      ]
+    },
+    {
+      "id": "core_q13",
+      "pack": "core",
+      "question": "Jakie przykłady najlepiej do Ciebie trafiają?",
+      "type": "select",
+      "dimension": "ai.example_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI ilustruje koncepty i sugestie.",
+      "options": [
+        {
+          "value": "real",
+          "label": "Prawdziwe firmy/produkty — 'tak jak Stripe to robi'",
+          "maps_to": { "dimension": "ai.example_preference", "value": "real_world" },
+          "export_rule": "Use real-world examples from actual companies and products. Not hypothetical scenarios."
+        },
+        {
+          "value": "code",
+          "label": "Działający kod który mogę uruchomić",
+          "maps_to": { "dimension": "ai.example_preference", "value": "code" },
+          "export_rule": "Always include working code examples. I learn by reading and modifying real code."
+        },
+        {
+          "value": "hypothetical",
+          "label": "Hipotetyczne scenariusze — 'wyobraź sobie że...'",
+          "maps_to": { "dimension": "ai.example_preference", "value": "hypothetical" },
+          "export_rule": "Use hypothetical scenarios to explain concepts. 'Imagine you're building...' works well for me."
+        },
+        {
+          "value": "none",
+          "label": "Nie potrzebuję przykładów — wytłumacz po prostu",
+          "maps_to": { "dimension": "ai.example_preference", "value": "none" },
+          "export_rule": "Skip examples unless I ask. Direct explanation is more efficient for me."
+        }
+      ]
+    },
+    {
+      "id": "core_q14",
+      "pack": "core",
+      "question": "Jak AI ma obsługiwać historię Waszych rozmów?",
+      "type": "select",
+      "dimension": "ai.memory_preference",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Jedni chcą żeby AI pamiętało wszystko. Inni wolą zaczynać od nowa.",
+      "options": [
+        {
+          "value": "remember_all",
+          "label": "Pamiętaj wszystko — buduj na poprzednich rozmowach",
+          "maps_to": { "dimension": "ai.memory_preference", "value": "persistent" },
+          "export_rule": "Remember everything from our past conversations. Reference previous discussions when relevant."
+        },
+        {
+          "value": "fresh",
+          "label": "Każda rozmowa od nowa — nie wracaj do starych tematów",
+          "maps_to": { "dimension": "ai.memory_preference", "value": "fresh" },
+          "export_rule": "Treat each conversation as independent. Don't reference past conversations unless I do first."
+        },
+        {
+          "value": "work_only",
+          "label": "Pamiętaj sprawy służbowe, zapomnij prywatne",
+          "maps_to": { "dimension": "ai.memory_preference", "value": "selective" },
+          "export_rule": "Remember work context and projects across conversations. Forget casual/personal discussions."
+        }
+      ]
+    },
+    {
+      "id": "core_q15",
+      "pack": "core",
+      "question": "AI sugeruje coś ryzykownego lub niepewnego. Wolisz żeby...",
+      "type": "select",
+      "dimension": "personality.risk_tolerance",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa czy AI gra bezpiecznie czy pcha granice.",
+      "options": [
+        {
+          "value": "bold",
+          "label": "Śmiało — lubię skalkulowane ryzyko",
+          "maps_to": { "dimension": "personality.risk_tolerance", "value": "bold" },
+          "export_rule": "Don't be overly cautious. I prefer bold, innovative suggestions. Flag risks but don't shy away from them."
+        },
+        {
+          "value": "safe",
+          "label": "Graj bezpiecznie — najpierw konserwatywne sugestie",
+          "maps_to": { "dimension": "personality.risk_tolerance", "value": "conservative" },
+          "export_rule": "Default to safe, proven approaches. Only suggest risky alternatives if I specifically ask."
+        },
+        {
+          "value": "both",
+          "label": "Pokaż oba — bezpieczną opcję + ryzykowną",
+          "maps_to": { "dimension": "personality.risk_tolerance", "value": "balanced" },
+          "export_rule": "Present both safe and bold options with clear trade-offs. Let me choose the risk level."
+        }
+      ]
+    }
+  ]
+}

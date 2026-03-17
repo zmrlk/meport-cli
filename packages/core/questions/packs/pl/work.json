@@ -1,0 +1,460 @@
+{
+  "pack": "work",
+  "pack_name": "Praca i produktywność",
+  "pack_intro": "Jak pracujesz najlepiej — energia, deadline'y, nauka.",
+  "required": false,
+  "sensitive": false,
+  "questions": [
+    {
+      "id": "work_q01",
+      "pack": "work",
+      "question": "Ważny deadline za 3 dni. Jeszcze nie zacząłeś. Co się dzieje?",
+      "type": "select",
+      "dimension": "work.deadline_behavior",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Mówi AI czy rozbijać zadania czy pozwolić Ci pracować po swojemu.",
+      "options": [
+        {
+          "value": "pressure_thrive",
+          "label": "Kręci mnie presja — zrobię to jednym zrywem",
+          "maps_to": { "dimension": "work.deadline_behavior", "value": "pressure_driven" },
+          "export_rule": "I work best under pressure. Don't nag about deadlines — help me execute when I'm ready."
+        },
+        {
+          "value": "panic_power",
+          "label": "Czekam na presję, potem jadę na maksa — to mój proces",
+          "maps_to": { "dimension": "work.deadline_behavior", "value": "burst_mode" },
+          "export_rule": "I procrastinate then burst. When I'm in burst mode: break tasks into smallest next steps. No lectures about planning."
+        },
+        {
+          "value": "plan_ahead",
+          "label": "Nigdy bym się w to nie wkopał — planuję z wyprzedzeniem",
+          "maps_to": { "dimension": "work.deadline_behavior", "value": "structured" },
+          "export_rule": "Help me plan ahead. Break projects into milestones with clear deadlines."
+        },
+        {
+          "value": "overwhelm",
+          "label": "Poczułbym się przytłoczony i mógłbym się na chwilę zablokować",
+          "maps_to": { "dimension": "work.deadline_behavior", "value": "needs_support" },
+          "export_rule": "IF I seem overwhelmed THEN give me just ONE tiny next step. Don't show the full list."
+        }
+      ]
+    },
+    {
+      "id": "work_q02",
+      "pack": "work",
+      "question": "Kiedy Twój mózg pracuje najlepiej?",
+      "type": "select",
+      "dimension": "work.energy_archetype",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Pomaga AI sugerować zadania o właściwej porze.",
+      "skip_if": "work.peak_hours.confidence > 0.8",
+      "options": [
+        {
+          "value": "morning",
+          "label": "Ranny ptaszek — ostry przed południem, słabnę po obiedzie",
+          "maps_to": { "dimension": "work.energy_archetype", "value": "morning" },
+          "export_rule": "My peak focus is morning. Suggest demanding tasks before noon."
+        },
+        {
+          "value": "afternoon",
+          "label": "Popołudniowy szczyt — wolny start, rozkręcam się po obiedzie",
+          "maps_to": { "dimension": "work.energy_archetype", "value": "afternoon" },
+          "export_rule": "My peak focus is afternoon. Don't front-load mornings with hard tasks."
+        },
+        {
+          "value": "night",
+          "label": "Nocny marek — najlepsza praca po 20:00",
+          "maps_to": { "dimension": "work.energy_archetype", "value": "night" },
+          "export_rule": "I'm a night owl. My best work happens late. Don't assume morning productivity."
+        },
+        {
+          "value": "burst",
+          "label": "Nieprzewidywalnie — pracuję w zrywach kiedy złapie mnie wena",
+          "maps_to": { "dimension": "work.energy_archetype", "value": "burst" },
+          "export_rule": "My energy is unpredictable. Suggest 15-25 min tasks I can grab when motivation hits. Don't plan long sessions."
+        }
+      ]
+    },
+    {
+      "id": "work_q03",
+      "pack": "work",
+      "question": "Musisz nauczyć się zupełnie nowego narzędzia do przyszłego tygodnia. Twój ruch?",
+      "type": "select",
+      "dimension": "cognitive.learning_style",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Kształtuje jak AI Cię uczy — przykłady vs teoria vs dokumentacja.",
+      "options": [
+        {
+          "value": "jump_in",
+          "label": "Wskoczyć, popsuć, ogarnąć po drodze",
+          "maps_to": { "dimension": "cognitive.learning_style", "value": "hands_on" },
+          "export_rule": "I learn by doing. Give me working examples to modify, not theory to read."
+        },
+        {
+          "value": "tutorial",
+          "label": "Znaleźć najlepszy tutorial lub kurs",
+          "maps_to": { "dimension": "cognitive.learning_style", "value": "guided" },
+          "export_rule": "I learn best with structured tutorials. Give step-by-step guides with explanations."
+        },
+        {
+          "value": "docs",
+          "label": "Przeczytać dokumentację, zrozumieć model, potem próbować",
+          "maps_to": { "dimension": "cognitive.learning_style", "value": "conceptual" },
+          "export_rule": "Explain the mental model first — how things connect. Then I'll apply it."
+        },
+        {
+          "value": "pair_up",
+          "label": "Znaleźć kogoś kto to zna i pracować razem",
+          "maps_to": { "dimension": "cognitive.learning_style", "value": "collaborative" },
+          "export_rule": "Walk me through it interactively. Step by step together, not a dump of information."
+        }
+      ]
+    },
+    {
+      "id": "work_q04",
+      "pack": "work",
+      "question": "Kiedy stawka jest wysoka: zrobić DOBRZE czy zrobić SZYBKO?",
+      "type": "select",
+      "dimension": "work.perfectionism",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Mówi AI czy optymalizować pod szybkość czy jakość.",
+      "options": [
+        {
+          "value": "speed",
+          "label": "80% teraz bije 100% później. Wypuść.",
+          "maps_to": { "dimension": "work.perfectionism", "value": "pragmatic" },
+          "export_rule": "Optimize for speed. Give me the 80% solution fast. I'll refine if needed."
+        },
+        {
+          "value": "quality",
+          "label": "Jak warto robić, to warto robić dobrze",
+          "maps_to": { "dimension": "work.perfectionism", "value": "quality_first" },
+          "export_rule": "Prioritize correctness over speed. Point out edge cases and potential issues."
+        },
+        {
+          "value": "context",
+          "label": "Zależy — prototyp szybko, produkcja porządnie",
+          "maps_to": { "dimension": "work.perfectionism", "value": "context_dependent" },
+          "export_rule": "Match quality to context. Prototypes = fast and scrappy. Production = thorough and tested."
+        }
+      ]
+    },
+    {
+      "id": "work_q05",
+      "pack": "work",
+      "question": "Masz za dużo na głowie. Co pomaga?",
+      "type": "select",
+      "dimension": "personality.stress_response",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Określa jak AI pomaga gdy jesteś zestresowany.",
+      "options": [
+        {
+          "value": "list",
+          "label": "Daj mi listę — widzenie wszystkiego poukładanego mnie uspokaja",
+          "maps_to": { "dimension": "personality.stress_response", "value": "organize" },
+          "export_rule": "When I'm overwhelmed: organize everything into a prioritized list. Seeing order helps."
+        },
+        {
+          "value": "smallest_step",
+          "label": "Powiedz mi JEDNĄ najmniejszą rzecz do zrobienia",
+          "maps_to": { "dimension": "personality.stress_response", "value": "one_step" },
+          "export_rule": "When I'm overwhelmed: give me ONE tiny next step. Not a list. Not a plan. Just the next thing."
+        },
+        {
+          "value": "talk_through",
+          "label": "Pogadaj ze mną — pomóż mi myśleć na głos",
+          "maps_to": { "dimension": "personality.stress_response", "value": "discuss" },
+          "export_rule": "When I'm stressed: help me think out loud. Ask questions, don't prescribe solutions."
+        },
+        {
+          "value": "just_start",
+          "label": "Wybierz coś za mnie i ruszaj — rozpęd pomaga",
+          "maps_to": { "dimension": "personality.stress_response", "value": "momentum" },
+          "export_rule": "When I'm stuck: pick the easiest win and start me on it. Momentum breaks paralysis."
+        }
+      ]
+    },
+    {
+      "id": "work_q06",
+      "pack": "work",
+      "question": "Zarządzasz innymi ludźmi?",
+      "type": "select",
+      "dimension": "work.role",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Menedżerowie potrzebują AI do delegowania, nie do robienia wszystkiego.",
+      "options": [
+        {
+          "value": "lead",
+          "label": "Tak — zarządzam zespołem lub projektem",
+          "maps_to": { "dimension": "work.role", "value": "leader" },
+          "export_rule": "I manage people. Help me delegate, communicate to teams, and think strategically — not just execute."
+        },
+        {
+          "value": "solo",
+          "label": "Nie — pracuję głównie sam",
+          "maps_to": { "dimension": "work.role", "value": "individual" },
+          "export_rule": "I work solo. Focus on execution and hands-on solutions."
+        },
+        {
+          "value": "both",
+          "label": "Jedno i drugie — zarządzam i robię ręcznie",
+          "maps_to": { "dimension": "work.role", "value": "player_coach" },
+          "export_rule": "I'm a player-coach — I lead AND do hands-on work. Help me balance both."
+        }
+      ]
+    },
+    {
+      "id": "work_q07",
+      "pack": "work",
+      "question": "W swojej głównej dziedzinie — jak doświadczony jesteś?",
+      "type": "select",
+      "dimension": "expertise.level",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa ile AI powinno wyjaśniać a ile zakładać.",
+      "options": [
+        {
+          "value": "beginner",
+          "label": "Uczę się — jestem nowy w tej branży (< 2 lata)",
+          "maps_to": { "dimension": "expertise.level", "value": "beginner" },
+          "export_rule": "I'm relatively new to my field. Explain concepts clearly, give examples, don't assume knowledge."
+        },
+        {
+          "value": "intermediate",
+          "label": "Ogarniam — znam się na rzeczy (2-5 lat)",
+          "maps_to": { "dimension": "expertise.level", "value": "intermediate" },
+          "export_rule": "I have solid experience. Skip basics but explain advanced concepts when relevant."
+        },
+        {
+          "value": "expert",
+          "label": "Ekspert — to moja domena (5+ lat)",
+          "maps_to": { "dimension": "expertise.level", "value": "expert" },
+          "export_rule": "I'm an expert in my field. Don't explain fundamentals. Challenge me with advanced perspectives."
+        }
+      ]
+    },
+    {
+      "id": "work_q08",
+      "pack": "work",
+      "question": "Kiedy nie jesteś pewien czegoś, zazwyczaj...",
+      "type": "select",
+      "dimension": "personality.confidence_style",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Mówi AI jak wspierać Twoją niepewność.",
+      "options": [
+        {
+          "value": "research",
+          "label": "Szukam informacji dopóki nie jestem pewien, potem działam",
+          "maps_to": { "dimension": "personality.confidence_style", "value": "researcher" },
+          "export_rule": "When I'm unsure, give me data and evidence. Help me research before deciding."
+        },
+        {
+          "value": "ask",
+          "label": "Pytam kogoś komu ufam o zdanie",
+          "maps_to": { "dimension": "personality.confidence_style", "value": "consulter" },
+          "export_rule": "Give me your honest recommendation when I'm unsure. I value expert opinions."
+        },
+        {
+          "value": "try",
+          "label": "Po prostu próbuję i patrzę co wyjdzie",
+          "maps_to": { "dimension": "personality.confidence_style", "value": "experimenter" },
+          "export_rule": "Don't over-analyze. Help me try things quickly and learn from results."
+        },
+        {
+          "value": "avoid",
+          "label": "Unikam decyzji dopóki nie muszę",
+          "maps_to": { "dimension": "personality.confidence_style", "value": "avoider" },
+          "export_rule": "When I'm avoiding a decision, break it into smaller steps. Don't present the full decision at once."
+        }
+      ]
+    },
+    {
+      "id": "work_q09",
+      "pack": "work",
+      "question": "Jak wolisz współpracować?",
+      "type": "select",
+      "dimension": "work.collaboration_style",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa czy AI sugeruje rozwiązania asynchroniczne czy w czasie rzeczywistym.",
+      "options": [
+        {
+          "value": "async",
+          "label": "Asynchronicznie — wiadomości, dokumenty, PR-y. Nienawidzę spotkań.",
+          "maps_to": { "dimension": "work.collaboration_style", "value": "async" },
+          "export_rule": "I prefer async communication. Suggest written solutions, docs, and messages over calls."
+        },
+        {
+          "value": "sync",
+          "label": "W czasie rzeczywistym — rozmowy, praca w parze, sesje na żywo",
+          "maps_to": { "dimension": "work.collaboration_style", "value": "sync" },
+          "export_rule": "I work best in real-time collaboration. Suggest pairing, calls, and live sessions."
+        },
+        {
+          "value": "mix",
+          "label": "Mieszanka — async do rutynowych, sync do złożonych",
+          "maps_to": { "dimension": "work.collaboration_style", "value": "hybrid" },
+          "export_rule": "Async for routine tasks, real-time for complex problems. Match the medium to the complexity."
+        },
+        {
+          "value": "solo",
+          "label": "Sam — pracuję najlepiej całkowicie solo",
+          "maps_to": { "dimension": "work.collaboration_style", "value": "solo" },
+          "export_rule": "I work solo. Don't suggest collaboration tools or team approaches unless I ask."
+        }
+      ]
+    },
+    {
+      "id": "work_q10",
+      "pack": "work",
+      "question": "Ile rzeczy robisz jednocześnie?",
+      "type": "select",
+      "dimension": "work.multitasking",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa czy AI ma Ci pomagać się skupić czy żonglować zadaniami.",
+      "options": [
+        {
+          "value": "single",
+          "label": "Jedna rzecz na raz — głęboki fokus",
+          "maps_to": { "dimension": "work.multitasking", "value": "single_focus" },
+          "export_rule": "I do one thing at a time. Don't pile on suggestions. Help me go deep on the current task."
+        },
+        {
+          "value": "few",
+          "label": "2-3 rzeczy w rotacji",
+          "maps_to": { "dimension": "work.multitasking", "value": "rotating" },
+          "export_rule": "I rotate between 2-3 projects. Help me context-switch efficiently."
+        },
+        {
+          "value": "many",
+          "label": "Wszystko naraz — żongluję",
+          "maps_to": { "dimension": "work.multitasking", "value": "juggler" },
+          "export_rule": "I juggle many things. Help me prioritize and track what's most urgent."
+        },
+        {
+          "value": "variable",
+          "label": "Zależy od dnia — raz skupiony, raz rozproszony",
+          "maps_to": { "dimension": "work.multitasking", "value": "variable" },
+          "export_rule": "My focus varies. If I seem scattered, help me narrow down. If I'm focused, match my depth."
+        }
+      ]
+    },
+    {
+      "id": "work_q11",
+      "pack": "work",
+      "question": "Gdy podejmujesz decyzje, zazwyczaj...",
+      "type": "select",
+      "dimension": "cognitive.decision_style",
+      "skippable": true,
+      "meta_profiling": "response_time",
+      "why_this_matters": "Określa jak AI prezentuje opcje i rekomendacje.",
+      "options": [
+        {
+          "value": "analytical",
+          "label": "Analizuję dane — pokaż mi dowody",
+          "maps_to": { "dimension": "cognitive.decision_style", "value": "analytical" },
+          "export_rule": "I decide based on data. Present evidence, numbers, and comparisons. Not feelings."
+        },
+        {
+          "value": "intuitive",
+          "label": "Ufam instynktowi — daj mi swoją rekomendację",
+          "maps_to": { "dimension": "cognitive.decision_style", "value": "intuitive" },
+          "export_rule": "Give me your best recommendation with brief reasoning. I'll go with my gut."
+        },
+        {
+          "value": "consensus",
+          "label": "Pytam innych — biorę pod uwagę różne perspektywy",
+          "maps_to": { "dimension": "cognitive.decision_style", "value": "consensus" },
+          "export_rule": "Present multiple perspectives on decisions. Show me what different people would advise."
+        },
+        {
+          "value": "fast",
+          "label": "Decyduję szybko, poprawiam potem — liczy się momentum",
+          "maps_to": { "dimension": "cognitive.decision_style", "value": "rapid" },
+          "export_rule": "Help me decide fast. Don't over-analyze. Give clear recommendation and let me adjust course."
+        }
+      ]
+    },
+    {
+      "id": "work_q12",
+      "pack": "work",
+      "question": "Jak długo zazwyczaj możesz się skupić bez rozproszenia?",
+      "type": "select",
+      "dimension": "cognitive.attention_span",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Określa jak AI strukturyzuje długie wyjaśnienia i zadania.",
+      "options": [
+        {
+          "value": "deep",
+          "label": "2+ godziny z łatwością — wchodzę w flow",
+          "maps_to": { "dimension": "cognitive.attention_span", "value": "deep_focus" },
+          "export_rule": "I can handle long, detailed responses. Don't break things into tiny pieces unnecessarily."
+        },
+        {
+          "value": "moderate",
+          "label": "45-60 minut — potem potrzebuję przerwy",
+          "maps_to": { "dimension": "cognitive.attention_span", "value": "moderate" },
+          "export_rule": "Keep individual explanations under 5 minutes of reading. Break long tasks into 45-min chunks."
+        },
+        {
+          "value": "short",
+          "label": "15-20 minut — potem potrzebuję nowości",
+          "maps_to": { "dimension": "cognitive.attention_span", "value": "short" },
+          "export_rule": "Keep responses SHORT. Max 10 lines. Break everything into 15-min actionable chunks. Vary the format."
+        },
+        {
+          "value": "variable",
+          "label": "Zależy — raz godziny, raz 5 minut",
+          "maps_to": { "dimension": "cognitive.attention_span", "value": "variable" },
+          "export_rule": "My focus varies. Default to concise but be ready to go deep if I'm engaged."
+        }
+      ]
+    },
+    {
+      "id": "work_q13",
+      "pack": "work",
+      "question": "Jak robisz przerwy podczas pracy?",
+      "type": "select",
+      "dimension": "work.breaks_pattern",
+      "skippable": true,
+      "meta_profiling": null,
+      "why_this_matters": "Wpływa na to jak AI strukturyzuje zadania i szacuje czas.",
+      "options": [
+        {
+          "value": "pomodoro",
+          "label": "Styl Pomodoro — 25 min pracy, 5 min przerwy",
+          "maps_to": { "dimension": "work.breaks_pattern", "value": "structured" },
+          "export_rule": "I work in pomodoro cycles. Structure tasks in 25-min blocks when possible."
+        },
+        {
+          "value": "marathon",
+          "label": "Długie maratony, potem crash",
+          "maps_to": { "dimension": "work.breaks_pattern", "value": "marathon" },
+          "export_rule": "I work in long stretches. Don't suggest breaks — I'll stop when I crash."
+        },
+        {
+          "value": "random",
+          "label": "Losowo — kiedy mam ochotę",
+          "maps_to": { "dimension": "work.breaks_pattern", "value": "random" },
+          "export_rule": "I take breaks randomly. Don't assume any specific work rhythm."
+        },
+        {
+          "value": "none",
+          "label": "Jakie przerwy? Po prostu jadę dalej",
+          "maps_to": { "dimension": "work.breaks_pattern", "value": "none" },
+          "export_rule": "I don't take scheduled breaks. If I'm in flow, keep the momentum going."
+        }
+      ]
+    }
+  ]
+}
