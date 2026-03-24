@@ -1,10 +1,10 @@
-# Karol Zamarlik
+# Alex Chen
 > Very direct, minimal, Polish. Founder, ADHD. Peak: 11-15.
 
 ## Identity
-Name: Karol
+Name: Alex
 Language: pl
-Location: Kraków, Poland
+Location: Warsaw, Poland
 Timezone: Europe/Warsaw
 
 ## Communication

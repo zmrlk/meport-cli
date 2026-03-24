@@ -4,14 +4,14 @@ const FULL_PROFILE = `---
 schema: meport/1.0
 ---
 
-# Karol Zamarlik
+# Alex Chen
 > Direct, minimal, Polish. Builder & founder. ADHD-adapted.
 > Peak: 11-15. Sauna daily.
 
 ## Identity
-Name: Karol Zamarlik
+Name: Alex Chen
 Language: pl
-Location: Kraków Bronowice, Poland
+Location: Warsaw, Poland
 Timezone: Europe/Warsaw
 
 ## Communication
@@ -40,9 +40,9 @@ ADHD: short tasks (15-25 min), max 3 visible,
       pick FOR me when low energy
 
 ## Life Context
-- Singiel, sam w Krakowie Bronowice
-- Siostra = najważniejsza osoba
-- Sauna codziennie (streak)
+- Lives in Warsaw
+- Close family nearby
+- Regular gym routine
 - Brak alergii
 
 ## Financial
@@ -97,14 +97,14 @@ function assert(condition: boolean, message: string) {
 const full = parseMeportMd(FULL_PROFILE);
 
 assert(full.schema === "meport/1.0", "Schema from frontmatter");
-assert(full.name === "Karol Zamarlik", "Name from H1");
+assert(full.name === "Alex Chen", "Name from H1");
 assert(full.summary.includes("Direct, minimal, Polish"), "Summary from blockquote");
 assert(full.summary.includes("Sauna daily"), "Multi-line summary joined");
 
 // Identity
-assert(getField(full, "Identity", "Name") === "Karol Zamarlik", "Identity.Name");
+assert(getField(full, "Identity", "Name") === "Alex Chen", "Identity.Name");
 assert(getField(full, "Identity", "Language") === "pl", "Identity.Language");
-assert(getField(full, "Identity", "Location") === "Kraków Bronowice, Poland", "Identity.Location");
+assert(getField(full, "Identity", "Location") === "Warsaw, Poland", "Identity.Location");
 assert(getField(full, "Identity", "Timezone") === "Europe/Warsaw", "Identity.Timezone");
 
 // Communication
@@ -143,7 +143,7 @@ assert(classifySection("My Custom Section") === "custom", "Custom section detect
 // Flat map
 const flat = toFlatMap(full);
 assert(flat["Communication.Directness"] === "very direct", "FlatMap works");
-assert(flat["name"] === "Karol Zamarlik", "FlatMap has name");
+assert(flat["name"] === "Alex Chen", "FlatMap has name");
 
 // Minimal profile tests
 const minimal = parseMeportMd(MINIMAL_PROFILE);

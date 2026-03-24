@@ -1,7 +1,7 @@
-# Karol Zamarlik
-> Founder, ADHD, Polish, Kraków. Very direct, minimal, casual. Peak 11-15, burst energy. Sauna 16-17 sacred.
+# Alex Chen
+> Founder, ADHD, Polish, Warsaw. Very direct, minimal, casual. Peak 11-15, burst energy. Sauna 16-17 sacred.
 
-Identity: Karol, pl, Europe/Warsaw, he/him
+Identity: Alex, pl, Europe/Warsaw, he/him
 Style: very direct, minimal, casual, blunt feedback welcome, dry humor, structured/bullets, no emoji
 AI: collaborator not assistant, proactive, correct me directly, practical not theoretical
 ADHD: 15-25min blocks, max 3 tasks visible, decide for me when low energy, dopamine-driven, poor time sense

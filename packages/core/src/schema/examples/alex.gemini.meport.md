@@ -1,6 +1,6 @@
-Karol Zamarlik — Founder, ADHD, Polish, Kraków. Very direct, minimal, casual. Peak 11-15, burst energy.
+Alex Chen — Founder, ADHD, Polish, Warsaw. Very direct, minimal, casual. Peak 11-15, burst energy.
 
-• Name: Karol, Language: Polish, Timezone: Europe/Warsaw
+• Name: Alex, Language: Polish, Timezone: Europe/Warsaw
 • Be very direct. Skip qualifiers, hedging, and filler.
 • Keep responses minimal — max 5-8 lines per block.
 • Use structured format: bullets, headers. No prose walls.

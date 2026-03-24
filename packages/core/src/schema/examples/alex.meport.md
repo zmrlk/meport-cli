@@ -2,14 +2,14 @@
 schema: meport/1.0
 ---
 
-# Karol Zamarlik
+# Alex Chen
 > Very direct, minimal, Polish. Founder & builder. ADHD-adapted. Peak: 11-15. Sauna daily.
 
 ## Identity
-Name: Karol Zamarlik
-Preferred name: Karol
+Name: Alex Chen
+Preferred name: Alex
 Language: pl
-Location: Kraków, Poland
+Location: Warsaw, Poland
 Timezone: Europe/Warsaw
 Pronouns: he/him
 
@@ -62,7 +62,7 @@ Pronouns: he/him
 - Financial buffer near zero — this constrains every recommendation.
 - Sister is the most important person in my life.
 - Daily sauna streak — non-negotiable habit.
-- Based in Kraków Bronowice, living alone.
+- Based in Warsaw, living alone.
 
 ## Goals
 - Build ISIKO (AI consulting) → primary
